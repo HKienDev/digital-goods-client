@@ -1,0 +1,6 @@
+node_modules
+.vscode/
+.history/
+.env
+.env.local
+.DS_Store

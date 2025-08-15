@@ -1,0 +1,188 @@
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tag, Package, DollarSign, Box, Info, AlertCircle } from "lucide-react";
+import { AdminCategory, ProductFormData } from "@/types/product";
+import { useEffect } from "react";
+
+interface DetailInfoFormProps {
+  formData: ProductFormData;
+  onFieldChange: (field: keyof ProductFormData, value: string | number | string[] | boolean) => void;
+  categories: AdminCategory[];
+}
+
+export default function DetailInfoForm({ 
+  formData, 
+  onFieldChange,
+  categories = []
+}: DetailInfoFormProps) {
+  useEffect(() => {
+    console.log('DetailInfoForm - formData:', formData);
+    console.log('DetailInfoForm - categories:', categories);
+    console.log('DetailInfoForm - current categoryId:', formData.categoryId);
+    if (Array.isArray(categories)) {
+      const foundCategory = categories.find(cat => cat.categoryId === formData.categoryId);
+      console.log('DetailInfoForm - current category:', foundCategory);
+    }
+  }, [categories, formData]);
+  
+  const handleTagsChange = (value: string) => {
+    const tags = value.split(',').map(tag => tag.trim()).filter(Boolean);
+    onFieldChange('tags', tags);
+  };
+
+  const currentCategory = Array.isArray(categories) ? categories.find(cat => cat.categoryId === formData.categoryId) : null;
+  
+  console.log('Current category in DetailInfoForm:', currentCategory);
+  console.log('Categories in DetailInfoForm:', categories);
+  console.log('CategoryId in DetailInfoForm:', formData.categoryId);
+
+  return (
+    <div className="space-y-8 border-2 border-gray-300 rounded-xl p-6 bg-[#F8FAFC]">
+      {/* Header */}
+      <div className="flex items-center gap-3 pb-4 border-b-2 border-orange-200">
+        <Info className="w-7 h-7 text-orange-500" />
+        <h3 className="text-xl font-bold text-gray-900">Thông tin chi tiết</h3>
+      </div>
+
+      {/* Category Selection */}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <Label className="text-base font-semibold text-gray-700 flex items-center gap-2">
+            <Tag className="w-5 h-5 text-orange-500" />
+            Thể loại
+          </Label>
+          {!formData.categoryId && (
+            <span className="text-xs text-red-500 flex items-center gap-1 font-medium">
+              <AlertCircle className="w-4 h-4" />
+              Bắt buộc
+            </span>
+          )}
+        </div>
+        <Select 
+          value={formData.categoryId || ""}
+          onValueChange={(value) => onFieldChange('categoryId', value)}
+        >
+          <SelectTrigger className="w-full rounded-xl border-2 border-gray-200 transition-all duration-200 hover:border-orange-500 focus:border-orange-500 focus:ring-orange-500 text-base px-4 py-3">
+            <SelectValue>
+              {categories.find(cat => cat.categoryId === formData.categoryId)?.name || "Chọn danh mục"}
+            </SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            {Array.isArray(categories) && categories.length > 0 ? (
+              categories.map((category) => (
+                <SelectItem key={category.categoryId} value={category.categoryId}>
+                  {category.name}
+                </SelectItem>
+              ))
+            ) : (
+              <SelectItem value="no-categories" disabled>
+                Không có danh mục
+              </SelectItem>
+            )}
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Brand Input */}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <Label className="text-base font-semibold text-gray-700 flex items-center gap-2">
+            <Package className="w-5 h-5 text-orange-500" />
+            Thương hiệu
+          </Label>
+          {!formData.brand && (
+            <span className="text-xs text-red-500 flex items-center gap-1 font-medium">
+              <AlertCircle className="w-4 h-4" />
+              Bắt buộc
+            </span>
+          )}
+        </div>
+        <Input 
+          value={formData.brand}
+          onChange={(e) => onFieldChange('brand', e.target.value)}
+          placeholder="Nhập thương hiệu sản phẩm"
+          className="rounded-xl border-2 border-gray-200 transition-all duration-200 hover:border-orange-500 focus:border-orange-500 focus:ring-orange-500 text-base px-4 py-3"
+        />
+      </div>
+
+      {/* Price Section */}
+      <div className="space-y-4">
+        {/* Original Price */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <Label className="text-base font-semibold text-gray-700 flex items-center gap-2">
+              <DollarSign className="w-5 h-5 text-orange-500" />
+              Giá gốc
+            </Label>
+            {!formData.originalPrice && (
+              <span className="text-xs text-red-500 flex items-center gap-1 font-medium">
+                <AlertCircle className="w-4 h-4" />
+                Bắt buộc
+              </span>
+            )}
+          </div>
+          <Input 
+            type="number"
+            value={formData.originalPrice}
+            onChange={(e) => onFieldChange('originalPrice', parseFloat(e.target.value) || 0)}
+            placeholder="Nhập giá gốc sản phẩm"
+            className="rounded-xl border-2 border-gray-200 transition-all duration-200 hover:border-orange-500 focus:border-orange-500 focus:ring-orange-500 text-base px-4 py-3"
+          />
+        </div>
+        {/* Sale Price */}
+        <div className="space-y-2">
+          <Label className="text-base font-semibold text-gray-700 flex items-center gap-2">
+            <DollarSign className="w-5 h-5 text-orange-500" />
+            Giá khuyến mãi
+          </Label>
+          <Input 
+            type="number"
+            value={formData.salePrice}
+            onChange={(e) => onFieldChange('salePrice', parseFloat(e.target.value) || 0)}
+            placeholder="Nhập giá khuyến mãi sản phẩm"
+            className="rounded-xl border-2 border-gray-200 transition-all duration-200 hover:border-orange-500 focus:border-orange-500 focus:ring-orange-500 text-base px-4 py-3"
+          />
+        </div>
+      </div>
+
+      {/* Stock Input */}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <Label className="text-base font-semibold text-gray-700 flex items-center gap-2">
+            <Box className="w-5 h-5 text-orange-500" />
+            Số lượng tồn kho
+          </Label>
+          {!formData.stock && (
+            <span className="text-xs text-red-500 flex items-center gap-1 font-medium">
+              <AlertCircle className="w-4 h-4" />
+              Bắt buộc
+            </span>
+          )}
+        </div>
+        <Input 
+          type="number"
+          value={formData.stock}
+          onChange={(e) => onFieldChange('stock', parseInt(e.target.value) || 0)}
+          placeholder="Nhập số lượng tồn kho"
+          className="rounded-xl border-2 border-gray-200 transition-all duration-200 hover:border-orange-500 focus:border-orange-500 focus:ring-orange-500 text-base px-4 py-3"
+        />
+      </div>
+
+      {/* Tags Input */}
+      <div className="space-y-2">
+        <Label className="text-base font-semibold text-gray-700 flex items-center gap-2">
+          <Tag className="w-5 h-5 text-orange-500" />
+          Tags
+        </Label>
+        <Input 
+          value={Array.isArray(formData.tags) ? formData.tags.join(', ') : ''}
+          onChange={(e) => handleTagsChange(e.target.value)}
+          placeholder="Nhập tags, phân cách bằng dấu phẩy"
+          className="rounded-xl border-2 border-gray-200 transition-all duration-200 hover:border-orange-500 focus:border-orange-500 focus:ring-orange-500 text-base px-4 py-3"
+        />
+        <p className="text-xs text-gray-500 mt-1">Ví dụ: thể thao, chạy bộ, gym</p>
+      </div>
+    </div>
+  );
+} 
