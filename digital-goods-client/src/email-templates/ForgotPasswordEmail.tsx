@@ -26,7 +26,7 @@ const ForgotPasswordEmail: React.FC<ForgotPasswordEmailProps> = ({
   return (
     <Html>
       <Head />
-      <Preview>Mã OTP đặt lại mật khẩu tại Khánh Hoàn Shop</Preview>
+      <Preview>Mã OTP đặt lại mật khẩu tại HKZeus Nexus</Preview>
       <Tailwind>
         <Body className="bg-gray-100 font-sans">
           <Container className="mx-auto my-10 max-w-[600px] rounded-lg bg-white p-8 shadow-lg">
@@ -86,10 +86,10 @@ const ForgotPasswordEmail: React.FC<ForgotPasswordEmailProps> = ({
 
             <Section className="text-center">
               <Text className="text-xs text-gray-500">
-                © 2025 Khánh Hoàn Shop. Tất cả các quyền được bảo lưu.
+                © 2025 HKZeus Nexus. Tất cả các quyền được bảo lưu.
               </Text>
               <Text className="mt-1 text-xs text-gray-500">
-                Địa chỉ: Chợ NEO, TDP 3, Phường Yên Dũng, Tỉnh Bắc Ninh, Việt Nam
+                Địa chỉ: Phường Yên Dũng, Tỉnh Bắc Ninh, Việt Nam
               </Text>
             </Section>
           </Container>

@@ -113,7 +113,7 @@ const CategoriesShowcase = memo(({ categories }: { categories: Category[] }) => 
             Danh Mục Sản Phẩm
           </h2>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto px-4 leading-relaxed">
-            Khám phá đa dạng sản phẩm thể thao chất lượng cao từ các thương hiệu uy tín
+            Khám phá kho tài nguyên số đa dạng: Tài khoản Pro, Công cụ AI, Phần mềm...
           </p>
         </div>
         
@@ -194,7 +194,7 @@ const BrandShowcase = memo(() => {
             Thương Hiệu Đối Tác
           </h2>
           <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-sm sm:max-w-md md:max-w-lg mx-auto">
-            Các thương hiệu thể thao hàng đầu thế giới
+          Các nền tảng và công cụ số hàng đầu thế giới
           </p>
         </div>
         
@@ -311,7 +311,7 @@ const HeroBanner = memo(() => (
           <p className="text-white/90 font-medium max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mb-4 sm:mb-6 md:mb-8 leading-relaxed text-xs sm:text-sm md:text-base lg:text-lg">
             Đăng ký thành viên để nhận ưu đãi đặc biệt từ{' '}
             <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">
-              KHÁNH HOÀN SHOP
+              HKZEUS NEXUS
             </span>{' '}
             và cập nhật sản phẩm mới nhất.
           </p>
@@ -625,8 +625,8 @@ const TestimonialsSection = memo(() => (
                 />
               </div>
               <div className="ml-2 sm:ml-3 lg:ml-4">
-                <h4 className="font-bold text-gray-800 group-hover:text-purple-600 transition-colors duration-300 text-xs sm:text-sm md:text-base lg:text-lg leading-tight">Nguyễn Minh Khôi</h4>
-                <p className="text-xs sm:text-sm text-gray-500">Huấn luyện viên thể hình</p>
+                <h4 className="font-bold text-gray-800 group-hover:text-purple-600 transition-colors duration-300 text-xs sm:text-sm md:text-base lg:text-lg leading-tight">Trần Thu Hà</h4>
+                <p className="text-xs sm:text-sm text-gray-500">Chuyên viên Marketing</p>
               </div>
               {/* Quote Icon - Mobile-first */}
               <div className="absolute top-0 right-0 text-gray-200 transform -translate-y-1/2 group-hover:text-purple-300 transition-colors duration-300">
@@ -637,7 +637,7 @@ const TestimonialsSection = memo(() => (
             </div>
 
             <p className="text-gray-600 leading-relaxed mb-2 sm:mb-3 md:mb-4 lg:mb-6 relative z-10 group-hover:text-gray-800 transition-colors duration-300 text-xs sm:text-sm md:text-base lg:text-lg">
-              &ldquo;Sản phẩm chất lượng cực tốt, mặc thoáng và thoải mái khi tập luyện. Giao hàng nhanh, đóng gói đẹp, chắc chắn tôi sẽ quay lại mua nhiều lần nữa!&rdquo;
+              &ldquo;Mình đã mua nhiều tài khoản AI Pro và phần mềm bản quyền tại HKZeus Nexus, tốc độ giao hàng nhanh, uy tín. Giúp công việc code của mình hiệu quả hơn hẳn.&rdquo;
             </p>
 
             <div className="flex items-center justify-between">
@@ -667,8 +667,8 @@ const TestimonialsSection = memo(() => (
                 />
               </div>
               <div className="ml-2 sm:ml-3 lg:ml-4">
-                <h4 className="font-bold text-gray-800 group-hover:text-red-600 transition-colors duration-300 text-xs sm:text-sm md:text-base lg:text-lg leading-tight">Trần Bích Ngọc</h4>
-                <p className="text-xs sm:text-sm text-gray-500">Doanh nhân & runner bán chuyên</p>
+                <h4 className="font-bold text-gray-800 group-hover:text-red-600 transition-colors duration-300 text-xs sm:text-sm md:text-base lg:text-lg leading-tight">Phạm Văn Hùng</h4>
+                <p className="text-xs sm:text-sm text-gray-500">Freelancer Thiết kế</p>
               </div>
               <div className="absolute top-0 right-0 text-gray-200 transform -translate-y-1/2 group-hover:text-red-300 transition-colors duration-300">
                 <svg className="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-12 lg:h-12" fill="currentColor" viewBox="0 0 24 24">
@@ -678,7 +678,7 @@ const TestimonialsSection = memo(() => (
             </div>
 
             <p className="text-gray-600 leading-relaxed mb-2 sm:mb-3 md:mb-4 lg:mb-6 relative z-10 group-hover:text-gray-800 transition-colors duration-300 text-xs sm:text-sm md:text-base lg:text-lg">
-              &ldquo;Thiết kế năng động, rất hợp xu hướng. Đặc biệt mình ấn tượng với chính sách đổi trả và hỗ trợ khách hàng cực kỳ chuyên nghiệp.&rdquo;
+              &ldquo;Kho tài nguyên số ở HKZeus Nexus thật sự đa dạng. Mình mua tài khoản Photoshop, Premiere Pro đều chạy mượt, đúng hàng chính chủ. Rất đáng tin cậy.&rdquo;
             </p>
 
             <div className="flex items-center justify-between">
@@ -708,8 +708,8 @@ const TestimonialsSection = memo(() => (
                 />
               </div>
               <div className="ml-2 sm:ml-3 lg:ml-4">
-                <h4 className="font-bold text-gray-800 group-hover:text-pink-600 transition-colors duration-300 text-xs sm:text-sm md:text-base lg:text-lg leading-tight">Lê Hoàng Anh</h4>
-                <p className="text-xs sm:text-sm text-gray-500">Nhà sáng tạo nội dung (Fitness Creator)</p>
+                <h4 className="font-bold text-gray-800 group-hover:text-pink-600 transition-colors duration-300 text-xs sm:text-sm md:text-base lg:text-lg leading-tight">Lê Thanh Tùng</h4>
+                <p className="text-xs sm:text-sm text-gray-500">Chủ cửa hàng online</p>
               </div>
               <div className="absolute top-0 right-0 text-gray-200 transform -translate-y-1/2 group-hover:text-pink-300 transition-colors duration-300">
                 <svg className="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-12 lg:h-12" fill="currentColor" viewBox="0 0 24 24">
@@ -719,7 +719,7 @@ const TestimonialsSection = memo(() => (
             </div>
 
             <p className="text-gray-600 leading-relaxed mb-2 sm:mb-3 md:mb-4 lg:mb-6 relative z-10 group-hover:text-gray-800 transition-colors duration-300 text-xs sm:text-sm md:text-base lg:text-lg">
-              &ldquo;Mình đã thử nhiều thương hiệu, nhưng ở đây chất liệu và form áo rất hoàn hảo. Rất phù hợp để quay video tập luyện mà vẫn đẹp và tự tin!&rdquo;
+              &ldquo;Mình cần công cụ quản lý và AI Pro để phát triển kinh doanh. HKZeus Nexus cung cấp nhanh chóng, hướng dẫn dễ hiểu. Rất hài lòng với dịch vụ.&rdquo;
             </p>
 
             <div className="flex items-center justify-between">

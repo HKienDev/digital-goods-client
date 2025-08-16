@@ -93,7 +93,7 @@ const LoginPage = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                   </div>
-                  <span className="text-xl font-bold tracking-wider">KHÁNH HOÀN SHOP</span>
+                  <span className="text-xl font-bold tracking-wider">HKZeus Nexus</span>
                 </div>
                 <h1 className="text-5xl font-bold mb-4 leading-tight text-white">
                   <span className="inline-block">Kết nối.</span>
@@ -123,7 +123,7 @@ const LoginPage = () => {
                   ))}
                 </div>
                 <blockquote className="text-white/90 text-lg mb-4 italic">
-                Sản phẩm chất lượng, kiểu dáng đẹp, rất hài lòng khi mua sắm tại Khánh Hoàn Shop.
+                  Mình đã mua nhiều tài khoản AI Pro và phần mềm bản quyền tại HKZEUS NEXUS, tốc độ giao hàng nhanh, uy tín. Giúp công việc code của mình hiệu quả hơn hẳn.
                 </blockquote>
                 <div className="flex items-center">
                   <div className="w-12 h-12 rounded-full border-2 border-white/50 overflow-hidden bg-gradient-to-r from-red-500 to-red-600 flex items-center justify-center">
@@ -131,7 +131,7 @@ const LoginPage = () => {
                   </div>
                   <div className="ml-4">
                     <p className="font-semibold">Nông Văn Hoan</p>
-                    <p className="text-sm text-gray-300">Kỹ sư xây dựng • Hà Nội</p>
+                    <p className="text-sm text-gray-300">Lập trình viên Web • Hà Nội</p>
                   </div>
                 </div>
               </div>

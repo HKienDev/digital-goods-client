@@ -457,7 +457,7 @@ export default function BrandsPage() {
               Sẵn Sàng Khám Phá?
             </h2>
             <p className="text-white/90 text-sm sm:text-base lg:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto">
-              Khám phá các thương hiệu thể thao hàng đầu và tìm kiếm sản phẩm phù hợp với phong cách của bạn
+              Khám phá kho tài nguyên số đa dạng: Tài khoản Pro, Công cụ AI, Phần mềm bản quyền phù hợp với nhu cầu của bạn.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
               <button 

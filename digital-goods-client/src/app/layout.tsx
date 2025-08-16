@@ -7,12 +7,12 @@ import GoogleAnalytics from "@/components/common/GoogleAnalytics";
 import SchemaMarkup from "@/components/common/SchemaMarkup";
 
 export const metadata: Metadata = {
-  title: "Khánh Hoàn Shop - Cửa Hàng Thể Thao Chất Lượng Cao",
-  description: "Khánh Hoàn Shop - Cửa hàng thể thao chuyên cung cấp các sản phẩm thể thao chất lượng cao, giày thể thao, quần áo thể thao, phụ kiện thể thao. Giao hàng toàn quốc, giá tốt nhất.",
-  keywords: "thể thao, giày thể thao, quần áo thể thao, phụ kiện thể thao, Khánh Hoàn Shop, cửa hàng thể thao",
-  authors: [{ name: "Khánh Hoàn Shop" }],
-  creator: "Khánh Hoàn Shop",
-  publisher: "Khánh Hoàn Shop",
+  title: "HKZeus Nexus - Cửa Hàng Thể Thao Chất Lượng Cao",
+  description: "HKZeus Nexus - Cửa hàng thể thao chuyên cung cấp các sản phẩm thể thao chất lượng cao, giày thể thao, quần áo thể thao, phụ kiện thể thao. Giao hàng toàn quốc, giá tốt nhất.",
+  keywords: "thể thao, giày thể thao, quần áo thể thao, phụ kiện thể thao, HKZeus Nexus, cửa hàng thể thao",
+  authors: [{ name: "HKZeus Nexus" }],
+  creator: "HKZeus Nexus",
+  publisher: "HKZeus Nexus",
   formatDetection: {
     email: false,
     address: false,
@@ -23,10 +23,10 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "Khánh Hoàn Shop - Cửa Hàng Thể Thao Chất Lượng Cao",
-    description: "Khánh Hoàn Shop - Cửa hàng thể thao chuyên cung cấp các sản phẩm thể thao chất lượng cao, giày thể thao, quần áo thể thao, phụ kiện thể thao.",
+    title: "HKZeus Nexus - Cửa Hàng Thể Thao Chất Lượng Cao",
+    description: "HKZeus Nexus - Cửa hàng thể thao chuyên cung cấp các sản phẩm thể thao chất lượng cao, giày thể thao, quần áo thể thao, phụ kiện thể thao.",
     url: '/',
-    siteName: 'Khánh Hoàn Shop',
+    siteName: 'HKZeus Nexus',
     locale: 'vi_VN',
     type: 'website',
     images: [
@@ -34,14 +34,14 @@ export const metadata: Metadata = {
         url: '/Logo_vju.png',
         width: 1200,
         height: 630,
-        alt: 'Khánh Hoàn Shop Logo',
+        alt: 'HKZeus Nexus Logo',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Khánh Hoàn Shop - Cửa Hàng Thể Thao Chất Lượng Cao",
-    description: "Khánh Hoàn Shop - Cửa hàng thể thao chuyên cung cấp các sản phẩm thể thao chất lượng cao.",
+    title: "HKZeus Nexus - Cửa Hàng Thể Thao Chất Lượng Cao",
+    description: "HKZeus Nexus - Cửa hàng thể thao chuyên cung cấp các sản phẩm thể thao chất lượng cao.",
     images: ['/Logo_vju.png'],
   },
   robots: {
@@ -80,8 +80,8 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Khánh Hoàn Shop" />
-        <meta name="application-name" content="Khánh Hoàn Shop" />
+        <meta name="apple-mobile-web-app-title" content="HKZeus Nexus" />
+        <meta name="application-name" content="HKZeus Nexus" />
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
       <body className="min-h-screen bg-background antialiased">

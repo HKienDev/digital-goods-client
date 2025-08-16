@@ -19,7 +19,7 @@ const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 // Cloudinary config
 const CLOUDINARY_CONFIG = {
   cloudName: "dta6mizzm",
-  uploadPreset: "sport-store",
+  uploadPreset: "digital-goods",
   folder: "categories"
 };
 

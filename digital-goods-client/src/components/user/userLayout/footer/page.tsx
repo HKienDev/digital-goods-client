@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Facebook, Instagram, Twitter, Phone, Mail, MapPin } from "lucide-react";
 
 interface FooterProps {
@@ -24,11 +25,11 @@ const Footer = ({ className = "" }: FooterProps) => (
               priority
             />
             <span className="text-lg sm:text-xl lg:text-2xl font-bold bg-gradient-to-r from-purple-600 to-red-600 bg-clip-text text-transparent font-sans">
-              KHÁNH HOÀN SHOP
+              HKZeus Nexus
             </span>
           </div>
           <p className="text-xs sm:text-sm text-gray-600 font-sans leading-relaxed">
-            Địa chỉ: Chợ NEO, TDP 3, Phường Yên Dũng, Tỉnh Bắc Ninh, Việt Nam
+            Địa chỉ: Phường Yên Dũng, Tỉnh Bắc Ninh, Việt Nam
           </p>
           <div className="flex space-x-3 sm:space-x-4">
             <a 
@@ -66,9 +67,9 @@ const Footer = ({ className = "" }: FooterProps) => (
           <h3 className="text-sm sm:text-base font-semibold text-gray-900 uppercase tracking-wider mb-3 sm:mb-4">Liên kết nhanh</h3>
           <ul className="space-y-1.5 sm:space-y-2">
             <li>
-              <a href="/" className="text-xs sm:text-sm text-gray-600 hover:text-purple-600 transition-colors block py-1 hover:translate-x-1 transform duration-200">
+              <Link href="/" className="text-xs sm:text-sm text-gray-600 hover:text-purple-600 transition-colors block py-1 hover:translate-x-1 transform duration-200">
                 Trang chủ
-              </a>
+              </Link>
             </li>
             <li>
               <a href="/user/products" className="text-xs sm:text-sm text-gray-600 hover:text-purple-600 transition-colors block py-1 hover:translate-x-1 transform duration-200">
@@ -94,7 +95,7 @@ const Footer = ({ className = "" }: FooterProps) => (
           <ul className="space-y-1.5 sm:space-y-2">
             <li className="flex items-center text-gray-600">
               <Phone size={16} className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />
-              <span className="text-xs sm:text-sm">+84 36 770 8888</span>
+              <span className="text-xs sm:text-sm">+84 36 219 5258</span>
             </li>
             <li className="flex items-center text-gray-600">
               <Mail size={16} className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />
@@ -102,7 +103,7 @@ const Footer = ({ className = "" }: FooterProps) => (
             </li>
             <li className="flex items-start text-gray-600">
               <MapPin size={16} className="w-4 h-4 sm:w-5 sm:h-5 mr-2 mt-0.5 flex-shrink-0" />
-              <span className="text-xs sm:text-sm">Chợ NEO, TDP 3, Phường Yên Dũng, Tỉnh Bắc Ninh, Việt Nam</span>
+              <span className="text-xs sm:text-sm">Phường Yên Dũng, Tỉnh Bắc Ninh, Việt Nam</span>
             </li>
           </ul>
         </div>
@@ -133,7 +134,7 @@ const Footer = ({ className = "" }: FooterProps) => (
       <div className="pt-4 sm:pt-6 border-t border-gray-200">
         <div className="flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0">
           <p className="text-xs sm:text-sm text-gray-500 text-center sm:text-left">
-            © 2025 Khánh Hoàn Shop – Thời trang nam & thể thao. All rights reserved.
+            © 2025 HKZeus Nexus – Tài khoản Pro, Công cụ AI, Phần mềm bản quyền. All rights reserved.
           </p>
           <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 lg:space-x-6">
             <a href="/privacy-policy" className="text-xs sm:text-sm text-gray-500 hover:text-purple-600 transition-colors text-center sm:text-left">

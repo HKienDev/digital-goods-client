@@ -14,7 +14,7 @@ interface ImageUploadProps {
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 const CLOUDINARY_CLOUD_NAME = 'dta6mizzm'; // Thay thế bằng cloud name của bạn
-const CLOUDINARY_UPLOAD_PRESET = 'sport-store'; // Thay thế bằng upload preset của bạn
+const CLOUDINARY_UPLOAD_PRESET = 'digital-goods'; // Thay thế bằng upload preset của bạn
 
 export default function ImageUpload({
   formData,

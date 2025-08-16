@@ -27,7 +27,7 @@ export const uploadToCloudinary = async (file: File): Promise<string> => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', uploadPreset);
-    formData.append('folder', 'sport-store/categories');
+    formData.append('folder', 'digital-goods/categories');
 
     console.log('📤 Gửi request đến Cloudinary...');
     console.log('🌐 Upload URL:', `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`);

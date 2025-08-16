@@ -2,12 +2,12 @@ import { Metadata } from 'next';
 import ContactClientLayout from './ClientLayout';
 
 export const metadata: Metadata = {
-  title: 'Liên Hệ - Khánh Hoàn Shop',
-  description: 'Liên hệ với Khánh Hoàn Shop để được tư vấn và hỗ trợ tốt nhất. Chúng tôi luôn sẵn sàng phục vụ bạn 24/7.',
-  keywords: 'liên hệ, hỗ trợ, tư vấn, Khánh Hoàn Shop, thể thao, mua sắm, customer service',
+  title: 'Liên Hệ - HKZeus Nexus',
+  description: 'Liên hệ với HKZeus Nexus để được tư vấn và hỗ trợ tốt nhất. Chúng tôi luôn sẵn sàng phục vụ bạn 24/7.',
+  keywords: 'liên hệ, hỗ trợ, tư vấn, HKZeus Nexus, thể thao, mua sắm, customer service',
   openGraph: {
-    title: 'Liên Hệ - Khánh Hoàn Shop',
-    description: 'Liên hệ với Khánh Hoàn Shop để được tư vấn và hỗ trợ tốt nhất.',
+    title: 'Liên Hệ - HKZeus Nexus',
+    description: 'Liên hệ với HKZeus Nexus để được tư vấn và hỗ trợ tốt nhất.',
     type: 'website',
     locale: 'vi_VN',
   },

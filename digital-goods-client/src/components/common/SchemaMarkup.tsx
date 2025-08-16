@@ -14,10 +14,10 @@ export default function SchemaMarkup({ type, data }: SchemaMarkupProps) {
         return {
           '@context': 'https://schema.org',
           '@type': 'Organization',
-          name: 'Khánh Hoàn Shop',
+          name: 'HKZeus Nexus',
           url: 'https://www.vjusport.com',
           logo: 'https://www.vjusport.com/Logo_vju.png',
-          description: 'Cửa hàng thể thao Khánh Hoàn Shop - Chuyên cung cấp các sản phẩm thể thao chất lượng cao',
+          description: 'Cửa hàng thể thao HKZeus Nexus - Chuyên cung cấp các sản phẩm thể thao chất lượng cao',
           address: {
             '@type': 'PostalAddress',
             streetAddress: 'Phạm Văn Đồng, Cầu Giấy',
@@ -42,9 +42,9 @@ export default function SchemaMarkup({ type, data }: SchemaMarkupProps) {
         return {
           '@context': 'https://schema.org',
           '@type': 'WebSite',
-          name: 'Khánh Hoàn Shop',
+          name: 'HKZeus Nexus',
           url: 'https://www.vjusport.com',
-          description: 'Cửa hàng thể thao Khánh Hoàn Shop - Chuyên cung cấp các sản phẩm thể thao chất lượng cao',
+          description: 'Cửa hàng thể thao HKZeus Nexus - Chuyên cung cấp các sản phẩm thể thao chất lượng cao',
           potentialAction: {
             '@type': 'SearchAction',
             target: 'https://www.vjusport.com/search?q={search_term_string}',
@@ -60,7 +60,7 @@ export default function SchemaMarkup({ type, data }: SchemaMarkupProps) {
           description: data.description || 'Sản phẩm thể thao chất lượng cao',
           brand: {
             '@type': 'Brand',
-            name: data.brand || 'Khánh Hoàn Shop'
+            name: data.brand || 'HKZeus Nexus'
           },
           category: data.category || 'Thể thao',
           image: data.image || 'https://www.vjusport.com/default-image.png',
@@ -71,7 +71,7 @@ export default function SchemaMarkup({ type, data }: SchemaMarkupProps) {
             availability: 'https://schema.org/InStock',
             seller: {
               '@type': 'Organization',
-              name: 'Khánh Hoàn Shop'
+              name: 'HKZeus Nexus'
             }
           }
         };

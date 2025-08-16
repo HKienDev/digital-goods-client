@@ -138,7 +138,7 @@ const Header = () => {
             <div className="relative w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 transform transition-transform duration-300 group-hover:scale-110">
               <Image
                 src="/vju-logo-main.png"
-                alt="Khánh Hoàn Shop"
+                alt="HKZeus Nexus"
                 fill
                 className="object-contain"
                 priority
@@ -146,9 +146,9 @@ const Header = () => {
             </div>
             <div className="flex flex-col">
               <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent group-hover:from-red-700 group-hover:to-red-900 transition-all duration-300">
-                KHÁNH HOÀN SHOP
+                HKZeus Nexus
               </span>
-              <span className="text-xs text-gray-500 group-hover:text-gray-700 transition-colors hidden sm:block">Thời trang nam & thể thao – Phong cách năng động</span>
+              <span className="text-xs text-gray-500 group-hover:text-gray-700 transition-colors hidden sm:block">Tài khoản Pro, Công cụ AI, Phần mềm bản quyền</span>
             </div>
           </Link>
 
@@ -338,9 +338,9 @@ const Header = () => {
             {/* Mobile Logo */}
             <Link href="/" className="mb-4 sm:mb-6 flex items-center space-x-2" onClick={() => setIsMobileMenuOpen(false)}>
               <div className="relative w-7 h-7 sm:w-8 sm:h-8">
-                <Image src="/vju-logo-main.png" alt="Khánh Hoàn Shop" fill className="object-contain" />
+                <Image src="/vju-logo-main.png" alt="HKZeus Nexus" fill className="object-contain" />
               </div>
-              <span className="text-base sm:text-lg font-bold text-red-700">KHÁNH HOÀN SHOP</span>
+              <span className="text-base sm:text-lg font-bold text-red-700">HKZeus Nexus</span>
             </Link>
             
             {/* Mobile Navigation */}

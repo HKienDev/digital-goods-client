@@ -169,7 +169,7 @@ export default function ContactPage() {
     {
       icon: <Phone className="w-6 h-6" />,
       title: 'Điện thoại',
-      content: '036 770 8888',
+      content: '036 219 5258',
       description: 'Hỗ trợ 24/7'
     },
     {
@@ -181,7 +181,7 @@ export default function ContactPage() {
     {
       icon: <MapPin className="w-6 h-6" />,
       title: 'Địa chỉ',
-      content: 'Chợ NEO, TDP 3, Phường Yên Dũng, Tỉnh Bắc Ninh, Việt Nam',
+      content: 'Phường Yên Dũng, Tỉnh Bắc Ninh, Việt Nam',
       description: 'Trụ sở chính'
     },
     {
@@ -628,7 +628,7 @@ export default function ContactPage() {
                   
                   {/* Label */}
                   <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-1 sm:mt-2 bg-white rounded-lg shadow-lg px-2 sm:px-3 py-1 sm:py-2 border border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <p className="text-xs sm:text-sm font-semibold text-gray-900 whitespace-nowrap">Khánh Hoàn Shop</p>
+                    <p className="text-xs sm:text-sm font-semibold text-gray-900 whitespace-nowrap">HKZeus Nexus</p>
                   </div>
                 </div>
               </div>
@@ -653,7 +653,7 @@ export default function ContactPage() {
                       <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 text-xs sm:text-sm">Khánh Hoàn Shop</h3>
+                      <h3 className="font-semibold text-gray-900 text-xs sm:text-sm">HKZeus Nexus</h3>
                       <p className="text-xs text-gray-600">Chợ NEO, TDP 3, Phường Yên Dũng, Tỉnh Bắc Ninh</p>
                     </div>
                   </div>

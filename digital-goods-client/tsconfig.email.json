@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "../../sport-store-be-graduation/sport-store/src/email-templates",
+    "outDir": "../../digital-goods-client-be/email-templates",
     "module": "ESNext",
     "jsx": "react-jsx",
     "esModuleInterop": true,
