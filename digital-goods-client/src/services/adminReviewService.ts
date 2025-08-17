@@ -29,8 +29,8 @@ export interface AdminReview {
   purchasedItem: {
     sku: string;
     name: string;
-    color: string;
-    size: string;
+    duration: string;
+    productType: string;
     quantity: number;
     price: number;
   };

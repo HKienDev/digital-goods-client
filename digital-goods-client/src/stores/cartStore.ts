@@ -17,15 +17,15 @@ interface CartState {
   
   // Actions
   fetchCart: () => Promise<void>;
-  addToCart: (productData: { sku: string; color?: string; size?: string; quantity?: number }) => Promise<void>;
-  updateCartItem: (productData: { sku: string; color?: string; size?: string; quantity?: number }) => Promise<void>;
-  removeFromCart: (productData: { sku: string; color?: string; size?: string }) => Promise<void>;
+  addToCart: (productData: { sku: string; duration?: string; productType?: string; quantity?: number }) => Promise<void>;
+  updateCartItem: (productData: { sku: string; duration?: string; productType?: string; quantity?: number }) => Promise<void>;
+  removeFromCart: (productData: { sku: string; duration?: string; productType?: string }) => Promise<void>;
   clearCart: () => Promise<void>;
   
   // Utilities
   resetError: () => void;
   getItemById: (itemId: string) => CartItem | undefined;
-  getItemBySku: (sku: string, color: string, size: string) => CartItem | undefined;
+  getItemBySku: (sku: string, duration: string, productType: string) => CartItem | undefined;
 }
 
 export const useCartStore = create<CartState>()(
@@ -110,8 +110,8 @@ export const useCartStore = create<CartState>()(
                 isActive: true,
                 mainImage: '',
                 subImages: [],
-                colors: [],
-                sizes: [],
+                durations: [],
+                productTypes: [],
                 sku: productData.sku,
                 tags: [],
                 rating: 0,
@@ -125,8 +125,8 @@ export const useCartStore = create<CartState>()(
               const newItem: CartItem = {
                 _id: `temp-${Date.now()}`,
                 product: productInfo,
-                color: productData.color || 'Mặc Định',
-                size: productData.size || 'Mặc Định',
+                duration: productData.duration || 'Mặc Định',
+                productType: productData.productType || 'Mặc Định',
                 quantity: productData.quantity || 1,
                 totalPrice: 0 // Sẽ được cập nhật sau
               };
@@ -134,8 +134,8 @@ export const useCartStore = create<CartState>()(
               // Kiểm tra xem item đã tồn tại chưa
               const existingItem = cart.items.find(i => 
                 i.product.sku === productData.sku && 
-                i.color === newItem.color && 
-                i.size === newItem.size
+                i.duration === newItem.duration && 
+                i.productType === newItem.productType
               );
               
               if (existingItem) {
@@ -207,8 +207,8 @@ export const useCartStore = create<CartState>()(
           // Optimistic update
           const item = cart?.items.find(i => 
             i.product.sku === productData.sku && 
-            i.color === productData.color && 
-            i.size === productData.size
+            i.duration === productData.duration && 
+            i.productType === productData.productType
           );
           
           if (item) {
@@ -266,8 +266,8 @@ export const useCartStore = create<CartState>()(
           // Optimistic update
           const item = cart?.items.find(i => 
             i.product.sku === productData.sku && 
-            i.color === productData.color && 
-            i.size === productData.size
+            i.duration === productData.duration && 
+            i.productType === productData.productType
           );
           
           if (item) {
@@ -374,12 +374,12 @@ export const useCartStore = create<CartState>()(
           return cart?.items.find(item => item._id === itemId);
         },
         
-        getItemBySku: (sku, color, size) => {
+        getItemBySku: (sku, duration, productType) => {
           const { cart } = get();
           return cart?.items.find(item => 
             item.product.sku === sku && 
-            item.color === color && 
-            item.size === size
+            item.duration === duration && 
+            item.productType === productType
           );
         },
       })),

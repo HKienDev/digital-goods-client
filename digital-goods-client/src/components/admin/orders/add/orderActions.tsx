@@ -44,8 +44,8 @@ export default function OrderActions({ onClose, onResetForm }: OrderActionsProps
         items: orderData.items.map(item => ({
           sku: item.sku,
           quantity: item.quantity,
-          color: item.color || '',  // Đảm bảo không undefined
-          size: item.size || ''     // Đảm bảo không undefined
+          duration: item.duration || '',
+          productType: item.productType || ''
         })),
         shippingAddress: orderData.shippingAddress,
         paymentMethod: orderData.paymentMethod,

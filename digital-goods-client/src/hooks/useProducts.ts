@@ -21,8 +21,8 @@ const initialFormData: ProductFormData = {
   categoryId: '',
   mainImage: null,
   subImages: [],
-  colors: [],
-  sizes: [],
+  durations: [],
+  productTypes: [],
   tags: [],
   isActive: true
 };
@@ -339,10 +339,9 @@ export function useProducts(options: ProductQueryParams = {}) {
                 brand: formState.data.brand,
                 mainImage: mainImageUrl,
                 subImages: subImageUrls,
-                colors: formState.data.colors || [],
-                sizes: formState.data.sizes || [],
+                durations: formState.data.durations || [],
+                productTypes: formState.data.productTypes || [],
                 tags: formState.data.tags || [],
-                specifications: formState.data.specifications || {},
                 isActive: formState.data.isActive,
                 sku: `${selectedCategory.categoryId}-${Date.now()}`
             };

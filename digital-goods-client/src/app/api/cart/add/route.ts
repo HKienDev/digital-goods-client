@@ -4,7 +4,7 @@ import { getBackendUrl } from '@/utils/backendUrl';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { sku, color, size, quantity = 1 } = body;
+    const { sku, duration, productType, quantity = 1 } = body;
     
     // Lấy token từ Authorization header
     const authHeader = request.headers.get('Authorization');
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
         'Accept': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify({ sku, color, size, quantity })
+      body: JSON.stringify({ sku, duration, productType, quantity })
     });
     
     if (!response.ok) {

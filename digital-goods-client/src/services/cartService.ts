@@ -10,19 +10,19 @@ export const cartService = {
   },
 
   // Add to cart
-  async addToCart(productData: { sku: string; color?: string; size?: string; quantity?: number }): Promise<ApiResponse<Cart>> {
+  async addToCart(productData: { sku: string; duration?: string; productType?: string; quantity?: number }): Promise<ApiResponse<Cart>> {
     const response = await apiClient.addToCart(productData);
     return response.data as ApiResponse<Cart>;
   },
 
   // Update cart item
-  async updateCart(productData: { sku: string; color?: string; size?: string; quantity?: number }): Promise<ApiResponse<Cart>> {
+  async updateCart(productData: { sku: string; duration?: string; productType?: string; quantity?: number }): Promise<ApiResponse<Cart>> {
     const response = await apiClient.updateCart(productData);
     return response.data as ApiResponse<Cart>;
   },
 
   // Remove from cart
-  async removeFromCart(productData: { sku: string; color?: string; size?: string }): Promise<ApiResponse<Cart>> {
+  async removeFromCart(productData: { sku: string; duration?: string; productType?: string }): Promise<ApiResponse<Cart>> {
     const response = await apiClient.removeFromCart(productData);
     return response.data as ApiResponse<Cart>;
   },
@@ -34,7 +34,7 @@ export const cartService = {
   },
 
   // Update cart item quantity (alias for updateCart)
-  async updateCartItemQuantity({ sku, color, size, quantity }: { sku: string; color?: string; size?: string; quantity: number }): Promise<ApiResponse<Cart>> {
-    return this.updateCart({ sku, color, size, quantity });
+  async updateCartItemQuantity({ sku, duration, productType, quantity }: { sku: string; duration?: string; productType?: string; quantity: number }): Promise<ApiResponse<Cart>> {
+    return this.updateCart({ sku, duration, productType, quantity });
   }
 }; 

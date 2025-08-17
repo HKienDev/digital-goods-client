@@ -11,21 +11,6 @@ import { toast } from "sonner";
 import { TOKEN_CONFIG } from '@/config/token';
 import { useAuth } from "@/context/authContext";
 
-const colorNames: Record<string, string> = {
-  '#ff0000': 'Đỏ',
-  '#00ff00': 'Xanh lá',
-  '#0000ff': 'Xanh dương',
-  '#ffff00': 'Vàng',
-  '#ff00ff': 'Hồng',
-  '#00ffff': 'Xanh ngọc',
-  '#000000': 'Đen',
-  '#ffffff': 'Trắng',
-  '#808080': 'Xám',
-  '#a52a2a': 'Nâu',
-  '#ffa500': 'Cam',
-  '#800080': 'Tím'
-};
-
 export default function ProductDetailsPage() {
   const router = useRouter();
   const params = useParams();
@@ -205,31 +190,31 @@ export default function ProductDetailsPage() {
                 <div className="bg-gradient-to-r from-purple-50 to-indigo-50 p-6 border-b border-slate-200">
                   <h2 className="text-xl font-semibold text-slate-800 flex items-center gap-2">
                     <Settings className="w-5 h-5 text-purple-500" />
-                    Kích thước và màu sắc
+                    Thời hạn và Loại sản phẩm
                   </h2>
                 </div>
                 <div className="p-6 space-y-6">
-                  {/* Colors Section */}
+                  {/* Durations Section */}
                   <div className="space-y-4">
                     <div className="flex items-center gap-3">
                       <div className="bg-gradient-to-r from-pink-500 to-purple-600 p-2 rounded-lg">
                         <Palette className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <h5 className="text-lg font-semibold text-slate-800">Màu sắc có sẵn</h5>
-                        <p className="text-sm text-slate-600">Danh sách các màu sắc của sản phẩm</p>
+                        <h5 className="text-lg font-semibold text-slate-800">Thời hạn có sẵn</h5>
+                        <p className="text-sm text-slate-600">Danh sách các thời hạn của sản phẩm</p>
                       </div>
                     </div>
                     
-                    {product.colors.length > 0 ? (
+                    {product.durations.length > 0 ? (
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                        {product.colors.map((color, index) => (
+                        {product.durations.map((duration, index) => (
                           <div 
                             key={index}
                             className="bg-gradient-to-br from-white to-slate-50 border-2 border-slate-300 rounded-xl p-4 text-center hover:border-slate-400 hover:scale-105 transition-all duration-300"
                           >
                             <span className="text-sm font-medium text-slate-700">
-                              {colorNames[color] || color}
+                              {duration}
                             </span>
                           </div>
                         ))}
@@ -240,33 +225,33 @@ export default function ProductDetailsPage() {
                           <Palette className="w-6 h-6 text-amber-600" />
                         </div>
                         <div>
-                          <h5 className="font-semibold text-amber-800 mb-1">Không có màu sắc</h5>
-                          <p className="text-amber-700 text-sm">Sản phẩm này chưa có thông tin màu sắc</p>
+                          <h5 className="font-semibold text-amber-800 mb-1">Không có thời hạn</h5>
+                          <p className="text-amber-700 text-sm">Sản phẩm này chưa có thông tin thời hạn</p>
                         </div>
                       </div>
                     )}
                   </div>
                   
-                  {/* Sizes Section */}
+                  {/* Product Types Section */}
                   <div className="space-y-4">
                     <div className="flex items-center gap-3">
                       <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-2 rounded-lg">
                         <Ruler className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <h5 className="text-lg font-semibold text-slate-800">Kích thước có sẵn</h5>
-                        <p className="text-sm text-slate-600">Danh sách các kích thước của sản phẩm</p>
+                        <h5 className="text-lg font-semibold text-slate-800">Loại sản phẩm có sẵn</h5>
+                        <p className="text-sm text-slate-600">Danh sách các loại sản phẩm</p>
                       </div>
                     </div>
                     
-                    {product.sizes.length > 0 ? (
+                    {product.productTypes.length > 0 ? (
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                        {product.sizes.map((size, index) => (
+                        {product.productTypes.map((productType, index) => (
                           <div
                             key={index}
                             className="bg-gradient-to-br from-white to-blue-50 border-2 border-blue-300 rounded-xl p-4 text-center hover:border-blue-400 hover:scale-105 transition-all duration-300"
                           >
-                            <span className="text-sm font-semibold text-slate-700">{size}</span>
+                            <span className="text-sm font-semibold text-slate-700">{productType}</span>
                           </div>
                         ))}
                       </div>
@@ -276,8 +261,8 @@ export default function ProductDetailsPage() {
                           <Ruler className="w-6 h-6 text-amber-600" />
                         </div>
                         <div>
-                          <h5 className="font-semibold text-amber-800 mb-1">Không có kích thước</h5>
-                          <p className="text-amber-700 text-sm">Sản phẩm này chưa có thông tin kích thước</p>
+                          <h5 className="font-semibold text-amber-800 mb-1">Không có loại sản phẩm</h5>
+                          <p className="text-amber-700 text-sm">Sản phẩm này chưa có thông tin loại sản phẩm</p>
                         </div>
                       </div>
                     )}

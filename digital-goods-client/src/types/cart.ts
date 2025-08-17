@@ -3,8 +3,8 @@ import { UserProduct } from './product';
 export interface CartItem {
   product: UserProduct;
   quantity: number;
-  color: string;
-  size: string;
+  duration: string;
+  productType: string;
   totalPrice: number;
   _id: string;
 }

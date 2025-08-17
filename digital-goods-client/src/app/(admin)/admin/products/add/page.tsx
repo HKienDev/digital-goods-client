@@ -5,7 +5,6 @@ import BasicInfoForm from "@/components/admin/products/add/BasicInfoForm";
 import ImageUpload from "@/components/admin/products/add/ImageUpload";
 import DetailInfoForm from "@/components/admin/products/add/DetailInfoForm";
 import SizeColorForm from "@/components/admin/products/add/SizeColorForm";
-import SpecificationsForm from "@/components/admin/products/add/SpecificationsForm";
 import { Loader2, Save, Image, FileText, Ruler } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
@@ -123,8 +122,8 @@ export default function AddProductPage() {
                   <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-white border-2 border-rose-500 text-xs font-bold text-rose-500">3</span>
                 </div>
                 <div className="ml-3">
-                  <span className="font-semibold text-white">Kích thước & màu sắc</span>
-                  <p className="text-white/80 text-sm">Thêm biến thể sản phẩm</p>
+                  <span className="font-semibold text-white">Thuộc tính sản phẩm</span>
+                  <p className="text-white/80 text-sm">Thêm thuộc tính sản phẩm</p>
                 </div>
               </div>
             </div>
@@ -166,14 +165,6 @@ export default function AddProductPage() {
             <div className="bg-[#F8FAFC] rounded-3xl shadow-lg border border-gray-100 overflow-hidden transition-all hover:shadow-xl">
               <div className="p-8">
                 <SizeColorForm
-                  formData={formState.data}
-                  onFieldChange={(field, value) => updateFormData(field, value)}
-                />
-              </div>
-            </div>
-            <div className="bg-[#F8FAFC] rounded-3xl shadow-lg border border-gray-100 overflow-hidden transition-all hover:shadow-xl">
-              <div className="p-8">
-                <SpecificationsForm
                   formData={formState.data}
                   onFieldChange={(field, value) => updateFormData(field, value)}
                 />

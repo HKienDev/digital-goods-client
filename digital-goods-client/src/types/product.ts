@@ -31,8 +31,8 @@ export interface AdminProduct {
   isActive: boolean;
   isFeatured: boolean;
   sku: string;
-  colors: string[];
-  sizes: string[];
+  durations: string[];
+  productTypes: string[];
   tags: string[];
   rating: number;
   numReviews: number;
@@ -57,8 +57,8 @@ export interface UserProduct {
   isActive: boolean;
   mainImage: string;
   subImages: string[];
-  colors: string[];
-  sizes: string[];
+  durations: string[];
+  productTypes: string[];
   sku: string;
   tags: string[];
   rating: number;
@@ -142,19 +142,9 @@ export interface ProductFormData {
   categoryId: string;
   mainImage: string | null;
   subImages: string[];
-  colors: string[];
-  sizes: string[];
+  durations: string[];
+  productTypes: string[];
   tags: string[];
-  specifications?: {
-    material?: string;
-    weight?: string;
-    stretch?: string;
-    absorbency?: string;
-    warranty?: string;
-    origin?: string;
-    fabricTechnology?: string;
-    careInstructions?: string;
-  };
   isActive: boolean;
 }
 
@@ -168,8 +158,8 @@ export interface ProductFormErrors {
   categoryId?: string;
   mainImage?: string;
   subImages?: string;
-  colors?: string;
-  sizes?: string;
+  durations?: string;
+  productTypes?: string;
   tags?: string;
 }
 

@@ -50,8 +50,8 @@ export default function CartPage() {
 
       await removeFromCart({
         sku: item.product.sku,
-        color: item.color,
-        size: item.size,
+        duration: item.duration,
+        productType: item.productType,
       });
       
       // Xóa item khỏi selectedItems nếu có

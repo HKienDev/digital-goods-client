@@ -82,8 +82,8 @@ export default function OrderItems({ cartItems, loading = false, onTotalChange }
       // Sử dụng store action thay vì direct API call
       await removeFromCart({
         sku: item.product.sku,
-        color: item.color,
-        size: item.size
+        duration: item.duration,
+        productType: item.productType
       });
       
       toast.success('Sản phẩm đã được xóa khỏi giỏ hàng');
@@ -131,7 +131,7 @@ export default function OrderItems({ cartItems, loading = false, onTotalChange }
         
         <div className="space-y-3 md:space-y-4">
           {cartItems.map((item, index) => (
-            <div key={item._id || `${item.product.sku}-${item.color}-${item.size}-${index}`} className="flex flex-col md:flex-row items-start md:items-center justify-between p-3 md:p-4 border rounded-lg gap-3 md:gap-4">
+            <div key={item._id || `${item.product.sku}-${item.duration}-${item.productType}-${index}`} className="flex flex-col md:flex-row items-start md:items-center justify-between p-3 md:p-4 border rounded-lg gap-3 md:gap-4">
               <div className="flex items-center space-x-3 md:space-x-4 w-full md:w-auto">
                 <Image
                   src={item.product.mainImage}
@@ -142,8 +142,8 @@ export default function OrderItems({ cartItems, loading = false, onTotalChange }
                 />
                 <div className="flex-1 min-w-0">
                   <h4 className="font-medium text-sm md:text-base text-gray-900 truncate">{item.product.name}</h4>
-                  <p className="text-xs md:text-sm text-gray-500">Size: {item.size}</p>
-                  <p className="text-xs md:text-sm text-gray-500">Màu: {item.color}</p>
+                  <p className="text-xs md:text-sm text-gray-500">Loại: {item.productType}</p>
+                  <p className="text-xs md:text-sm text-gray-500">Thời hạn: {item.duration}</p>
                   <p className="font-medium text-primary text-sm md:text-base mt-1">
                     {item.totalPrice.toLocaleString('vi-VN')} VNĐ
                   </p>

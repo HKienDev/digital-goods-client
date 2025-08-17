@@ -75,8 +75,8 @@ const WishlistPage = () => {
     try {
       await addToCart({
         sku: product.sku,
-        color: product.colors?.[0] || 'Mặc định',
-        size: product.sizes?.[0] || 'Mặc định',
+        duration: product.durations?.[0] || 'Mặc định',
+        productType: product.productTypes?.[0] || 'Mặc định',
         quantity: 1
       });
       toast.success('Đã thêm vào giỏ hàng!');

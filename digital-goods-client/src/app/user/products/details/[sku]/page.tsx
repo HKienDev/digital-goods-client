@@ -7,8 +7,8 @@ import Breadcrumb from '@/components/user/productDetail/Breadcrumb';
 import ProductGallery from '@/components/user/productDetail/ProductGallery';
 import ProductRating from '@/components/user/productDetail/ProductRating';
 import ProductPrice from '@/components/user/productDetail/ProductPrice';
-import ColorSelector from '@/components/user/productDetail/ColorSelector';
-import SizeSelector from '@/components/user/productDetail/SizeSelector';
+import DurationSelector from '@/components/user/productDetail/DurationSelector';
+import ProductTypeSelector from '@/components/user/productDetail/ProductTypeSelector';
 import QuantitySelector from '@/components/user/productDetail/QuantitySelector';
 import ProductActions from '@/components/user/productDetail/ProductActions';
 import ProductBenefits from '@/components/user/productDetail/ProductBenefits';
@@ -32,8 +32,8 @@ interface Product {
   isActive: boolean;
   mainImage: string;
   subImages: string[];
-  colors: string[];
-  sizes: string[];
+  durations: string[];
+  productTypes: string[];
   sku: string;
   tags: string[];
   specifications?: {
@@ -69,8 +69,8 @@ export default function ProductDetail() {
   const { openModal } = useAuthModal();
   const { isAuthenticated } = useAuth();
   const { addToCart } = useCartOptimized();
-  const [selectedColor, setSelectedColor] = useState<string | undefined>(undefined);
-  const [selectedSize, setSelectedSize] = useState<string | undefined>(undefined);
+  const [selectedDuration, setSelectedDuration] = useState<string | undefined>(undefined);
+  const [selectedProductType, setSelectedProductType] = useState<string | undefined>(undefined);
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
@@ -115,6 +115,7 @@ export default function ProductDetail() {
         
         // Cập nhật state với dữ liệu sản phẩm
         setProduct(result.data.product);
+        console.log('Chi tiết product:', result.data.product);
         // Fetch category info
         if (result.data.product.categoryId) {
           const catRes = await getCategoryById(result.data.product.categoryId);
@@ -139,12 +140,11 @@ export default function ProductDetail() {
     }
   }, [params.sku, refreshKey]);
 
-  const handleColorSelect = (color: string): void => {
-    setSelectedColor(color);
+  const handleDurationSelect = (duration: string): void => {
+    setSelectedDuration(duration);
   };
-
-  const handleSizeSelect = (size: string): void => {
-    setSelectedSize(size);
+  const handleProductTypeSelect = (type: string): void => {
+    setSelectedProductType(type);
   };
 
   const handleQuantityChange = (newQuantity: number): void => {
@@ -165,8 +165,8 @@ export default function ProductDetail() {
             type: 'addToCart',
             data: {
               sku: product?.sku,
-              color: selectedColor || (product?.colors && product.colors.length > 0 ? product.colors[0] : 'Mặc Định'),
-              size: selectedSize || (product?.sizes && product.sizes.length > 0 ? product.sizes[0] : 'Mặc Định'),
+              duration: selectedDuration || (product?.durations && product.durations.length > 0 ? product.durations[0] : 'Mặc Định'),
+              productType: selectedProductType || (product?.productTypes && product.productTypes.length > 0 ? product.productTypes[0] : 'Mặc Định'),
               quantity
             },
             callback: () => {
@@ -178,13 +178,13 @@ export default function ProductDetail() {
         return;
       }
       
-      // Nếu sản phẩm không có colors hoặc sizes, sử dụng giá trị mặc định
-      const color = selectedColor || (product?.colors && product.colors.length > 0 ? product.colors[0] : 'Mặc Định');
-      const size = selectedSize || (product?.sizes && product.sizes.length > 0 ? product.sizes[0] : 'Mặc Định');
+      // Nếu sản phẩm không có durations hoặc productTypes, sử dụng giá trị mặc định
+      const duration = selectedDuration || (product?.durations && product.durations.length > 0 ? product.durations[0] : 'Mặc Định');
+      const productType = selectedProductType || (product?.productTypes && product.productTypes.length > 0 ? product.productTypes[0] : 'Mặc Định');
       
-      if (!color || !size) {
-        console.log('❌ Không thể xác định màu hoặc kích thước');
-        toast.error('Không thể xác định màu và kích thước sản phẩm');
+      if (!duration || !productType) {
+        console.log('❌ Không thể xác định thời hạn hoặc loại sản phẩm');
+        toast.error('Không thể xác định thời hạn và loại sản phẩm');
         return;
       }
 
@@ -204,8 +204,8 @@ export default function ProductDetail() {
       console.log('📤 Gọi API thêm vào giỏ hàng');
       await addToCart({
         sku: product.sku,
-        color: color,
-        size: size,
+        duration: duration,
+        productType: productType,
         quantity
       });
 
@@ -227,8 +227,8 @@ export default function ProductDetail() {
             type: 'addToCart',
             data: {
               sku: product?.sku,
-              color: selectedColor || (product?.colors && product.colors.length > 0 ? product.colors[0] : 'Mặc Định'),
-              size: selectedSize || (product?.sizes && product.sizes.length > 0 ? product.sizes[0] : 'Mặc Định'),
+              duration: selectedDuration || (product?.durations && product.durations.length > 0 ? product.durations[0] : 'Mặc Định'),
+              productType: selectedProductType || (product?.productTypes && product.productTypes.length > 0 ? product.productTypes[0] : 'Mặc Định'),
               quantity
             },
             callback: () => {
@@ -261,8 +261,8 @@ export default function ProductDetail() {
           type: 'buyNow',
           data: {
             sku: product.sku,
-            color: selectedColor || (product?.colors && product.colors.length > 0 ? product.colors[0] : 'Mặc Định'),
-            size: selectedSize || (product?.sizes && product.sizes.length > 0 ? product.sizes[0] : 'Mặc Định'),
+            duration: selectedDuration || (product?.durations && product.durations.length > 0 ? product.durations[0] : 'Mặc Định'),
+            productType: selectedProductType || (product?.productTypes && product.productTypes.length > 0 ? product.productTypes[0] : 'Mặc Định'),
             quantity
           },
           callback: () => {
@@ -274,16 +274,16 @@ export default function ProductDetail() {
       return;
     }
     
-    // Nếu sản phẩm không có colors hoặc sizes, sử dụng giá trị mặc định
-    const color = selectedColor || (product?.colors && product.colors.length > 0 ? product.colors[0] : 'Mặc Định');
-    const size = selectedSize || (product?.sizes && product.sizes.length > 0 ? product.sizes[0] : 'Mặc Định');
+    // Nếu sản phẩm không có durations hoặc productTypes, sử dụng giá trị mặc định
+    const duration = selectedDuration || (product?.durations && product.durations.length > 0 ? product.durations[0] : 'Mặc Định');
+    const productType = selectedProductType || (product?.productTypes && product.productTypes.length > 0 ? product.productTypes[0] : 'Mặc Định');
 
     try {
       // Thêm vào giỏ hàng
       await addToCart({
         sku: product.sku,
-        color: color,
-        size: size,
+        duration: duration,
+        productType: productType,
         quantity
       });
       
@@ -303,8 +303,8 @@ export default function ProductDetail() {
             type: 'buyNow',
             data: {
               sku: product.sku,
-              color: color,
-              size: size,
+              duration: duration,
+              productType: productType,
               quantity
             },
             callback: () => {
@@ -371,17 +371,16 @@ export default function ProductDetail() {
 
           <div className="h-px bg-gray-200 my-6"></div>
 
-          {product.colors && product.colors.length > 0 && (
-            <ColorSelector 
-              colors={product.colors} 
-              onColorSelect={handleColorSelect}
+          {product.durations && product.durations.length > 0 && (
+            <DurationSelector 
+              durations={product.durations} 
+              onDurationSelect={handleDurationSelect}
             />
           )}
-          
-          {product.sizes && product.sizes.length > 0 && (
-            <SizeSelector 
-              sizes={product.sizes} 
-              onSizeSelect={handleSizeSelect} 
+          {product.productTypes && product.productTypes.length > 0 && (
+            <ProductTypeSelector 
+              productTypes={product.productTypes} 
+              onProductTypeSelect={handleProductTypeSelect} 
             />
           )}
 
@@ -403,7 +402,6 @@ export default function ProductDetail() {
 
       <ProductDescription 
         description={product.description}
-        specifications={product.specifications}
         productSku={product.sku}
         productName={product.name}
         currentRating={product.rating}

@@ -70,8 +70,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems((prevItems) => {
       const existingItem = prevItems.find((i) => 
         i.product.sku === item.product.sku && 
-        i.color === item.color && 
-        i.size === item.size
+        i.duration === item.duration && 
+        i.productType === item.productType
       );
       if (existingItem) {
         return prevItems.map((i) =>

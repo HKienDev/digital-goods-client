@@ -278,8 +278,8 @@ export default function Checkout() {
         items: selectedCartItems.map(item => ({
           sku: item.product.sku,
           quantity: Number(item.quantity),
-          color: item.product.colors?.[0] || 'Mặc định',
-          size: item.product.sizes?.[0] || 'Mặc định'
+          duration: item.duration,
+          productType: item.productType
         })),
         shippingAddress: {
           fullName: shippingAddress.fullName,
@@ -338,8 +338,8 @@ export default function Checkout() {
         const promises = selectedCartItems.map(item => 
           removeFromCart({
             sku: item.product.sku,
-            color: item.color,
-            size: item.size,
+            duration: item.duration,
+            productType: item.productType,
           })
         );
         

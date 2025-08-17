@@ -21,8 +21,8 @@ interface OrderItem {
   product: OrderItemProduct;
   quantity: number;
   price: number;
-  size?: string;
-  color?: string;
+  productType?: string;
+  duration?: string;
 }
 
 interface OrderTableProps {
@@ -165,16 +165,16 @@ export default function OrderTable({
                   </div>
                   
                   {/* Product Variants */}
-                  {(item.size || item.color) && (
+                  {(item.productType || item.duration) && (
                     <div className="flex flex-wrap gap-2">
-                      {item.size && (
+                      {item.productType && (
                         <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm font-medium">
-                          Size: {item.size}
+                          Loại: {item.productType}
                         </span>
                       )}
-                      {item.color && (
+                      {item.duration && (
                         <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm font-medium">
-                          Màu: {item.color}
+                          Thời hạn: {item.duration}
                         </span>
                       )}
                     </div>

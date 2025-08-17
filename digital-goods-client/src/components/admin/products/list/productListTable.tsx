@@ -48,8 +48,8 @@ interface Product {
   isActive: boolean;
   isFeatured: boolean;
   sku: string;
-  colors: string[];
-  sizes: string[];
+  durations: string[];
+  productTypes: string[];
   tags: string[];
   rating: number;
   numReviews: number;

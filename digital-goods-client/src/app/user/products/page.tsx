@@ -153,11 +153,11 @@ const ProductListPage: React.FC = () => {
     const prices = products.map(p => p.originalPrice || 0);
 
     products.forEach(product => {
-      if (product.colors && Array.isArray(product.colors)) {
-        product.colors.forEach(c => colors.add(c));
+      if (product.durations && Array.isArray(product.durations)) {
+        product.durations.forEach(c => colors.add(c));
       }
-      if (product.sizes && Array.isArray(product.sizes)) {
-        product.sizes.forEach(s => sizes.add(s));
+      if (product.productTypes && Array.isArray(product.productTypes)) {
+        product.productTypes.forEach(s => sizes.add(s));
       }
       if (product.brand) brands.add(product.brand);
     });
@@ -235,8 +235,8 @@ const ProductListPage: React.FC = () => {
       const inStock = (product.stock || 0) > 0;
 
       const priceMatch = price >= filters.priceRange[0] && price <= filters.priceRange[1];
-      const colorMatch = filters.colors.length === 0 || (product.colors && product.colors.some(c => filters.colors.includes(c)));
-      const sizeMatch = filters.sizes.length === 0 || (product.sizes && product.sizes.some(s => filters.sizes.includes(s)));
+      const colorMatch = filters.colors.length === 0 || (product.durations && product.durations.some(c => filters.colors.includes(c)));
+      const sizeMatch = filters.sizes.length === 0 || (product.productTypes && product.productTypes.some(s => filters.sizes.includes(s)));
       const brandMatch = filters.brands.length === 0 || (product.brand && filters.brands.includes(product.brand));
       const discountMatch = !filters.discount || hasDiscount;
       const ratingMatch = !filters.rating || rating >= filters.rating;

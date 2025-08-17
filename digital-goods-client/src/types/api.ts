@@ -91,8 +91,7 @@ export interface Question {
   purchasedItem?: {
     sku: string;
     name: string;
-    color: string;
-    size: string;
+    duration: string;
     quantity: number;
     price: number;
   };
@@ -153,8 +152,7 @@ export interface AdminQuestion {
   purchasedItem?: {
     sku: string;
     name: string;
-    color: string;
-    size: string;
+    duration: string;
     quantity: number;
     price: number;
   };

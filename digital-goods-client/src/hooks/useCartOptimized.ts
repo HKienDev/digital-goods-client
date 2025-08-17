@@ -33,7 +33,7 @@ export function useCartOptimized() {
 
   // Debounced update function
   const debouncedUpdate = useMemo(
-    () => debounce(async (data: { sku: string; color?: string; size?: string; quantity: number }) => {
+    () => debounce(async (data: { sku: string; duration?: string; productType?: string; quantity: number }) => {
       try {
         await updateCartItem(data);
       } catch (error: any) {
@@ -73,8 +73,8 @@ export function useCartOptimized() {
       // Debounced API call
       debouncedUpdate({
         sku: item.product.sku,
-        color: item.color,
-        size: item.size,
+        duration: item.duration,
+        productType: item.productType,
         quantity,
       });
     },
@@ -99,8 +99,8 @@ export function useCartOptimized() {
       const promises = items.map(item => 
         removeFromCart({
           sku: item.product.sku,
-          color: item.color,
-          size: item.size,
+          duration: item.duration,
+          productType: item.productType,
         })
       );
 

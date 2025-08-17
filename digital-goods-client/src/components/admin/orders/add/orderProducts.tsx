@@ -25,8 +25,8 @@ export default function OrderProducts() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<AdminProduct | null>(null);
   const [quantity, setQuantity] = useState(1);
-  const [size, setSize] = useState("");
-  const [color, setColor] = useState("");
+  const [productType, setProductType] = useState("");
+  const [duration, setDuration] = useState("");
   const [error, setError] = useState("");
   const [availableSizes, setAvailableSizes] = useState<string[]>([]);
   const [availableColors, setAvailableColors] = useState<string[]>([]);
@@ -86,8 +86,8 @@ export default function OrderProducts() {
   const handleProductIdChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newProductId = e.target.value.trim();
     setSearchTerm(newProductId);
-    setSize("");
-    setColor("");
+    setProductType("");
+    setDuration("");
     setAvailableSizes([]);
     setAvailableColors([]);
     setSelectedProduct(null);
@@ -98,8 +98,8 @@ export default function OrderProducts() {
         setIsLoadingProduct(true);
         const product = await fetchProduct(newProductId);
         setSelectedProduct(product);
-        setAvailableSizes(product.sizes || []);
-        setAvailableColors(product.colors || []);
+        setAvailableSizes(product.productTypes || []);
+        setAvailableColors(product.durations || []);
         setError("");
       } catch (error) {
         setError(error instanceof Error ? error.message : 'Không thể tìm thấy sản phẩm');
@@ -113,12 +113,12 @@ export default function OrderProducts() {
   }, [fetchProduct]);
 
   const handleAddToCart = useCallback((product: AdminProduct) => {
-    if (!size && availableSizes.length > 0) {
-      toast.error("Vui lòng chọn kích thước");
+    if (!productType && availableSizes.length > 0) {
+      toast.error("Vui lòng chọn loại sản phẩm");
       return;
     }
-    if (!color && availableColors.length > 0) {
-      toast.error("Vui lòng chọn màu sắc");
+    if (!duration && availableColors.length > 0) {
+      toast.error("Vui lòng chọn thời hạn");
       return;
     }
     if (quantity < 1) {
@@ -144,8 +144,8 @@ export default function OrderProducts() {
         isActive: product.isActive,
         mainImage: product.mainImage || "/images/placeholder.png",
         subImages: product.subImages || [],
-        colors: product.colors || [],
-        sizes: product.sizes || [],
+        durations: product.durations || [],
+        productTypes: product.productTypes || [],
         sku: product.sku,
         tags: product.tags || [],
         rating: product.rating || 0,
@@ -159,8 +159,8 @@ export default function OrderProducts() {
         isLowStock: product.isLowStock || false
       },
       quantity: quantity,
-      color: color,
-      size: size,
+      duration: duration,
+      productType: productType,
       totalPrice: (product.salePrice || product.originalPrice) * quantity
     };
 
@@ -169,14 +169,14 @@ export default function OrderProducts() {
     
     // Reset form để có thể thêm sản phẩm khác
     setQuantity(1);
-    setSize("");
-    setColor("");
+    setProductType("");
+    setDuration("");
     setAvailableSizes([]);
     setAvailableColors([]);
     setSelectedProduct(null);
     setError("");
     // Không xóa searchTerm để có thể tìm kiếm sản phẩm khác
-  }, [addItem, availableSizes.length, availableColors.length, quantity, size, color]);
+  }, [addItem, availableSizes.length, availableColors.length, quantity, productType, duration]);
 
   const handleQuantityChange = useCallback((productId: string, newQuantity: number) => {
     const item = cartItems.find(item => item.product?._id === productId);
@@ -282,10 +282,10 @@ export default function OrderProducts() {
                   {/* Size Selection */}
                   {availableSizes.length > 0 && (
                     <div className="mb-4">
-                      <label className="text-sm font-medium text-gray-700 mb-2 block">Kích thước:</label>
-                      <Select value={size} onValueChange={setSize}>
+                      <label className="text-sm font-medium text-gray-700 mb-2 block">Loại sản phẩm:</label>
+                      <Select value={productType} onValueChange={setProductType}>
                         <SelectTrigger className="h-10 bg-white border-gray-200 rounded-lg">
-                          <SelectValue placeholder="Chọn kích thước" />
+                          <SelectValue placeholder="Chọn loại sản phẩm" />
                         </SelectTrigger>
                         <SelectContent>
                           {availableSizes.map((sizeOption) => (
@@ -301,10 +301,10 @@ export default function OrderProducts() {
                   {/* Color Selection */}
                   {availableColors.length > 0 && (
                     <div className="mb-4">
-                      <label className="text-sm font-medium text-gray-700 mb-2 block">Màu sắc:</label>
-                      <Select value={color} onValueChange={setColor}>
+                      <label className="text-sm font-medium text-gray-700 mb-2 block">Thời hạn:</label>
+                      <Select value={duration} onValueChange={setDuration}>
                         <SelectTrigger className="h-10 bg-white border-gray-200 rounded-lg">
-                          <SelectValue placeholder="Chọn màu sắc" />
+                          <SelectValue placeholder="Chọn thời hạn" />
                         </SelectTrigger>
                         <SelectContent>
                           {availableColors.map((colorOption) => (
@@ -403,11 +403,11 @@ export default function OrderProducts() {
                   <div className="flex-1 min-w-0">
                     <h5 className="text-sm font-semibold text-gray-900 truncate">{item.product.name}</h5>
                     <div className="flex items-center space-x-4 mt-1">
-                      {item.color && (
-                        <span className="text-xs text-gray-500">Màu: {item.color}</span>
+                      {item.duration && (
+                        <span className="text-xs text-gray-500">Thời hạn: {item.duration}</span>
                       )}
-                      {item.size && (
-                        <span className="text-xs text-gray-500">Size: {item.size}</span>
+                      {item.productType && (
+                        <span className="text-xs text-gray-500">Loại: {item.productType}</span>
                       )}
                     </div>
                     <div className="flex items-center justify-between mt-2">

@@ -78,8 +78,8 @@ export default function OrderPreview({ onConfirmOrder }: OrderPreviewProps) {
         items: cartItems.map(item => ({
           sku: item.product.sku,
           quantity: item.quantity,
-          color: item.color,
-          size: item.size
+          duration: item.duration,
+          productType: item.productType
         })),
         shippingAddress: {
           fullName: customer.fullName,
@@ -395,8 +395,8 @@ export default function OrderPreview({ onConfirmOrder }: OrderPreviewProps) {
                     </div>
                     {/* Màu + Size */}
                     <div className="flex items-center gap-4 mt-1 text-xs sm:text-sm text-gray-600">
-                      {item.color && <span>Màu: <span className="font-medium text-gray-900">{item.color}</span></span>}
-                      {item.size && <span>Size: <span className="font-medium text-gray-900">{item.size}</span></span>}
+                      {item.duration && <span>Thời hạn: <span className="font-medium text-gray-900">{item.duration}</span></span>}
+                      {item.productType && <span>Loại: <span className="font-medium text-gray-900">{item.productType}</span></span>}
                     </div>
                     {/* Số lượng + Đơn giá/cái */}
                     <div className="flex items-center gap-4 mt-1 text-xs sm:text-sm text-gray-600">

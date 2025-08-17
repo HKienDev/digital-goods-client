@@ -224,8 +224,8 @@ export interface CreateOrderData {
     items: {
         sku: string;
         quantity: number;
-        color: string;
-        size: string;
+        duration: string;
+        productType: string;
     }[];
     totalAmount: number;
     status: Order['status'];
@@ -258,8 +258,8 @@ export interface CreateProductData {
     brand: string;
     mainImage: string;
     subImages: string[];
-    colors: string[];
-    sizes: string[];
+    durations: string[];
+    productTypes: string[];
     tags: string[];
     isActive: boolean;
     sku: string;
@@ -291,8 +291,8 @@ export interface OrderData {
     items: {
         sku: string;
         quantity: number;
-        color: string;
-        size: string;
+        duration: string;
+        productType: string;
     }[];
     shippingAddress: {
         fullName: string;

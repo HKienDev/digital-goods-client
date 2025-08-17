@@ -15,43 +15,43 @@ export default function SizeColorForm({
   formData,
   onFieldChange,
 }: SizeColorFormProps) {
-  const [newSize, setNewSize] = useState("");
-  const [newColor, setNewColor] = useState("");
+  const [newProductType, setNewProductType] = useState("");
+  const [newDuration, setNewDuration] = useState("");
 
-  // Đảm bảo sizes và colors là mảng
-  const sizes = Array.isArray(formData.sizes) ? formData.sizes : [];
-  const colors = Array.isArray(formData.colors) ? formData.colors : [];
+  // Đảm bảo productTypes và durations là mảng
+  const productTypes = Array.isArray(formData.productTypes) ? formData.productTypes : [];
+  const durations = Array.isArray(formData.durations) ? formData.durations : [];
 
-  const handleAddSize = () => {
-    if (!newSize.trim()) return;
+  const handleAddProductType = () => {
+    if (!newProductType.trim()) return;
     
-    if (sizes.includes(newSize.trim())) {
-      toast.error('Kích thước này đã tồn tại');
+    if (productTypes.includes(newProductType.trim())) {
+      toast.error('Loại sản phẩm này đã tồn tại');
       return;
     }
 
-    onFieldChange('sizes', [...sizes, newSize.trim()]);
-    setNewSize("");
+    onFieldChange('productTypes', [...productTypes, newProductType.trim()]);
+    setNewProductType("");
   };
 
-  const handleAddColor = () => {
-    if (!newColor.trim()) return;
+  const handleAddDuration = () => {
+    if (!newDuration.trim()) return;
     
-    if (colors.includes(newColor.trim())) {
-      toast.error('Màu sắc này đã tồn tại');
+    if (durations.includes(newDuration.trim())) {
+      toast.error('Thời hạn này đã tồn tại');
       return;
     }
 
-    onFieldChange('colors', [...colors, newColor.trim()]);
-    setNewColor("");
+    onFieldChange('durations', [...durations, newDuration.trim()]);
+    setNewDuration("");
   };
 
-  const handleRemoveSize = (size: string) => {
-    onFieldChange('sizes', sizes.filter(s => s !== size));
+  const handleRemoveProductType = (productType: string) => {
+    onFieldChange('productTypes', productTypes.filter(s => s !== productType));
   };
 
-  const handleRemoveColor = (color: string) => {
-    onFieldChange('colors', colors.filter(c => c !== color));
+  const handleRemoveDuration = (duration: string) => {
+    onFieldChange('durations', durations.filter(c => c !== duration));
   };
 
   return (
@@ -59,7 +59,7 @@ export default function SizeColorForm({
       {/* Header */}
       <div className="flex items-center gap-3 pb-4 border-b-2 border-orange-200">
         <Ruler className="w-7 h-7 text-orange-500" />
-        <h3 className="text-xl font-bold text-gray-900">Kích thước & Màu sắc</h3>
+        <h3 className="text-xl font-bold text-gray-900">Thuộc tính sản phẩm</h3>
       </div>
 
       {/* Sizes Section */}
@@ -67,9 +67,9 @@ export default function SizeColorForm({
         <div className="flex items-center justify-between">
           <Label className="text-base font-semibold text-gray-700 flex items-center gap-2">
             <Ruler className="w-5 h-5 text-orange-500" />
-            Kích thước
+            Loại sản phẩm
           </Label>
-          {sizes.length === 0 && (
+          {productTypes.length === 0 && (
             <span className="text-xs text-red-500 flex items-center gap-1 font-medium">
               <AlertCircle className="w-4 h-4" />
               Bắt buộc
@@ -78,28 +78,28 @@ export default function SizeColorForm({
         </div>
         <div className="flex gap-3 flex-col sm:flex-row">
           <Input
-            value={newSize}
-            onChange={(e) => setNewSize(e.target.value)}
-            placeholder="Nhập kích thước mới"
+            value={newProductType}
+            onChange={(e) => setNewProductType(e.target.value)}
+            placeholder="Ví dụ: Tài khoản tạo sẵn, Key kích hoạt, Share account"
             className="flex-1 rounded-xl border-2 border-gray-200 transition-all duration-200 hover:border-orange-500 focus:border-orange-500 focus:ring-orange-500 text-base px-4 py-3"
           />
           <Button 
-            onClick={handleAddSize} 
+            onClick={handleAddProductType} 
             size="lg" 
             className="shrink-0 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-xl px-6 py-3 transition-all duration-200"
-            disabled={!newSize.trim()}
+            disabled={!newProductType.trim()}
           >
             <Plus className="w-5 h-5 mr-2" />
             Thêm
           </Button>
         </div>
-        {sizes.length > 0 && (
+        {productTypes.length > 0 && (
           <div className="flex flex-wrap gap-3 mt-2">
-            {sizes.map((size) => (
-              <div key={size} className="bg-orange-50 rounded-full px-5 py-2 flex items-center gap-2 group hover:bg-orange-100 transition-all duration-200">
-                <span className="text-base font-semibold text-orange-700">{size}</span>
+            {productTypes.map((productType) => (
+              <div key={productType} className="bg-orange-50 rounded-full px-5 py-2 flex items-center gap-2 group hover:bg-orange-100 transition-all duration-200">
+                <span className="text-base font-semibold text-orange-700">{productType}</span>
                 <button 
-                  onClick={() => handleRemoveSize(size)}
+                  onClick={() => handleRemoveProductType(productType)}
                   className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-1"
                 >
                   <X className="w-4 h-4 text-orange-500 hover:text-orange-600" />
@@ -115,9 +115,9 @@ export default function SizeColorForm({
         <div className="flex items-center justify-between">
           <Label className="text-base font-semibold text-gray-700 flex items-center gap-2">
             <Palette className="w-5 h-5 text-orange-500" />
-            Màu sắc
+            Thời hạn
           </Label>
-          {colors.length === 0 && (
+          {durations.length === 0 && (
             <span className="text-xs text-red-500 flex items-center gap-1 font-medium">
               <AlertCircle className="w-4 h-4" />
               Bắt buộc
@@ -126,28 +126,28 @@ export default function SizeColorForm({
         </div>
         <div className="flex gap-3 flex-col sm:flex-row">
           <Input
-            value={newColor}
-            onChange={(e) => setNewColor(e.target.value)}
-            placeholder="Nhập màu sắc mới"
+            value={newDuration}
+            onChange={(e) => setNewDuration(e.target.value)}
+            placeholder="Ví dụ: 1 tháng, 3 tháng, 12 tháng, Vĩnh viễn"
             className="flex-1 rounded-xl border-2 border-gray-200 transition-all duration-200 hover:border-orange-500 focus:border-orange-500 focus:ring-orange-500 text-base px-4 py-3"
           />
           <Button 
-            onClick={handleAddColor} 
+            onClick={handleAddDuration} 
             size="lg" 
             className="shrink-0 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-xl px-6 py-3 transition-all duration-200"
-            disabled={!newColor.trim()}
+            disabled={!newDuration.trim()}
           >
             <Plus className="w-5 h-5 mr-2" />
             Thêm
           </Button>
         </div>
-        {colors.length > 0 && (
+        {durations.length > 0 && (
           <div className="flex flex-wrap gap-3 mt-2">
-            {colors.map((color) => (
-              <div key={color} className="bg-orange-50 rounded-full px-5 py-2 flex items-center gap-2 group hover:bg-orange-100 transition-all duration-200">
-                <span className="text-base font-semibold text-orange-700">{color}</span>
+            {durations.map((duration) => (
+              <div key={duration} className="bg-orange-50 rounded-full px-5 py-2 flex items-center gap-2 group hover:bg-orange-100 transition-all duration-200">
+                <span className="text-base font-semibold text-orange-700">{duration}</span>
                 <button 
-                  onClick={() => handleRemoveColor(color)}
+                  onClick={() => handleRemoveDuration(duration)}
                   className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-1"
                 >
                   <X className="w-4 h-4 text-orange-500 hover:text-orange-600" />

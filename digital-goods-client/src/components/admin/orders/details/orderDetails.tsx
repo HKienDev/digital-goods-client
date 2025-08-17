@@ -214,9 +214,13 @@ export default function OrderDetails({ order, orderId, onStatusUpdate }: OrderDe
                   sub: typeof item.product === 'string' ? [] : (item.product?.subImages || [])
                 },
                 isFeatured: false,
+                durations: typeof item.product === 'string' ? [] : (item.product?.durations || []),
+                productTypes: typeof item.product === 'string' ? [] : (item.product?.productTypes || []),
               },
               quantity: item.quantity,
-              price: item.price
+              price: item.price,
+              productType: item.productType,
+              duration: item.duration,
             }))}
             onCancelOrder={handleCancelOrderStatusUpdate}
           />
@@ -258,8 +262,8 @@ export default function OrderDetails({ order, orderId, onStatusUpdate }: OrderDe
                 updatedAt: new Date().toISOString(),
                 brand: '',
                 sku: '',
-                colors: [],
-                sizes: [],
+                durations: [],
+                productTypes: [],
                 tags: [],
                 rating: 0,
                 numReviews: 0,
@@ -284,8 +288,8 @@ export default function OrderDetails({ order, orderId, onStatusUpdate }: OrderDe
                 updatedAt: item.product?.updatedAt || new Date().toISOString(),
                 brand: item.product?.brand || '',
                 sku: item.product?.sku || '',
-                colors: item.product?.colors || [],
-                sizes: item.product?.sizes || [],
+                durations: item.product?.durations || [],
+                productTypes: item.product?.productTypes || [],
                 tags: item.product?.tags || [],
                 rating: item.product?.rating || 0,
                 numReviews: item.product?.numReviews || 0,
@@ -300,8 +304,8 @@ export default function OrderDetails({ order, orderId, onStatusUpdate }: OrderDe
                 product: productData,
                 quantity: item.quantity,
                 price: item.price,
-                size: item.size,
-                color: item.color
+                productType: item.productType,
+                duration: item.duration,
               };
             })}
             shippingMethod={order.shippingMethod}

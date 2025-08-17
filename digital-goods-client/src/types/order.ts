@@ -32,8 +32,8 @@ export interface OrderItem {
   price: number;
   name: string;
   sku: string;
-  color?: string;
-  size?: string;
+  duration?: string;
+  productType?: string;
 }
 
 export interface ShippingAddress {
@@ -106,8 +106,8 @@ export interface CreateOrderInput {
     price: number;
     name: string;
     sku: string;
-    color?: string;
-    size?: string;
+    duration?: string;
+    productType?: string;
   }[];
   shippingAddress: ShippingAddress;
   paymentMethod: PaymentMethod;

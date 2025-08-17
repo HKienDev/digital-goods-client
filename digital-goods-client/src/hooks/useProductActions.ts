@@ -10,8 +10,8 @@ import { safePromise } from '@/utils/promiseUtils';
 
 interface CartData {
   sku: string;
-  color: string;
-  size: string;
+  duration: string;
+  productType: string;
   quantity: number;
 }
 

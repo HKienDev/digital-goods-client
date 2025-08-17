@@ -39,7 +39,7 @@ export function useCart() {
   }, []);
 
   // Add item to cart
-  const addToCart = useCallback(async (productData: { sku: string; color?: string; size?: string; quantity?: number }) => {
+  const addToCart = useCallback(async (productData: { sku: string; duration?: string; productType?: string; quantity?: number }) => {
     try {
       setLoading(true);
       setError(null);
@@ -70,7 +70,7 @@ export function useCart() {
   }, []);
 
   // Update cart item
-  const updateCartItem = useCallback(async (productData: { sku: string; color?: string; size?: string; quantity?: number }) => {
+  const updateCartItem = useCallback(async (productData: { sku: string; duration?: string; productType?: string; quantity?: number }) => {
     try {
       setLoading(true);
       setError(null);
@@ -101,7 +101,7 @@ export function useCart() {
   }, []);
 
   // Remove item from cart
-  const removeFromCart = useCallback(async (productData: { sku: string; color?: string; size?: string }) => {
+  const removeFromCart = useCallback(async (productData: { sku: string; duration?: string; productType?: string }) => {
     try {
       setLoading(true);
       setError(null);

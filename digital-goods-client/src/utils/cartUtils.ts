@@ -52,7 +52,7 @@ export const validateCartItem = (item: CartItem): boolean => {
     return false;
   }
   
-  if (!item.color || !item.size) {
+  if (!item.duration || !item.productType) {
     return false;
   }
   
@@ -106,17 +106,17 @@ export const formatPrice = (price: number): string => {
 };
 
 // Utility function để tìm item trong cart
-export const findCartItem = (items: CartItem[], sku: string, color: string, size: string): CartItem | undefined => {
+export const findCartItem = (items: CartItem[], sku: string, duration: string, productType: string): CartItem | undefined => {
   return items.find(item => 
     item.product.sku === sku && 
-    item.color === color && 
-    item.size === size
+    item.duration === duration && 
+    item.productType === productType
   );
 };
 
 // Utility function để tạo cart item ID
-export const createCartItemId = (sku: string, color: string, size: string): string => {
-  return `${sku}-${color}-${size}`;
+export const createCartItemId = (sku: string, duration: string, productType: string): string => {
+  return `${sku}-${duration}-${productType}`;
 };
 
 // Utility function để validate cart data

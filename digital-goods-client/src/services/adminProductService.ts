@@ -28,8 +28,10 @@ interface RawProduct {
   updatedAt?: string | Date;
   isActive?: boolean;
   sku?: string;
-  colors?: string[];
-  sizes?: string[];
+  durations?: string[];
+  productTypes?: string[];
+  duration?: string;
+  productType?: string;
   tags?: string[];
   rating?: number;
   ratings?: {
@@ -64,8 +66,8 @@ function toAdminProduct(product: unknown): AdminProduct {
     updatedAt: typeof rawProduct.updatedAt === 'string' ? rawProduct.updatedAt : (rawProduct.updatedAt ? new Date(rawProduct.updatedAt).toISOString() : new Date().toISOString()),
     isActive: rawProduct.isActive ?? true,
     sku: rawProduct.sku ?? '',
-    colors: rawProduct.colors ?? [],
-    sizes: rawProduct.sizes ?? [],
+    durations: rawProduct.durations ?? [],
+    productTypes: rawProduct.productTypes ?? [],
     tags: rawProduct.tags ?? [],
     rating: rawProduct.rating ?? (rawProduct.ratings?.average ?? 0),
     numReviews: rawProduct.numReviews ?? (rawProduct.ratings?.count ?? 0),

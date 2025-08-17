@@ -6,27 +6,16 @@ import ProductQuestions from './ProductQuestions';
 
 interface ProductDescriptionProps {
   description: string;
-  specifications?: {
-    material?: string;
-    weight?: string;
-    stretch?: string;
-    absorbency?: string;
-    warranty?: string;
-    origin?: string;
-    fabricTechnology?: string;
-    careInstructions?: string;
-  };
   productSku?: string;
   productName?: string;
   currentRating?: number;
   numReviews?: number;
 }
 
-type TabType = 'description' | 'specifications' | 'reviews' | 'questions';
+type TabType = 'description' | 'reviews' | 'questions';
 
 const ProductDescription: React.FC<ProductDescriptionProps> = ({ 
   description, 
-  specifications, 
   productSku, 
   productName, 
   currentRating = 0, 
@@ -38,7 +27,7 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
   // Get initial tab from URL hash or stored ref
   useEffect(() => {
     const hash = window.location.hash.replace('#', '');
-    if (hash && ['description', 'specifications', 'reviews', 'questions'].includes(hash)) {
+    if (hash && ['description', 'reviews', 'questions'].includes(hash)) {
       const tab = hash as TabType;
       setActiveTab(tab);
       tabRef.current = tab;
@@ -54,7 +43,6 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
     // Update URL hash without causing page reload
     window.history.replaceState(null, '', `#${tab}`);
   };
-
   const renderTabContent = () => {
     switch (activeTab) {
       case 'description':
@@ -63,48 +51,6 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
             <p className="text-gray-700 whitespace-pre-line">
               {description}
             </p>
-          </div>
-        );
-      case 'specifications':
-        return (
-          <div className="prose max-w-none">
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Thông số kỹ thuật</h3>
-              <div className="space-y-3">
-                <div className="flex justify-between py-2 border-b border-gray-200">
-                  <span className="font-medium text-gray-700">Chất liệu</span>
-                  <span className="text-gray-600">{specifications?.material || "Đang cập nhật"}</span>
-                </div>
-                <div className="flex justify-between py-2 border-b border-gray-200">
-                  <span className="font-medium text-gray-700">Trọng lượng</span>
-                  <span className="text-gray-600">{specifications?.weight || "Đang cập nhật"}</span>
-                </div>
-                <div className="flex justify-between py-2 border-b border-gray-200">
-                  <span className="font-medium text-gray-700">Độ co giãn</span>
-                  <span className="text-gray-600">{specifications?.stretch || "Đang cập nhật"}</span>
-                </div>
-                <div className="flex justify-between py-2 border-b border-gray-200">
-                  <span className="font-medium text-gray-700">Khả năng thấm hút</span>
-                  <span className="text-gray-600">{specifications?.absorbency || "Đang cập nhật"}</span>
-                </div>
-                <div className="flex justify-between py-2 border-b border-gray-200">
-                  <span className="font-medium text-gray-700">Bảo hành</span>
-                  <span className="text-gray-600">{specifications?.warranty || "Đang cập nhật"}</span>
-                </div>
-                <div className="flex justify-between py-2 border-b border-gray-200">
-                  <span className="font-medium text-gray-700">Xuất xứ</span>
-                  <span className="text-gray-600">{specifications?.origin || "Đang cập nhật"}</span>
-                </div>
-                <div className="flex justify-between py-2 border-b border-gray-200">
-                  <span className="font-medium text-gray-700">Công nghệ vải</span>
-                  <span className="text-gray-600">{specifications?.fabricTechnology || "Đang cập nhật"}</span>
-                </div>
-                <div className="flex justify-between py-2">
-                  <span className="font-medium text-gray-700">Hướng dẫn giặt</span>
-                  <span className="text-gray-600">{specifications?.careInstructions || "Đang cập nhật"}</span>
-                </div>
-              </div>
-            </div>
           </div>
         );
       case 'reviews':
@@ -175,16 +121,6 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
             }`}
           >
             Mô tả sản phẩm
-          </button>
-          <button 
-            onClick={() => handleTabClick('specifications')}
-            className={`pb-4 border-b-2 font-medium transition-colors ${
-              activeTab === 'specifications' 
-                ? 'border-red-600 text-red-600' 
-                : 'border-transparent text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            Thông số kỹ thuật
           </button>
           <button 
             onClick={() => handleTabClick('reviews')}

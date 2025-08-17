@@ -103,7 +103,7 @@ const CartButton = ({
 
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const { name, categoryId, originalPrice, salePrice, description, mainImage, stock, sku, colors, sizes } = product;
+  const { name, categoryId, originalPrice, salePrice, mainImage, stock, sku, durations, productTypes } = product;
   const [categoryName, setCategoryName] = useState<string>("Đang tải...");
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [isTogglingWishlist, setIsTogglingWishlist] = useState(false);
@@ -149,23 +149,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     setIsAddingToCart(true);
 
     try {
-      const defaultColor = colors && colors.length > 0 ? colors[0] : "";
-      const defaultSize = sizes && sizes.length > 0 ? sizes[0] : "";
-      
+      const defaultDuration = durations && durations.length > 0 ? durations[0] : "";
+      const defaultProductType = productTypes && productTypes.length > 0 ? productTypes[0] : "";
       const cartData = {
         sku,
-        color: defaultColor,
-        size: defaultSize,
+        duration: defaultDuration,
+        productType: defaultProductType,
         quantity: 1
       };
 
       await addToCart(cartData);
       toast.success("Đã thêm sản phẩm vào giỏ hàng!");
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Lỗi khi thêm vào giỏ hàng:", error);
-      
-      // Xử lý lỗi 401 - token hết hạn
-      if (error?.status === 401 || error?.response?.status === 401) {
+      if (error && typeof error === 'object' && 'status' in error && typeof (error as { status?: unknown }).status === 'number' && (error as { status: number }).status === 401) {
         console.log('🔍 ProductCard - 401 error in handleAddToCart');
         toast.error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
       } else {
@@ -194,11 +191,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       } else {
         await addToWishlist(product._id);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error toggling wishlist:', error);
-      
-      // Xử lý lỗi 401 - token hết hạn
-      if (error?.status === 401 || error?.response?.status === 401) {
+      if (error && typeof error === 'object' && 'status' in error && typeof (error as { status?: unknown }).status === 'number' && (error as { status: number }).status === 401) {
         console.log('🔍 ProductCard - 401 error in handleWishlistToggle');
         toast.error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
       } else {
@@ -292,9 +287,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </button>
         </div>
         
-        {/* Enhanced Badges - Clean design without brand badge */}
+        {/* Enhanced Badges - Move discount badge to top right, smaller, avoid price overlap */}
         {salePrice > 0 && (
-          <div className="absolute top-2 sm:top-3 md:top-4 left-2 sm:left-3 md:left-4 bg-gradient-to-r from-red-500 via-pink-500 to-red-600 text-white text-[clamp(0.625rem,1.5vw,0.75rem)] font-bold px-2 sm:px-2.5 md:px-3 py-1 sm:py-1.5 rounded-full border-2 border-white/30 truncate max-w-[clamp(60px,15vw,80px)] animate-pulse z-10">
+          <div className="absolute top-2 sm:top-3 md:top-4 right-2 sm:right-3 md:right-4 bg-gradient-to-r from-red-500 via-pink-500 to-red-600 text-white text-xs font-bold px-2 py-1 rounded-full border-2 border-white/30 z-10 shadow-md">
             -{discountPercentage}%
           </div>
         )}
@@ -324,11 +319,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {/* Price + Cart */}
         <div className="flex items-end gap-2 sm:gap-3 flex-wrap mt-1">
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 min-w-0 flex-1">
-            <span className="text-base sm:text-lg font-bold bg-gradient-to-r from-pink-500 to-red-500 bg-clip-text text-transparent truncate">
+            <span className="text-base sm:text-lg font-bold bg-gradient-to-r from-pink-500 to-red-500 bg-clip-text text-transparent">
               {formatCurrency(salePrice > 0 ? salePrice : originalPrice)}
             </span>
             {salePrice > 0 && (
-              <span className="text-xs sm:text-sm text-gray-400 line-through truncate">
+              <span className="text-xs sm:text-sm text-gray-400 line-through">
                 {formatCurrency(originalPrice)}
               </span>
             )}

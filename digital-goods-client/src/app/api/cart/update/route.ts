@@ -5,7 +5,7 @@ export async function PUT(request: NextRequest) {
   console.log('🔧 PUT /api/cart/update called');
   try {
     const body = await request.json();
-    const { sku, color, size, quantity = 1 } = body;
+    const { sku, duration, productType, quantity = 1 } = body;
     
     // Lấy token từ Authorization header
     const authHeader = request.headers.get('Authorization');
@@ -30,7 +30,7 @@ export async function PUT(request: NextRequest) {
         'Accept': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify({ sku, color, size, quantity })
+      body: JSON.stringify({ sku, duration, productType, quantity })
     });
     
     if (!response.ok) {

@@ -51,7 +51,7 @@ export default function CartList({
     >
       {items.map((item, index) => (
         <motion.div
-          key={item._id || `${item.product.sku}-${item.color}-${item.size}-${index}`}
+          key={item._id || `${item.product.sku}-${item.duration}-${item.productType}-${index}`}
           initial={showAnimation ? { opacity: 0, x: -20 } : false}
           animate={showAnimation ? { opacity: 1, x: 0 } : false}
           transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -87,8 +87,8 @@ export default function CartList({
                       {item.product.name}
                     </h3>
                     <p className="mt-1 text-sm text-gray-500">
-                      {item.color && <span className="mr-2">Màu: {item.color}</span>}
-                      {item.size && <span>Cỡ: {item.size}</span>}
+                      {item.duration && <span className="mr-2">Thời hạn: {item.duration}</span>}
+                      {item.productType && <span>Loại: {item.productType}</span>}
                     </p>
                   </div>
                   <div className="text-right">

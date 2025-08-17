@@ -8,7 +8,7 @@ interface CartItemProps {
 }
 
 export default function CartItem({ item, onUpdateQuantity, onRemoveItem }: CartItemProps) {
-  const { product, quantity, color, size, totalPrice, _id } = item;
+  const { product, quantity, duration, productType, totalPrice, _id } = item;
 
   return (
     <div className="flex items-center py-4 border-b">
@@ -24,7 +24,7 @@ export default function CartItem({ item, onUpdateQuantity, onRemoveItem }: CartI
         <h3 className="text-lg font-semibold">{product.name}</h3>
         <p className="text-gray-600">{product.brand}</p>
         <p className="text-gray-500 text-sm">
-          Màu: {color} | Kích thước: {size}
+          Thời hạn: {duration} | Loại: {productType}
         </p>
         <p className="text-gray-600">{(product.salePrice).toLocaleString('vi-VN')}đ</p>
         <div className="flex items-center mt-2">

@@ -8,7 +8,6 @@ import { fetchApi } from "@/utils/api";
 import BasicInfoForm from "@/components/admin/products/add/BasicInfoForm";
 import DetailInfoForm from "@/components/admin/products/add/DetailInfoForm";
 import SizeColorForm from "@/components/admin/products/add/SizeColorForm";
-import SpecificationsForm from "@/components/admin/products/add/SpecificationsForm";
 import ImageUpload from "@/components/admin/products/add/ImageUpload";
 import { toast } from "sonner";
 import { TOKEN_CONFIG } from '@/config/token';
@@ -33,8 +32,8 @@ export default function EditProductPage() {
     categoryId: "",
     mainImage: null,
     subImages: [],
-    colors: [],
-    sizes: [],
+    durations: [],
+    productTypes: [],
     tags: [],
     isActive: true
   });
@@ -104,8 +103,8 @@ export default function EditProductPage() {
         }
         
         // Xử lý kích thước và màu sắc
-        const sizes = Array.isArray(productData.sizes) ? productData.sizes : [];
-        const colors = Array.isArray(productData.colors) ? productData.colors : [];
+        const durations = Array.isArray(productData.durations) ? productData.durations : [];
+        const productTypes = Array.isArray(productData.productTypes) ? productData.productTypes : [];
         
         // Xử lý giá
         const originalPrice = productData.originalPrice || productData.price || 0;
@@ -153,10 +152,9 @@ export default function EditProductPage() {
           categoryId: categoryId,
           mainImage: mainImage,
           subImages: subImages,
-          colors: colors,
-          sizes: sizes,
+          durations: durations,
+          productTypes: productTypes,
           tags: productData.tags || [],
-          specifications: productData.specifications || {},
           isActive: productData.isActive !== undefined ? productData.isActive : true,
         });
       } catch (err) {
@@ -204,10 +202,9 @@ export default function EditProductPage() {
         categoryId: formData.categoryId,
         mainImage: formData.mainImage,
         subImages: formData.subImages,
-        colors: formData.colors,
-        sizes: formData.sizes,
+        durations: formData.durations,
+        productTypes: formData.productTypes,
         tags: formData.tags,
-        specifications: formData.specifications,
         isActive: formData.isActive
       };
       
@@ -352,10 +349,6 @@ export default function EditProductPage() {
                 onFieldChange={handleFieldChange}
               />
               
-              <SpecificationsForm 
-                formData={formData}
-                onFieldChange={handleFieldChange}
-              />
             </div>
             
             {/* Right column - Image Upload & Submit Button */}

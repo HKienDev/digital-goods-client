@@ -14,8 +14,8 @@ interface ProductInfoProps {
 export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
   const router = useRouter();
   const { isAuthenticated } = useAuth();
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [selectedDuration, setSelectedDuration] = useState<string | null>(null);
+  const [selectedProductType, setSelectedProductType] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   
   const { addToCart, buyNow, toggleFavorite, loading } = useProductActions();
@@ -28,46 +28,40 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
     setQuantity(Number(e.target.value));
   };
 
-  const handleColorSelect = (color: string): void => {
-    setSelectedColor(color);
+  const handleDurationSelect = (duration: string): void => {
+    setSelectedDuration(duration);
   };
-
-  const handleSizeSelect = (size: string): void => {
-    setSelectedSize(size);
+  const handleProductTypeSelect = (type: string): void => {
+    setSelectedProductType(type);
   };
 
   const handleAddToCart = async () => {
-    if (!selectedColor || !selectedSize) {
-      toast.error("Vui lòng chọn màu sắc và kích thước");
+    if (!selectedDuration || !selectedProductType) {
+      toast.error("Vui lòng chọn thời hạn và loại sản phẩm");
       return;
     }
-
     const cartData = {
       sku: product.sku,
-      color: selectedColor,
-      size: selectedSize,
+      duration: selectedDuration,
+      productType: selectedProductType,
       quantity
     };
-
     const result = await addToCart(cartData);
     if (result.success) {
       // Có thể thêm animation hoặc feedback khác ở đây
     }
   };
-
   const handleBuyNow = async () => {
-    if (!selectedColor || !selectedSize) {
-      toast.error("Vui lòng chọn màu sắc và kích thước");
+    if (!selectedDuration || !selectedProductType) {
+      toast.error("Vui lòng chọn thời hạn và loại sản phẩm");
       return;
     }
-
     const cartData = {
       sku: product.sku,
-      color: selectedColor,
-      size: selectedSize,
+      duration: selectedDuration,
+      productType: selectedProductType,
       quantity
     };
-
     await buyNow(cartData);
   };
 
@@ -121,44 +115,43 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
         <p className="text-gray-600">{product.description}</p>
       </div>
 
-      {/* Colors */}
-      {product.colors && product.colors.length > 0 && (
+      {/* Durations */}
+      {product.durations && product.durations.length > 0 && (
         <div className="space-y-2">
-          <h2 className="text-lg font-semibold text-gray-900">Màu sắc</h2>
+          <h2 className="text-lg font-semibold text-gray-900">Thời hạn</h2>
           <div className="flex flex-wrap gap-2">
-            {product.colors.map((color: string) => (
+            {product.durations.map((duration: string) => (
               <button
-                key={color}
-                onClick={() => handleColorSelect(color)}
+                key={duration}
+                onClick={() => handleDurationSelect(duration)}
                 className={`px-4 py-2 border rounded-full transition-colors
-                  ${selectedColor === color 
+                  ${selectedDuration === duration 
                     ? 'border-red-600 bg-red-50 text-red-600' 
                     : 'border-gray-300 hover:border-gray-400 text-gray-900'
                   }`}
               >
-                {color}
+                {duration}
               </button>
             ))}
           </div>
         </div>
       )}
-
-      {/* Sizes */}
-      {product.sizes && product.sizes.length > 0 && (
+      {/* Product Types */}
+      {product.productTypes && product.productTypes.length > 0 && (
         <div className="space-y-2">
-          <h2 className="text-lg font-semibold text-gray-900">Kích thước</h2>
+          <h2 className="text-lg font-semibold text-gray-900">Loại sản phẩm</h2>
           <div className="flex flex-wrap gap-2">
-            {product.sizes.map((size: string) => (
+            {product.productTypes.map((type: string) => (
               <button
-                key={size}
-                onClick={() => handleSizeSelect(size)}
+                key={type}
+                onClick={() => handleProductTypeSelect(type)}
                 className={`px-4 py-2 border rounded-full transition-colors
-                  ${selectedSize === size 
+                  ${selectedProductType === type 
                     ? 'border-red-600 bg-red-50 text-red-600' 
                     : 'border-gray-300 hover:border-gray-400 text-gray-900'
                   }`}
               >
-                {size}
+                {type}
               </button>
             ))}
           </div>
@@ -200,8 +193,8 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
           <>
             <button
               className={`flex-1 py-3 px-6 bg-red-600 hover:bg-red-700 text-white font-medium rounded-md transition-colors flex items-center justify-center gap-2
-                ${(!selectedSize || !selectedColor || product.stock === 0 || loading) ? 'opacity-50 cursor-not-allowed' : ''}`}
-              disabled={!selectedSize || !selectedColor || product.stock === 0 || loading}
+                ${(!selectedProductType || !selectedDuration || product.stock === 0 || loading) ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={!selectedProductType || !selectedDuration || product.stock === 0 || loading}
               onClick={handleBuyNow}
             >
               {loading ? (
@@ -213,8 +206,8 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
             </button>
             <button 
               className={`flex-1 py-3 px-6 border border-red-600 text-red-600 hover:bg-red-50 font-medium rounded-md transition-colors flex items-center justify-center gap-2
-                ${(!selectedSize || !selectedColor || product.stock === 0 || loading) ? 'opacity-50 cursor-not-allowed' : ''}`}
-              disabled={!selectedSize || !selectedColor || product.stock === 0 || loading}
+                ${(!selectedProductType || !selectedDuration || product.stock === 0 || loading) ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={!selectedProductType || !selectedDuration || product.stock === 0 || loading}
               onClick={handleAddToCart}
             >
               {loading ? (
