@@ -20,7 +20,7 @@ export async function POST(
     }
 
     // Tạo URL cho backend API
-    const backendUrl = `${apiUrl}/questions/helpful/${questionId}`;
+    const backendUrl = `${apiUrl}/api/questions/helpful/${questionId}`;
     console.log('🌐 Backend URL:', backendUrl);
 
     // Gọi backend API

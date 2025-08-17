@@ -25,7 +25,7 @@ export async function GET(
     }
 
     // Tạo URL cho backend API
-    const backendUrl = `${apiUrl}/questions/product/${productSku}?page=${page}&limit=${limit}&status=${status}`;
+    const backendUrl = `${apiUrl}/api/questions/product/${productSku}?page=${page}&limit=${limit}&status=${status}`;
     console.log('🌐 Backend URL:', backendUrl);
 
     // Gọi backend API

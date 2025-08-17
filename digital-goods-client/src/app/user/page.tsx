@@ -47,6 +47,7 @@ const CategoriesShowcase = memo(({ categories }: { categories: Category[] }) => 
 
   const infiniteCategories = useMemo(() => {
     if (count === 0) return [];
+    if (count === 1) return displayCategories; // Không nhân lên nếu chỉ có 1
     return [...displayCategories, ...displayCategories, ...displayCategories];
   }, [displayCategories, count]);
 
@@ -129,7 +130,7 @@ const CategoriesShowcase = memo(({ categories }: { categories: Category[] }) => 
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <div className="flex gap-3 sm:gap-4 md:gap-6 lg:gap-8 pb-4 sm:pb-6 min-w-max px-4 sm:px-6">
+            <div className={`flex gap-3 sm:gap-4 md:gap-6 lg:gap-8 pb-4 sm:pb-6 min-w-max px-4 sm:px-6 ${count <= 3 ? 'justify-center' : ''}`}>
               {infiniteCategories.map((category, index) => (
                 <div
                   key={`${category._id}-${index}`}

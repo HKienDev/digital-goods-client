@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Call backend API
-    const backendUrl = `${apiUrl}/questions?${queryParams.toString()}`;
+    const backendUrl = `${apiUrl}/api/questions?${queryParams.toString()}`;
     console.log('🌐 Backend URL:', backendUrl);
 
     const response = await fetch(backendUrl, {
@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Tạo URL cho backend API
-    const backendUrl = `${apiUrl}/questions`;
+    const backendUrl = `${apiUrl}/api/questions`;
     console.log('🌐 Backend URL:', backendUrl);
 
     // Gọi backend API

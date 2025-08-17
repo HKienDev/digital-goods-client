@@ -1,5 +1,5 @@
 import React from 'react';
-import { Truck, Shield, Package } from 'lucide-react';
+import { Headset, RefreshCcw, BadgeCheck } from 'lucide-react';
 
 interface Benefit {
   title: string;
@@ -15,21 +15,21 @@ interface ProductBenefitsProps {
 const ProductBenefits: React.FC<ProductBenefitsProps> = ({ 
   benefits = [
     {
-      title: "Giao hàng miễn phí",
-      description: "Với đơn hàng trên 500.000 VND",
-      icon: <Truck className="w-5 h-5" />,
+      title: "Hỗ trợ 24/7",
+      description: "Liên hệ qua email/Livechat khi gặp vấn đề.",
+      icon: <Headset className="w-5 h-5" />,
       color: "text-blue-600"
     },
     {
-      title: "Bảo hành 24 tháng",
-      description: "Đổi 1 trong 30 ngày nếu có lỗi từ nhà sản xuất",
-      icon: <Shield className="w-5 h-5" />,
+      title: "Bảo hành tài khoản",
+      description: "Đổi mới trong 3 ngày nếu không đăng nhập được",
+      icon: <RefreshCcw className="w-5 h-5" />,
       color: "text-green-600"
     },
     {
-      title: "Nguyên hộp, đầy đủ phụ kiện",
-      description: "Sản phẩm chính hãng từ nhà sản xuất",
-      icon: <Package className="w-5 h-5" />,
+      title: "Đảm bảo chính hãng",
+      description: "Sản phẩm được mua trực tiếp từ nhà phát hành",
+      icon: <BadgeCheck className="w-5 h-5" />,
       color: "text-purple-600"
     }
   ]

@@ -30,7 +30,7 @@ export async function DELETE(
     }
 
     // Tạo URL cho backend API
-    const backendUrl = `${apiUrl}/questions/${questionId}`;
+    const backendUrl = `${apiUrl}/api/questions/${questionId}`;
     console.log('🌐 Backend URL:', backendUrl);
 
     // Gọi backend API
