@@ -10,16 +10,6 @@ interface Product {
 interface AdminNewOrderEmailProps {
   shortId: string;
   createdAt: string | Date;
-  shippingAddress: {
-    fullName: string;
-    phone: string;
-    address: {
-      street: string;
-      ward: { name: string };
-      district: { name: string };
-      province: { name: string };
-    };
-  };
   items: Product[];
   totalPrice: number;
   paymentMethod: string;
@@ -36,7 +26,6 @@ const toVNTimeString = (dateStr: string | Date) => {
 const AdminNewOrderEmail: React.FC<AdminNewOrderEmailProps> = ({
   shortId,
   createdAt,
-  shippingAddress,
   items,
   totalPrice,
   paymentMethod,
@@ -44,7 +33,7 @@ const AdminNewOrderEmail: React.FC<AdminNewOrderEmailProps> = ({
 }) => (
   <Html>
     <Head />
-    <Preview>Khách hàng {shippingAddress.fullName} vừa tạo đơn hàng mới #{shortId}</Preview>
+    <Preview>Khách hàng vừa tạo đơn hàng mới #{shortId}</Preview>
     <Body style={{ background: '#f4f7fa', fontFamily: 'Arial, sans-serif', margin: 0, padding: 0 }}>
       <Container style={{ maxWidth: 650, margin: '32px auto', background: '#fff', borderRadius: 12, boxShadow: '0 4px 24px #e0e7ef', padding: 0, overflow: 'hidden' }}>
         {/* Header với background gradient và logo */}
@@ -60,7 +49,7 @@ const AdminNewOrderEmail: React.FC<AdminNewOrderEmailProps> = ({
             ĐƠN HÀNG MỚI TỪ KHÁCH HÀNG
           </Heading>
           <Text style={{ color: '#e0e7ef', fontSize: 16, margin: '8px 0 0 0' }}>
-            <b>{shippingAddress.fullName}</b> vừa đặt đơn hàng #{shortId}
+            <b>Khách hàng</b> vừa đặt đơn hàng #{shortId}
           </Text>
           <Text style={{ color: '#e0e7ef', fontSize: 14, margin: '4px 0 0 0' }}>
             Thời gian đặt: {toVNTimeString(createdAt)}
@@ -72,10 +61,10 @@ const AdminNewOrderEmail: React.FC<AdminNewOrderEmailProps> = ({
           <Heading style={{ fontSize: 16, color: '#222', fontWeight: 700, margin: '0 0 8px 0' }}>
             Thông tin khách hàng
           </Heading>
-          <Text style={{ color: '#444', fontSize: 15 }}>Họ tên: {shippingAddress.fullName}</Text>
-          <Text style={{ color: '#444', fontSize: 15 }}>SĐT: {shippingAddress.phone}</Text>
+          <Text style={{ color: '#444', fontSize: 15 }}>Họ tên: Khách hàng</Text>
+          <Text style={{ color: '#444', fontSize: 15 }}>SĐT: Khách hàng</Text>
           <Text style={{ color: '#444', fontSize: 15 }}>
-            Địa chỉ: {shippingAddress.address.street}, {shippingAddress.address.ward.name}, {shippingAddress.address.district.name}, {shippingAddress.address.province.name}
+            Địa chỉ: Khách hàng
           </Text>
         </Section>
 

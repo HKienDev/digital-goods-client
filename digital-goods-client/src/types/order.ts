@@ -30,26 +30,6 @@ export interface OrderItem {
   productType?: string;
 }
 
-export interface ShippingAddress {
-  fullName: string;
-  phone: string;
-  address: {
-    province: {
-      name: string;
-      code: number;
-    };
-    district: {
-      name: string;
-      code: number;
-    };
-    ward: {
-      name: string;
-      code: number;
-    };
-    street?: string;
-  };
-}
-
 export interface ShippingInfo {
   method: string;
   fee: number;
@@ -101,8 +81,6 @@ export interface CreateOrderInput {
     duration?: string;
     productType?: string;
   }[];
-  shippingAddress: ShippingAddress;
-  paymentMethod: PaymentMethod;
   shippingMethod: string;
   notes?: string;
 }

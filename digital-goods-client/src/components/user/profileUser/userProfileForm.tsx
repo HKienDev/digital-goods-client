@@ -5,7 +5,6 @@ import { Card } from "@/components/ui/card";
 import {
   User,
   Mail,
-  MapPin,
   Award,
   Edit3,
   Check,
@@ -13,7 +12,6 @@ import {
   Loader2,
   UserCheck
 } from "lucide-react";
-import useAddress from "@/hooks/useAddress";
 import { UserProfile } from "@/types/userProfileTypes";
 import MembershipTier from "./membershipTier";
 import { API_URL } from "@/utils/api";
@@ -90,7 +88,6 @@ const UserProfileForm = () => {
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [otpInput, setOtpInput] = useState("");
 
-  // Xóa toàn bộ UI, logic, prop liên quan address
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -133,13 +130,6 @@ const UserProfileForm = () => {
         if (data.success) {
           const userData = {
             ...data.data,
-            // address: { // Xóa địa chỉ khỏi userData
-            //   street: data.data.address?.street || "",
-            //   province: data.data.address?.province || "",
-            //   district: data.data.address?.district || "",
-            //   ward: data.data.address?.ward || "",
-            //   detail: data.data.address?.detail || "",
-            // }
           };
           setUser(userData);
           setTempUser({ ...userData });
@@ -160,7 +150,6 @@ const UserProfileForm = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     
-    // Xóa toàn bộ logic liên quan đến address
     setTempUser(prev => {
       if (!prev) return null;
       return {
@@ -187,7 +176,6 @@ const UserProfileForm = () => {
       phone: tempUser.phone || user?.phone,
       dob: tempUser.dob || user?.dob,
       gender: tempUser.gender || user?.gender,
-      // address: tempUser.address || user?.address // Xóa địa chỉ khỏi updateData
     };
 
     if (!updateData.email || !updateData.fullname) {
@@ -209,7 +197,7 @@ const UserProfileForm = () => {
           phone: updateData.phone,
           dob: updateData.dob,
           gender: updateData.gender,
-          // address: updateData.address // Xóa địa chỉ khỏi updatePayload
+
         };
 
         console.log("Dữ liệu gửi lên request OTP (thay đổi số điện thoại):", updatePayload);
@@ -251,7 +239,6 @@ const UserProfileForm = () => {
           fullname: updateData.fullname,
           dob: updateData.dob,
           gender: updateData.gender,
-          // address: updateData.address // Xóa địa chỉ khỏi updatePayload
         };
 
         console.log("Dữ liệu gửi lên cập nhật trực tiếp:", updatePayload);
@@ -300,13 +287,6 @@ const UserProfileForm = () => {
           if (userData.success) {
             const updatedUserData = {
               ...userData.data,
-              // address: { // Xóa địa chỉ khỏi updatedUserData
-              //   street: userData.data.address?.street || "",
-              //   province: userData.data.address?.province || "",
-              //   district: userData.data.address?.district || "",
-              //   ward: userData.data.address?.ward || "",
-              //   detail: userData.data.address?.detail || "",
-              // }
             };
             setUser(updatedUserData);
             setTempUser(updatedUserData);
@@ -393,13 +373,6 @@ const UserProfileForm = () => {
         if (userData.success) {
           const updatedUserData = {
             ...userData.data,
-            // address: { // Xóa địa chỉ khỏi updatedUserData
-            //   street: userData.data.address?.street || "",
-            //   province: userData.data.address?.province || "",
-            //   district: userData.data.address?.district || "",
-            //   ward: userData.data.address?.ward || "",
-            //   detail: userData.data.address?.detail || "",
-            // }
           };
           setUser(updatedUserData);
           setTempUser(updatedUserData);
@@ -510,107 +483,7 @@ const UserProfileForm = () => {
           </Card>
 
           {/* Address Card */}
-          <Card className="overflow-hidden transition-all duration-300 hover:shadow-md">
-            <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
-              <h2 className="text-base sm:text-lg font-semibold flex items-center">
-                <MapPin className="mr-2 text-blue-500" size={18} />
-                Địa chỉ
-              </h2>
-              {!isEditing && (
-                <button 
-                  className="text-blue-500 hover:text-blue-700 transition-colors flex items-center text-xs sm:text-sm font-medium self-start sm:self-auto"
-                  onClick={() => setIsEditing(true)}
-                >
-                  <Edit3 size={14} className="mr-1" /> Chỉnh sửa
-                </button>
-              )}
-            </div>
-            <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
-              {isEditing ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-                  {/* Province */}
-                  <div className="sm:col-span-2 md:col-span-1">
-                    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Tỉnh/Thành phố</label>
-                    <select
-                      name="address.province"
-                      value={tempUser?.address?.province || ""}
-                      onChange={handleChange}
-                      className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-xs sm:text-sm"
-                    >
-                      <option value="">Chọn Tỉnh/Thành phố</option>
-                      {/* {provinces.map(province => ( // Xóa provinces khỏi UI
-                        <option key={province.code} value={province.name}>{province.name}</option>
-                      ))} */}
-                    </select>
-                  </div>
-                  {/* District */}
-                  <div className="sm:col-span-2 md:col-span-1">
-                    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Quận/Huyện</label>
-                    <select
-                      name="address.district"
-                      value={tempUser?.address?.district || ""}
-                      onChange={handleChange}
-                      className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-xs sm:text-sm"
-                    >
-                      <option value="">Chọn Quận/Huyện</option>
-                      {/* {districts.map(district => ( // Xóa districts khỏi UI
-                        <option key={district.code} value={district.name}>{district.name}</option>
-                      ))} */}
-                    </select>
-                  </div>
-                  {/* Ward */}
-                  <div className="sm:col-span-2 md:col-span-1">
-                    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Phường/Xã</label>
-                    <select
-                      name="address.ward"
-                      value={tempUser?.address?.ward || ""}
-                      onChange={handleChange}
-                      className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-xs sm:text-sm"
-                    >
-                      <option value="">Chọn Phường/Xã</option>
-                      {/* {wards.map(ward => ( // Xóa wards khỏi UI
-                        <option key={ward.code} value={ward.name}>{ward.name}</option>
-                      ))} */}
-                    </select>
-                  </div>
-                  {/* Street */}
-                  <div className="sm:col-span-2 md:col-span-1">
-                    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Địa chỉ chi tiết</label>
-                    <input
-                      type="text"
-                      name="address.street"
-                      value={tempUser?.address?.street || ""}
-                      onChange={handleChange}
-                      className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-xs sm:text-sm"
-                      placeholder="Số nhà, tên đường..."
-                    />
-                  </div>
-                </div>
-              ) : (
-                <div className="bg-gray-50 rounded-md border border-gray-200 p-3 sm:p-4">
-                  {/* {user?.address?.street || user?.address?.ward || user?.address?.district || user?.address?.province ? ( // Xóa địa chỉ khỏi UI
-                    <div className="flex items-start">
-                      <MapPin className="mt-1 mr-2 text-gray-500 flex-shrink-0" size={16} />
-                      <div className="min-w-0 flex-1">
-                        {user.address.street && (
-                          <p className="font-medium text-sm truncate">{user.address.street}</p>
-                        )}
-                        <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
-                          {[
-                            user.address.ward,
-                            user.address.district,
-                            user.address.province
-                          ].filter(Boolean).join(", ") || "Chưa có"}
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    <p className="text-gray-500 italic text-sm">Chưa có thông tin địa chỉ</p>
-                  )} */}
-                </div>
-              )}
-            </div>
-          </Card>
+          {/* Đã xóa toàn bộ UI/logic liên quan đến địa chỉ */}
 
           {/* Actions Card */}
           {isEditing && (

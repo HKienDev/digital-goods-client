@@ -4,9 +4,8 @@ import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { fetchWithAuth } from '@/utils/fetchWithAuth';
-import { checkUserByPhone } from '@/utils/checkUserByPhone';
 import type { ApiResponse } from '@/types/api';
-import type { Order, OrderData, User, PaymentMethod } from '@/types/base';
+import type { Order, OrderData, PaymentMethod } from '@/types/base';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -36,9 +35,6 @@ export default function OrderActions({ onClose, onResetForm }: OrderActionsProps
     try {
       setIsLoading(true);
       
-      // Kiểm tra user bằng số điện thoại
-      const user = await checkUserByPhone(orderData.shippingAddress.phone) as User | null;
-      
       // Chuẩn bị dữ liệu order
       const orderPayload = {
         items: orderData.items.map(item => ({
@@ -47,10 +43,8 @@ export default function OrderActions({ onClose, onResetForm }: OrderActionsProps
           duration: item.duration || '',
           productType: item.productType || ''
         })),
-        shippingAddress: orderData.shippingAddress,
         paymentMethod: orderData.paymentMethod,
         note: orderData.note,
-        userId: user?._id
       };
 
       // Gọi API tạo order
@@ -61,9 +55,7 @@ export default function OrderActions({ onClose, onResetForm }: OrderActionsProps
 
       if (response.success) {
         toast.success(
-          user 
-            ? `Tạo đơn hàng thành công cho khách hàng ${user.fullname}!`
-            : "Tạo đơn hàng thành công cho khách vãng lai!"
+          "Tạo đơn hàng thành công cho khách vãng lai!"
         );
         onResetForm();
         router.push('/admin/orders/list');
@@ -111,15 +103,6 @@ export default function OrderActions({ onClose, onResetForm }: OrderActionsProps
             className="w-full h-14 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={() => handleCreateOrder({
               items: [],
-              shippingAddress: {
-                fullName: "",
-                phone: "",
-                address: {
-                  province: { name: "", code: "" },
-                  district: { name: "", code: "" },
-                  ward: { name: "", code: "" }
-                }
-              },
               paymentMethod: "COD" as PaymentMethod,
               note: ""
             })}

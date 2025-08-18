@@ -31,12 +31,6 @@ export interface VerifyOTPRequest {
 export interface UpdateProfileRequest {
     fullname?: string;
     phone?: string;
-    address?: {
-        street?: string;
-        ward?: string;
-        district?: string;
-        province?: string;
-    };
     avatar?: string;
 }
 

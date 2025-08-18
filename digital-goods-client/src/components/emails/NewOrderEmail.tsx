@@ -36,13 +36,7 @@ export const NewOrderEmail: React.FC<OrderEmailProps> = (order) => {
             <p>Tổng thanh toán: {order.totalPrice.toLocaleString('vi-VN')}đ</p>
           </div>
         </div>
-        
-        {/* <div>
-          <h3>Thông tin giao hàng</h3>
-          <p>Người nhận: {order.shippingAddress.fullName}</p>
-          <p>Số điện thoại: {order.shippingAddress.phone}</p>
-          <p>Địa chỉ: {order.shippingAddress.address.street}, {order.shippingAddress.address.ward.name}, {order.shippingAddress.address.district.name}, {order.shippingAddress.address.province.name}</p>
-        </div> */}
+
         
         <div style={{ textAlign: 'center', marginTop: '30px', fontSize: '12px', color: '#666' }}>
           <p>© 2025 HKZeus Nexus. Tất cả các quyền được bảo lưu.</p>

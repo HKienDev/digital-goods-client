@@ -11,14 +11,10 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { fetchWithAuth } from "@/utils/fetchWithAuth";
-import { Check, Truck, CreditCard, Package, AlertCircle, User, ShoppingBag, Eye, MapPin, Tag, Loader2 } from "lucide-react";
+import { Check, Truck, CreditCard, Package, AlertCircle, User, ShoppingBag, Eye, Tag, Loader2 } from "lucide-react";
 import Image from "next/image";
 
-interface OrderPreviewProps {
-  onConfirmOrder: () => void;
-}
-
-export default function OrderPreview({ onConfirmOrder }: OrderPreviewProps) {
+export default function OrderPreview() {
   const { items: cartItems } = useCart();
   const { paymentMethod } = usePaymentMethod();
   const { customer } = useCustomer();
@@ -56,7 +52,7 @@ export default function OrderPreview({ onConfirmOrder }: OrderPreviewProps) {
     }
 
     // Kiểm tra thông tin khách hàng
-    if (!customer.fullName || !customer.phone || !customer.province || !customer.district || !customer.ward) {
+    if (!customer.fullName || !customer.phone) {
       toast.error("Vui lòng điền đầy đủ thông tin khách hàng");
       return;
     }
@@ -74,21 +70,6 @@ export default function OrderPreview({ onConfirmOrder }: OrderPreviewProps) {
         shippingAddress: {
           fullName: customer.fullName,
           phone: customer.phone,
-          address: {
-            province: {
-              name: customer.province.name,
-              code: customer.province.code
-            },
-            district: {
-              name: customer.district.name,
-              code: customer.district.code
-            },
-            ward: {
-              name: customer.ward.name,
-              code: customer.ward.code
-            },
-            street: customer.street
-          }
         },
         paymentMethod: paymentMethod,
         couponCode: promoDetails?.code
@@ -107,7 +88,7 @@ export default function OrderPreview({ onConfirmOrder }: OrderPreviewProps) {
       }
 
       toast.success("Đã tạo đơn hàng thành công");
-      onConfirmOrder();
+      // onConfirmOrder(); // This line was removed as per the edit hint
     } catch (error) {
       console.error("❌ [handleConfirmOrder] Lỗi:", error);
       if (error instanceof Error) {
@@ -256,18 +237,6 @@ export default function OrderPreview({ onConfirmOrder }: OrderPreviewProps) {
               </p>
             </div>
           </div>
-          {customer.street && (
-            <div className="flex items-start space-x-4">
-              <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                <MapPin size={16} className="text-blue-600" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm sm:text-base text-blue-900 leading-relaxed">
-                  {customer.street}, {customer.ward?.name}, {customer.district?.name}, {customer.province?.name}
-                </p>
-              </div>
-            </div>
-          )}
         </CardContent>
       </Card>
 

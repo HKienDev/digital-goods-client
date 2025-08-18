@@ -91,8 +91,45 @@ export default function RootLayout({
         <SpeedInsights />
         <Analytics />
         <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
-        <SchemaMarkup type="Organization" data={{}} />
-        <SchemaMarkup type="WebSite" data={{}} />
+        <SchemaMarkup
+          type="Organization"
+          data={{
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'HKZeus Nexus',
+            url: 'https://www.vjusport.com',
+            logo: 'https://www.vjusport.com/Logo_vju.png',
+            description: 'Cửa hàng thể thao HKZeus Nexus - Chuyên cung cấp các sản phẩm thể thao chất lượng cao',
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: 'Phạm Văn Đồng, Cầu Giấy',
+              addressLocality: 'Hà Nội',
+              addressRegion: 'Hà Nội',
+              postalCode: '100000',
+              addressCountry: 'VN'
+            },
+            contactPoint: {
+              '@type': 'ContactPoint',
+              telephone: '+84-xxx-xxx-xxxx',
+              contactType: 'customer service',
+              email: 'contact@vjusport.com'
+            },
+            sameAs: [
+              'https://www.facebook.com/vjusport',
+              'https://www.instagram.com/vjusport'
+            ]
+          }}
+        />
+        <SchemaMarkup
+          type="WebSite"
+          data={{
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'HKZeus Nexus',
+            url: 'https://www.vjusport.com',
+            description: 'Cửa hàng thể thao HKZeus Nexus'
+          }}
+        />
       </body>
     </html>
   );

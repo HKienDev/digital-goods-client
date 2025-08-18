@@ -64,12 +64,6 @@ export interface User {
     avatar?: string;
     gender: Gender;
     dob?: Date;
-    address: {
-        province: string;
-        district: string;
-        ward: string;
-        street: string;
-    };
     googleId?: string;
     googleEmail?: string;
     role: UserRole;
@@ -197,14 +191,6 @@ export interface CreateOrderData {
     totalAmount: number;
     status: Order['status'];
     paymentStatus: Order['paymentStatus'];
-    shippingAddress: {
-        fullName: string;
-        phone: string;
-        address: string;
-        city: string;
-        district: string;
-        ward: string;
-    };
     paymentMethod: Order['paymentMethod'];
     note?: string;
     phone: string;
@@ -239,18 +225,6 @@ export interface UpdateProductData extends Partial<CreateProductData> {
 export interface CustomerInfo {
     name: string;
     phone: string;
-    province: {
-        name: string;
-        code: string;
-    };
-    district: {
-        name: string;
-        code: string;
-    };
-    ward: {
-        name: string;
-        code: string;
-    };
     note?: string;
 }
 
@@ -261,24 +235,6 @@ export interface OrderData {
         duration: string;
         productType: string;
     }[];
-    shippingAddress: {
-        fullName: string;
-        phone: string;
-        address: {
-            province: {
-                name: string;
-                code: string;
-            };
-            district: {
-                name: string;
-                code: string;
-            };
-            ward: {
-                name: string;
-                code: string;
-            };
-        };
-    };
     paymentMethod: PaymentMethod;
     note?: string;
 } 

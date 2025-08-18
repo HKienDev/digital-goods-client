@@ -2,15 +2,71 @@
 
 import Script from 'next/script';
 
+interface OrganizationSchema {
+  '@context': string;
+  '@type': 'Organization';
+  name: string;
+  url: string;
+  logo: string;
+  description: string;
+  address: {
+    '@type': 'PostalAddress';
+    streetAddress: string;
+    addressLocality: string;
+    addressRegion: string;
+    postalCode: string;
+    addressCountry: string;
+  };
+  contactPoint: {
+    '@type': 'ContactPoint';
+    telephone: string;
+    contactType: string;
+    email: string;
+  };
+  sameAs: string[];
+}
+
+interface WebSiteSchema {
+  '@context': string;
+  '@type': 'WebSite';
+  name: string;
+  url: string;
+  description?: string;
+  potentialAction?: unknown;
+}
+
+interface ProductSchema {
+  '@context': string;
+  '@type': 'Product';
+  name: string;
+  image: string[];
+  description: string;
+  sku: string;
+  brand: {
+    '@type': 'Brand';
+    name: string;
+  };
+  offers: unknown;
+}
+
+interface BreadcrumbListSchema {
+  '@context': string;
+  '@type': 'BreadcrumbList';
+  itemListElement: unknown[];
+}
+
+type SchemaData = OrganizationSchema | WebSiteSchema | ProductSchema | BreadcrumbListSchema;
+
 interface SchemaMarkupProps {
   type: 'Organization' | 'WebSite' | 'Product' | 'BreadcrumbList';
-  data: any;
+  data: SchemaData;
 }
 
 export default function SchemaMarkup({ type, data }: SchemaMarkupProps) {
   const getSchemaData = () => {
     switch (type) {
-      case 'Organization':
+      case 'Organization': {
+        // Không dùng data, trả về cứng
         return {
           '@context': 'https://schema.org',
           '@type': 'Organization',
@@ -37,36 +93,34 @@ export default function SchemaMarkup({ type, data }: SchemaMarkupProps) {
             'https://www.instagram.com/vjusport'
           ]
         };
-      
-      case 'WebSite':
+      }
+      case 'WebSite': {
+        const websiteData = data as WebSiteSchema;
         return {
           '@context': 'https://schema.org',
           '@type': 'WebSite',
-          name: 'HKZeus Nexus',
-          url: 'https://www.vjusport.com',
-          description: 'Cửa hàng thể thao HKZeus Nexus - Chuyên cung cấp các sản phẩm thể thao chất lượng cao',
-          potentialAction: {
-            '@type': 'SearchAction',
-            target: 'https://www.vjusport.com/search?q={search_term_string}',
-            'query-input': 'required name=search_term_string'
-          }
+          name: websiteData.name || 'HKZeus Nexus',
+          url: websiteData.url || 'https://www.vjusport.com',
+          description: websiteData.description || 'Cửa hàng thể thao HKZeus Nexus',
+          potentialAction: websiteData.potentialAction
         };
-      
-      case 'Product':
+      }
+      case 'Product': {
+        const productData = data as ProductSchema & { category?: string; image?: string; price?: number; brand?: string };
         return {
           '@context': 'https://schema.org',
           '@type': 'Product',
-          name: data.name || 'Sản phẩm thể thao',
-          description: data.description || 'Sản phẩm thể thao chất lượng cao',
+          name: productData.name || 'Sản phẩm thể thao',
+          description: productData.description || 'Sản phẩm thể thao chất lượng cao',
           brand: {
             '@type': 'Brand',
-            name: data.brand || 'HKZeus Nexus'
+            name: productData.brand || 'HKZeus Nexus'
           },
-          category: data.category || 'Thể thao',
-          image: data.image || 'https://www.vjusport.com/default-image.png',
+          category: productData.category || 'Thể thao',
+          image: productData.image || 'https://www.vjusport.com/default-image.png',
           offers: {
             '@type': 'Offer',
-            price: data.price || 0,
+            price: productData.price || 0,
             priceCurrency: 'VND',
             availability: 'https://schema.org/InStock',
             seller: {
@@ -75,14 +129,15 @@ export default function SchemaMarkup({ type, data }: SchemaMarkupProps) {
             }
           }
         };
-      
-      case 'BreadcrumbList':
+      }
+      case 'BreadcrumbList': {
+        const breadcrumbData = data as BreadcrumbListSchema & { items?: unknown[] };
         return {
           '@context': 'https://schema.org',
           '@type': 'BreadcrumbList',
-          itemListElement: data.items || []
+          itemListElement: breadcrumbData.items || []
         };
-      
+      }
       default:
         return {};
     }

@@ -16,7 +16,7 @@ import { RefreshCw, X, CheckCircle, ShoppingBag, ArrowLeft, Sparkles } from "luc
 export default function AddOrderPage() {
   const router = useRouter();
   const { user, isAuthenticated, loading } = useAuth();
-  const { resetCustomer } = useCustomer();
+  const { customer, updateCustomer, resetCustomer } = useCustomer();
   const { clearCart } = useCart();
   const { setPaymentMethod } = usePaymentMethod();
   const { setPromoDetails } = usePromo();
@@ -41,26 +41,15 @@ export default function AddOrderPage() {
     toast.success("Đã reset form thành công");
   }, [resetAllData]);
 
-  const handleConfirmOrder = useCallback(() => {
-    // Giả lập gửi dữ liệu
-    setTimeout(() => {
-      // Xử lý sau khi xác nhận đơn hàng
-      toast.success("Đã tạo đơn hàng thành công");
-      resetAllData();
-      router.push('/admin/orders/list');
-    }, 800);
-  }, [resetAllData, router]);
-
   // Reset tất cả dữ liệu khi trang được tải lại (chỉ chạy một lần)
   useEffect(() => {
     if (isFirstRender.current) {
-      resetCustomer();
       clearCart();
       setPaymentMethod(PaymentMethod.COD);
       setPromoDetails(null);
       isFirstRender.current = false;
     }
-  }, [resetCustomer, clearCart, setPaymentMethod, setPromoDetails]);
+  }, [clearCart, setPaymentMethod, setPromoDetails]);
 
   // Redirect if not authenticated or not admin
   if (!loading && (!isAuthenticated || user?.role !== 'admin')) {
@@ -196,7 +185,7 @@ export default function AddOrderPage() {
                   <h2 className="text-xl font-semibold text-gray-900">Thông tin khách hàng</h2>
                 </div>
               </div>
-              <CustomerInfo />
+              <CustomerInfo customer={customer} updateCustomer={updateCustomer} />
             </div>
 
             {/* Products Section */}
@@ -225,9 +214,7 @@ export default function AddOrderPage() {
                     <h2 className="text-xl font-semibold text-gray-900">Xem trước đơn hàng</h2>
                   </div>
                 </div>
-                <OrderPreview 
-                  onConfirmOrder={handleConfirmOrder} 
-                />
+                <OrderPreview />
               </div>
             </div>
           </div>

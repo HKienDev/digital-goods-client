@@ -30,7 +30,6 @@ interface NewOrderEmailProps {
   couponDiscount?: string;
   shippingFee?: string;
   totalPrice: string;
-  shippingAddress?: string;
   paymentMethod?: string;
   paymentStatus?: string;
 }
@@ -53,7 +52,6 @@ const NewOrderEmail: React.FC<NewOrderEmailProps> = ({
   couponDiscount = '',
   shippingFee = '',
   totalPrice,
-  shippingAddress = '',
   paymentMethod = '',
   paymentStatus = '',
 }) => {
@@ -162,7 +160,7 @@ const NewOrderEmail: React.FC<NewOrderEmailProps> = ({
             <Heading style={{ fontSize: 16, color: '#222', fontWeight: 700, margin: '0 0 8px 0' }}>
               Thông tin giao hàng
             </Heading>
-            <Text style={{ color: '#444', fontSize: 15 }}>{shippingAddress || '---'}</Text>
+            <Text style={{ color: '#444', fontSize: 15 }}>---</Text>
           </Section>
 
           {/* Phương thức thanh toán */}

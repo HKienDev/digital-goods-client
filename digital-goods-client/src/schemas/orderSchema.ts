@@ -9,22 +9,11 @@ const orderItemSchema = z.object({
   attributes: z.record(z.string(), z.any()).optional()
 });
 
-// Schema cho địa chỉ giao hàng
-const shippingAddressSchema = z.object({
-  fullname: z.string().min(1, { message: 'Họ tên người nhận là bắt buộc' }),
-  phone: z.string().regex(/^[0-9]{10}$/, { message: 'Số điện thoại không hợp lệ' }).min(1, { message: 'Số điện thoại là bắt buộc' }),
-  address: z.string().min(1, { message: 'Địa chỉ là bắt buộc' }),
-  city: z.string().min(1, { message: 'Thành phố là bắt buộc' }),
-  district: z.string().min(1, { message: 'Quận/huyện là bắt buộc' }),
-  ward: z.string().min(1, { message: 'Phường/xã là bắt buộc' }),
-  note: z.string().optional()
-});
-
+// XÓA shippingAddress khỏi schema FE
 // Schema cho tạo order
 export const createOrderSchema = z.object({
   user: z.string().min(1, { message: 'ID người dùng là bắt buộc' }),
   items: z.array(orderItemSchema).min(1, { message: 'Đơn hàng phải có ít nhất một sản phẩm' }),
-  shippingAddress: shippingAddressSchema,
   paymentMethod: z.enum(['cod', 'banking', 'momo', 'vnpay'], { errorMap: () => ({ message: 'Phương thức thanh toán không hợp lệ' }) }),
   paymentStatus: z.enum(['pending', 'paid', 'failed', 'refunded'], { errorMap: () => ({ message: 'Trạng thái thanh toán không hợp lệ' }) }).default('pending'),
   orderStatus: z.enum(['pending', 'processing', 'shipped', 'delivered', 'cancelled'], { errorMap: () => ({ message: 'Trạng thái đơn hàng không hợp lệ' }) }).default('pending'),
@@ -39,7 +28,6 @@ export const createOrderSchema = z.object({
 export const updateOrderSchema = z.object({
   paymentStatus: z.enum(['pending', 'paid', 'failed', 'refunded'], { errorMap: () => ({ message: 'Trạng thái thanh toán không hợp lệ' }) }).optional(),
   orderStatus: z.enum(['pending', 'processing', 'shipped', 'delivered', 'cancelled'], { errorMap: () => ({ message: 'Trạng thái đơn hàng không hợp lệ' }) }).optional(),
-  shippingAddress: shippingAddressSchema.optional(),
   note: z.string().optional()
 });
 

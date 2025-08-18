@@ -2,35 +2,20 @@
 
 import { createContext, useContext, useState, useCallback } from "react";
 
-export interface Location {
-  code: string;
-  name: string;
-}
-
 export interface CustomerInfo {
   fullName: string;
   phone: string;
-  street: string;
-  province: Location | null;
-  district: Location | null;
-  ward: Location | null;
 }
-
-type CustomerValue = string | Location | null;
 
 interface CustomerContextType {
   customer: CustomerInfo;
-  updateCustomer: (field: keyof CustomerInfo, value: CustomerValue) => void;
+  updateCustomer: (field: keyof CustomerInfo, value: string) => void;
   resetCustomer: () => void;
 }
 
 const initialCustomerState: CustomerInfo = {
   fullName: "",
   phone: "",
-  street: "",
-  province: null,
-  district: null,
-  ward: null,
 };
 
 const CustomerContext = createContext<CustomerContextType | undefined>(undefined);
@@ -38,21 +23,8 @@ const CustomerContext = createContext<CustomerContextType | undefined>(undefined
 export function CustomerProvider({ children }: { children: React.ReactNode }) {
   const [customer, setCustomer] = useState<CustomerInfo>(initialCustomerState);
 
-  const updateCustomer = useCallback((field: keyof CustomerInfo, value: CustomerValue) => {
-    setCustomer((prev) => {
-      let updatedCustomer = { ...prev, [field]: value };
-
-      // Reset các trường phụ thuộc
-      if (field === "province") {
-        updatedCustomer = { ...updatedCustomer, district: null, ward: null };
-      }
-
-      if (field === "district") {
-        updatedCustomer = { ...updatedCustomer, ward: null };
-      }
-
-      return updatedCustomer;
-    });
+  const updateCustomer = useCallback((field: keyof CustomerInfo, value: string) => {
+    setCustomer((prev) => ({ ...prev, [field]: value }));
   }, []);
 
   const resetCustomer = useCallback(() => {

@@ -6,7 +6,6 @@ import { toast } from 'sonner';
 import { api } from '@/lib/api';
 import { CartItem } from '@/types/cart';
 import { PaymentMethod } from '@/types/order';
-import { ShippingAddress } from '@/types/order';
 import { Coupon } from '@/types/coupon';
 import OrderItems from '@/components/user/checkout/OrderItems';
 import OrderSummary from '@/components/user/checkout/OrderSummary';
@@ -55,8 +54,6 @@ export default function Checkout() {
       }
     }
   }, []);
-
-  // Hook đã tự động fetch cart khi mount, không cần gọi thêm
 
   // Tính toán cart items được chọn
   const selectedCartItems = useCallback(() => {
@@ -119,7 +116,6 @@ export default function Checkout() {
 
   // Cập nhật phí vận chuyển khi thay đổi phương thức vận chuyển
   useEffect(() => {
-    // setShipping(getShippingFee()); // Xóa triệt để mọi validate, state, biến, logic, và tham chiếu đến shippingAddress, address, shippingMethod, shippingFee
   }, [getShippingFee]);
 
   // Cập nhật coupon discount khi subtotal thay đổi
@@ -204,7 +200,7 @@ export default function Checkout() {
         
         toast.success(`Áp dụng mã giảm giá ${coupon.code} thành công!`);
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error applying coupon:', error);
       toast.error(error instanceof Error ? error.message : 'Không thể áp dụng mã giảm giá');
     }
@@ -231,9 +227,6 @@ export default function Checkout() {
         toast.error('Giỏ hàng trống');
         return;
       }
-
-      // Validate shipping address
-      // Xóa triệt để mọi validate, state, biến, logic, và tham chiếu đến shippingAddress, address, shippingMethod, shippingFee
 
       // Lọc ra các sản phẩm được chọn
       const selectedCartItems = cart.items.filter(item => selectedItems.includes(item._id));
@@ -292,11 +285,15 @@ export default function Checkout() {
         
         try {
           await Promise.all(promises);
-        } catch (error: any) {
+        } catch (error: unknown) {
           console.error('Error removing ordered items from cart:', error);
           
           // Xử lý lỗi 401 - token hết hạn
-          if (error?.status === 401 || error?.response?.status === 401) {
+          if (
+            typeof error === 'object' && error !== null &&
+            ('status' in error && (error as { status?: number }).status === 401 ||
+            'response' in error && (error as { response?: { status?: number } }).response?.status === 401)
+          ) {
             console.log('🔍 CheckoutPage - 401 error in removing cart items');
             // Không hiển thị toast cho lỗi này vì order đã thành công
           }
@@ -326,7 +323,7 @@ export default function Checkout() {
   };
 
   // Tính tổng tiền thanh toán
-  const total = subtotal - couponDiscount + getShippingFee(); // Xóa triệt để mọi validate, state, biến, logic, và tham chiếu đến shippingAddress, address, shippingMethod, shippingFee
+  const total = subtotal - couponDiscount; 
 
   const handleGoBack = () => {
     router.back();
@@ -449,7 +446,6 @@ export default function Checkout() {
               subtotal={subtotal}
               discount={discount}
               couponDiscount={couponDiscount}
-              shipping={getShippingFee()} // Xóa triệt để mọi validate, state, biến, logic, và tham chiếu đến shippingAddress, address, shippingMethod, shippingFee
               total={total}
               formatPrice={formatPrice}
               onPlaceOrder={handlePlaceOrder}

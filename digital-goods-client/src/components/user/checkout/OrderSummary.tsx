@@ -9,7 +9,6 @@ interface OrderSummaryProps {
   subtotal: number;
   discount: number;
   couponDiscount: number;
-  shipping: number;
   total: number;
   formatPrice: (price: number) => string;
   onPlaceOrder: () => void;
@@ -21,7 +20,6 @@ export default function OrderSummary({
   subtotal,
   discount,
   couponDiscount,
-  shipping,
   total,
   formatPrice,
   onPlaceOrder,

@@ -14,6 +14,7 @@ type OrderItemProduct = {
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
+  productTypes?: string[];
 };
 
 interface OrderItem {
@@ -163,9 +164,15 @@ export default function OrderTable({
                     <h4 className="font-semibold text-slate-900 text-lg mb-1">
                       {item.product.name || 'Tên sản phẩm không xác định'}
                     </h4>
-                    <p className="text-sm text-slate-600 line-clamp-2">
-                      {item.product.description || 'Không có mô tả'}
-                    </p>
+                    {Array.isArray(item.product.productTypes) && item.product.productTypes.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-1">
+                        {item.product.productTypes.map((type, idx) => (
+                          <span key={idx} className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">
+                            {type}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   
                   {/* Product Variants */}

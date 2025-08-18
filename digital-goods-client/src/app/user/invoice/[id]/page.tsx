@@ -6,10 +6,11 @@ import InvoiceHeader from '@/components/user/invoice/InvoiceHeader';
 import ProductList from '@/components/user/invoice/ProductList';
 import PaymentSummary from '@/components/user/invoice/PaymentSummary';
 import OrderStatusTimeline from '@/components/user/invoice/OrderStatusTimeline';
-import AddressInfo from '@/components/user/invoice/AddressInfo';
 import CancelOrderButton from '@/components/user/invoice/CancelOrderButton';
 import { PaymentMethod } from '@/types/order';
 import { toast } from 'sonner';
+import { useAuth } from '@/context/authContext';
+import { useRouter } from 'next/navigation';
 
 interface Product {
   _id: string;
@@ -84,11 +85,14 @@ interface ProcessedProduct {
   brand: string;
   image: string;
   categoryName: string;
-  color: string;
-  size: string;
+  duration?: string;
+  productType?: string;
+  sku: string;
 }
 
 export default function InvoicePage() {
+  const { user, isAuthenticated, loading: authLoading } = useAuth();
+  const router = useRouter();
   const params = useParams();
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
@@ -98,21 +102,38 @@ export default function InvoicePage() {
   const [processedProducts, setProcessedProducts] = useState<ProcessedProduct[]>([]);
 
   const processOrderItems = useCallback((items: OrderItem[]): ProcessedProduct[] => {
-    return items.map((item, index) => {
-      console.log(`🔍 Processing item ${index}:`, item);
+    return items.map(item => {
+      const product = item.product as {
+        _id?: string;
+        name?: string;
+        salePrice?: number;
+        brand?: string;
+        mainImage?: string;
+        categoryId?: string;
+        durations?: string[];
+        productTypes?: string[];
+        sku?: string;
+      };
       return {
-        id: parseInt((item.product?._id || '0').slice(-6), 16),
-        name: item.product?.name || 'Sản phẩm không xác định',
-        price: item.product?.salePrice || item.price || 0,
+        id: parseInt((product?._id || '0').slice(-6), 16),
+        name: product?.name || 'Sản phẩm không xác định',
+        price: product?.salePrice || item.price || 0,
         quantity: item.quantity,
-        brand: item.product?.brand || 'Không có thương hiệu',
-        image: item.product?.mainImage || '/placeholder.png',
-        categoryName: 'Chưa phân loại',
-        color: item.product?.colors?.[0] || 'Mặc định',
-        size: item.product?.sizes?.[0] || 'N/A'
+        brand: product?.brand || 'Không có thương hiệu',
+        image: product?.mainImage || '/placeholder.png',
+        categoryName: product?.categoryId || 'Chưa phân loại',
+        duration: product?.durations?.[0] || '',
+        productType: product?.productTypes?.[0] || '',
+        sku: product?.sku || item.sku || '',
       };
     });
   }, []);
+
+  useEffect(() => {
+    if (!authLoading && (!user || !isAuthenticated)) {
+      router.replace('/user');
+    }
+  }, [user, isAuthenticated, authLoading, router]);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -157,6 +178,11 @@ export default function InvoicePage() {
 
     fetchOrder();
   }, [params.id, processOrderItems]);
+
+  // Nếu chưa xác thực, không fetch và không render gì cả
+  if (authLoading || !user || !isAuthenticated) {
+    return null;
+  }
 
   const handlePrint = () => {
     setIsPrinting(true);
@@ -246,20 +272,6 @@ export default function InvoicePage() {
           
           {/* Content Section - Responsive padding */}
           <div className="p-3 sm:p-4 lg:p-6">
-            <AddressInfo 
-              storeAddress={{
-                name: `Phương thức: ${
-                  order.shippingFee > 0 ? 'GIAO HÀNG TIẾT KIỆM' : 'GIAO HÀNG MIỄN PHÍ'
-                }`,
-                phone: order.shortId,
-                address: [
-                  `Đơn vị vận chuyển: ${order.shippingFee > 0 ? 'Không có thông tin' : 'Miễn phí'}`,
-                  `Mã vận đơn: ${order.shortId}`
-                ]
-              }}
-              // Xóa hoàn toàn deliveryAddress
-            />
-            
             <ProductList 
               products={processedProducts}
               animateItems={true}

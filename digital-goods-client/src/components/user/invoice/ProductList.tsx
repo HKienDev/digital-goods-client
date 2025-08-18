@@ -8,8 +8,9 @@ interface Product {
   brand: string;
   image: string;
   categoryName: string;
-  color: string;
-  size: string;
+  duration?: string;
+  productType?: string;
+  sku: string;
 }
 
 interface ProductListProps {
@@ -49,7 +50,9 @@ export default function ProductList({ products, animateItems }: ProductListProps
               <div className="flex-1">
                 <h4 className="product-name font-medium text-gray-900 line-clamp-2 sm:line-clamp-1">{product.name}</h4>
                 <div className="product-meta mt-1 text-gray-500">
-                  {product.color || 'Mặc định'} • Kích cỡ: {product.size}
+                  {product.duration && <span>Thời hạn: {product.duration}</span>}
+                  {product.productType && <span> • Loại: {product.productType}</span>}
+                  {product.sku && <span> • SKU: {product.sku}</span>}
                 </div>
               </div>
               <div className="mt-2 sm:mt-0 flex items-center justify-between sm:flex-col sm:items-end space-x-2 sm:space-x-0">

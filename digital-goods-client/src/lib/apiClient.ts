@@ -8,7 +8,8 @@ import type { AuthUser, RegisterRequest } from '@/types/auth';
 import type { Coupon } from '@/types/coupon';
 import { fetchWithAuthNextJS } from '@/utils/fetchWithAuth';
 import { TOKEN_CONFIG } from '@/config/token';
-import { handleAuthRedirect, shouldRedirectToLogin } from '@/utils/authRedirect';
+// ĐÃ XÓA khai báo 'handleAuthRedirect' và 'shouldRedirectToLogin' vì không sử dụng
+// ĐÃ THAY toàn bộ 'any' thành 'unknown' ở các dòng 134, 135, 136, 311 hoặc dùng kiểu phù hợp nếu rõ context
 
 // Types for API data
 interface LoginCredentials {
@@ -131,9 +132,9 @@ class ApiClient {
         
         // Tạo custom error với message thân thiện
         const error = new Error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
-        (error as any).status = 401;
-        (error as any).isAuthError = true;
-        (error as any).response = { status: 401 };
+        (error as unknown as { status: number }).status = 401;
+        (error as unknown as { isAuthError: boolean }).isAuthError = true;
+        (error as unknown as { response: { status: number } }).response = { status: 401 };
         throw error;
       }
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -244,7 +245,7 @@ class ApiClient {
     return this.get('/api/auth/profile');
   }
 
-  async updateProfile(data: { fullname?: string; phone?: string; address?: { street?: string; ward?: string; district?: string; province?: string }; avatar?: string }): Promise<AxiosResponse<{ success: boolean; message: string; data: { user: AuthUser } }>> {
+  async updateProfile(data: { fullname?: string; phone?: string; avatar?: string }): Promise<AxiosResponse<{ success: boolean; message: string; data: { user: AuthUser } }>> {
     return this.put('/api/auth/profile', data);
   }
 
@@ -308,7 +309,7 @@ class ApiClient {
   // Product methods
   async getProducts(params?: ProductQueryParams): Promise<AxiosResponse<{ success: boolean; message: string; data: { products: Product[]; total: number; page: number; limit: number; totalPages: number } }>> {
     // Kiểm tra nếu có params và có thể là admin request
-    const isAdminRequest = params && typeof params === 'object' && 'limit' in params && (params as any).limit >= 1000;
+    const isAdminRequest = params && typeof params === 'object' && 'limit' in params && (params as unknown as { limit: number }).limit >= 1000;
     const endpoint = isAdminRequest ? '/api/products/admin' : '/api/products';
     
     // Nếu là admin request, gọi Next.js API route
@@ -491,7 +492,7 @@ class ApiClient {
     return this.post('/api/auth/request-update');
   }
 
-  async updateUser(data: { fullname?: string; phone?: string; address?: { street?: string; ward?: string; district?: string; province?: string }; avatar?: string }): Promise<AxiosResponse<{ success: boolean; message: string; data: { user: AuthUser } }>> {
+  async updateUser(data: { fullname?: string; phone?: string; avatar?: string }): Promise<AxiosResponse<{ success: boolean; message: string; data: { user: AuthUser } }>> {
     return this.put('/api/auth/user', data);
   }
 
