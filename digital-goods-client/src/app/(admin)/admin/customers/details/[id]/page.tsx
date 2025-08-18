@@ -517,15 +517,14 @@ export default function CustomerDetail() {
 
     // Tính tất cả đơn hàng đã thanh toán (không chỉ đơn đã giao hàng)
     const paidOrders = customerOrders.filter(order => 
-      order.status === 'delivered' || 
-      order.status === 'confirmed' || 
-      order.status === 'shipped' ||
+      order.status === 'paid' || 
+      order.status === 'completed' || 
       order.paymentStatus === 'paid'
     );
     
     const totalOrders = paidOrders.length; // Tính tất cả đơn đã thanh toán
     const totalSpent = paidOrders.reduce((sum, order) => sum + order.totalPrice, 0); // Tính tổng đơn đã thanh toán
-    const completedOrders = customerOrders.filter(order => order.status === 'delivered').length; // Chỉ đơn đã giao hàng
+    const completedOrders = customerOrders.filter(order => order.status === 'completed').length; // Chỉ đơn đã hoàn tất
     const averageOrderValue = totalOrders > 0 ? totalSpent / totalOrders : 0;
 
     return {

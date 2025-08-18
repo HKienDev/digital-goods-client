@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import { fetchWithAuth } from '@/utils/fetchWithAuth';
 import { checkUserByPhone } from '@/utils/checkUserByPhone';
 import type { ApiResponse } from '@/types/api';
-import type { Order, OrderData, User, PaymentMethod, ShippingMethod } from '@/types/base';
+import type { Order, OrderData, User, PaymentMethod } from '@/types/base';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -49,7 +49,6 @@ export default function OrderActions({ onClose, onResetForm }: OrderActionsProps
         })),
         shippingAddress: orderData.shippingAddress,
         paymentMethod: orderData.paymentMethod,
-        shippingMethod: orderData.shippingMethod,
         note: orderData.note,
         userId: user?._id
       };
@@ -122,7 +121,6 @@ export default function OrderActions({ onClose, onResetForm }: OrderActionsProps
                 }
               },
               paymentMethod: "COD" as PaymentMethod,
-              shippingMethod: "STANDARD" as ShippingMethod,
               note: ""
             })}
           >

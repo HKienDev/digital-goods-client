@@ -24,8 +24,7 @@ export {
   AuthStatus, 
   OrderStatus, 
   PaymentStatus, 
-  PaymentMethod, 
-  ShippingMethod
+  PaymentMethod 
 } from './base';
 export * from './customer';
 export type { 

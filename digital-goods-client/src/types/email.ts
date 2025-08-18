@@ -8,17 +8,6 @@ export interface OrderEmailProps {
   subtotal: number;
   directDiscount: number;
   couponDiscount: number;
-  shippingFee: number;
   totalPrice: number;
-  shippingAddress: {
-    fullName: string;
-    phone: string;
-    address: {
-      street: string;
-      ward: { name: string };
-      district: { name: string };
-      province: { name: string };
-    };
-  };
   createdAt: string;
 } 

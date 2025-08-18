@@ -58,10 +58,6 @@ export default function OrderSummary({
             </span>
             <span className="font-medium text-green-600 text-sm md:text-base">-{formatPrice(couponDiscount)}</span>
           </div>
-          <div className="flex justify-between">
-            <span className="text-gray-700 text-sm md:text-base">Phí vận chuyển</span>
-            <span className="font-medium text-sm md:text-base">{formatPrice(shipping)}</span>
-          </div>
         </div>
         
         <div className="pt-3 md:pt-4 border-t border-gray-200">

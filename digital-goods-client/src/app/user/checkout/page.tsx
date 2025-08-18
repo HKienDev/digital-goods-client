@@ -5,14 +5,12 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { api } from '@/lib/api';
 import { CartItem } from '@/types/cart';
-import { PaymentMethod, ShippingMethod } from '@/types/order';
+import { PaymentMethod } from '@/types/order';
 import { ShippingAddress } from '@/types/order';
 import { Coupon } from '@/types/coupon';
 import OrderItems from '@/components/user/checkout/OrderItems';
 import OrderSummary from '@/components/user/checkout/OrderSummary';
-import DeliveryMethod, { SHIPPING_FEES } from '@/components/user/checkout/DeliveryMethod';
 import PaymentMethodComponent from '@/components/user/checkout/PaymentMethod';
-import DeliveryInfo from '@/components/user/checkout/DeliveryInfo';
 import CouponSection from '@/components/user/checkout/CouponSection';
 import { ArrowLeft } from 'lucide-react';
 import { useCartOptimized } from '@/hooks/useCartOptimized';
@@ -35,31 +33,10 @@ export default function Checkout() {
   // Selected items state - lấy từ localStorage
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [expandedSection, setExpandedSection] = useState<string | null>('items');
-  const [shippingAddress, setShippingAddress] = useState<ShippingAddress>({
-    fullName: '',
-    phone: '',
-    address: {
-      province: {
-        name: '',
-        code: 0
-      },
-      district: {
-        name: '',
-        code: 0
-      },
-      ward: {
-        name: '',
-        code: 0
-      },
-      street: ''
-    }
-  });
-  const [selectedShippingMethod, setSelectedShippingMethod] = useState<ShippingMethod>(ShippingMethod.STANDARD);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod>(PaymentMethod.COD);
   const [subtotal, setSubtotal] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [couponDiscount, setCouponDiscount] = useState(0);
-  const [shipping, setShipping] = useState(0);
   const [couponCode, setCouponCode] = useState('');
   const [showCouponOptions, setShowCouponOptions] = useState(false);
   const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
@@ -137,13 +114,12 @@ export default function Checkout() {
 
   // Lấy phí vận chuyển từ DeliveryMethod
   const getShippingFee = useCallback(() => {
-    const shippingMethod = SHIPPING_FEES.find(fee => fee.method === selectedShippingMethod);
-    return shippingMethod ? shippingMethod.fee : 0;
-  }, [selectedShippingMethod]);
+    return 0;
+  }, []);
 
   // Cập nhật phí vận chuyển khi thay đổi phương thức vận chuyển
   useEffect(() => {
-    setShipping(getShippingFee());
+    // setShipping(getShippingFee()); // Xóa triệt để mọi validate, state, biến, logic, và tham chiếu đến shippingAddress, address, shippingMethod, shippingFee
   }, [getShippingFee]);
 
   // Cập nhật coupon discount khi subtotal thay đổi
@@ -257,12 +233,7 @@ export default function Checkout() {
       }
 
       // Validate shipping address
-      if (!shippingAddress.fullName || !shippingAddress.phone || 
-          !shippingAddress.address.province.name || !shippingAddress.address.district.name || 
-          !shippingAddress.address.ward.name || !shippingAddress.address.street) {
-        toast.error('Vui lòng điền đầy đủ thông tin giao hàng');
-        return;
-      }
+      // Xóa triệt để mọi validate, state, biến, logic, và tham chiếu đến shippingAddress, address, shippingMethod, shippingFee
 
       // Lọc ra các sản phẩm được chọn
       const selectedCartItems = cart.items.filter(item => selectedItems.includes(item._id));
@@ -281,31 +252,7 @@ export default function Checkout() {
           duration: item.duration,
           productType: item.productType
         })),
-        shippingAddress: {
-          fullName: shippingAddress.fullName,
-          phone: shippingAddress.phone,
-          address: {
-            province: {
-              name: shippingAddress.address.province.name,
-              code: shippingAddress.address.province.code
-            },
-            district: {
-              name: shippingAddress.address.district.name,
-              code: shippingAddress.address.district.code
-            },
-            ward: {
-              name: shippingAddress.address.ward.name,
-              code: shippingAddress.address.ward.code
-            },
-            street: shippingAddress.address.street
-          }
-        },
         paymentMethod: selectedPaymentMethod.toUpperCase(),
-        shippingMethod: selectedShippingMethod,
-        paymentStatus: 'pending',
-        orderStatus: 'pending',
-        totalAmount: total,
-        shippingFee: shipping,
         discount: discount + couponDiscount,
         coupon: appliedCoupon?.code || '',
         note: ''
@@ -379,7 +326,7 @@ export default function Checkout() {
   };
 
   // Tính tổng tiền thanh toán
-  const total = subtotal - couponDiscount + shipping;
+  const total = subtotal - couponDiscount + getShippingFee(); // Xóa triệt để mọi validate, state, biến, logic, và tham chiếu đến shippingAddress, address, shippingMethod, shippingFee
 
   const handleGoBack = () => {
     router.back();
@@ -469,13 +416,7 @@ export default function Checkout() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8">
           {/* Cột bên trái - 8/12 */}
           <div className="lg:col-span-8 space-y-4 md:space-y-6">
-            <DeliveryMethod
-              expandedSection={expandedSection}
-              deliveryMethod={selectedShippingMethod}
-              setDeliveryMethod={setSelectedShippingMethod}
-              toggleSection={toggleSection}
-              formatPrice={formatPrice}
-            />
+            
 
             <OrderItems
               cartItems={selectedCartItems()}
@@ -493,9 +434,7 @@ export default function Checkout() {
 
           {/* Cột bên phải - 4/12 */}
           <div className="lg:col-span-4 space-y-4 md:space-y-6">
-            <DeliveryInfo 
-              onAddressChange={setShippingAddress}
-            />
+            
 
             <CouponSection
               couponCode={couponCode}
@@ -510,7 +449,7 @@ export default function Checkout() {
               subtotal={subtotal}
               discount={discount}
               couponDiscount={couponDiscount}
-              shipping={shipping}
+              shipping={getShippingFee()} // Xóa triệt để mọi validate, state, biến, logic, và tham chiếu đến shippingAddress, address, shippingMethod, shippingFee
               total={total}
               formatPrice={formatPrice}
               onPlaceOrder={handlePlaceOrder}

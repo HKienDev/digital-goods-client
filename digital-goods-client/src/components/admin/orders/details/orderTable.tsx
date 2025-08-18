@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { Package, ShoppingCart, CreditCard, Truck, Receipt } from "lucide-react";
-import type { Coupon } from '@/types/coupon';
+import { Package, ShoppingCart, CreditCard, Receipt } from "lucide-react";
 
 type OrderItemProduct = {
   _id: string;
@@ -27,30 +26,28 @@ interface OrderItem {
 
 interface OrderTableProps {
   items?: OrderItem[];
-  shippingMethod?: {
-    name: string;
-    fee: number;
-  };
   discount?: number;
   couponDiscount?: number;
   couponCode?: string;
   totalPrice?: number;
   subtotal?: number;
-  shipping?: number;
-  appliedCoupon?: Coupon | null;
+  originalTotal?: number;
 }
 
 export default function OrderTable({ 
   items = [], 
-  shippingMethod = { name: "Standard", fee: 30000 }, 
   discount = 0,
   couponDiscount = 0,
   couponCode = "",
   totalPrice = 0,
   subtotal: propSubtotal,
-  shipping: propShipping,
-  appliedCoupon
 }: OrderTableProps) {
+  // Tính tổng giá gốc
+  // const calculatedOriginalTotal = items.reduce((total, item) => {
+  //   return total + (item.product.originalPrice * item.quantity);
+  // }, 0);
+  // const originalTotal = propOriginalTotal || calculatedOriginalTotal;
+
   // Tính tổng tiền hàng nếu không có từ props
   const calculatedSubtotal = items.reduce((total, item) => {
     return total + (item.price * item.quantity);
@@ -59,21 +56,28 @@ export default function OrderTable({
   // Sử dụng subtotal từ props nếu có, nếu không thì tính toán
   const subtotal = propSubtotal || calculatedSubtotal;
   
-  // Sử dụng shipping từ props nếu có, nếu không thì lấy từ shippingMethod
-  const shipping = propShipping || (shippingMethod?.fee || 0);
-
   // Sử dụng totalPrice từ API nếu có, nếu không thì tính toán
-  // Tổng tiền = Tổng tiền hàng - Giảm giá trực tiếp - Mã giảm giá + Phí vận chuyển
-  const total = totalPrice > 0 ? totalPrice : (subtotal - discount - couponDiscount + shipping);
+  // Tổng tiền = Tổng tiền hàng - Giảm giá trực tiếp - Mã giảm giá
+  const total = totalPrice > 0 ? totalPrice : (subtotal - discount - couponDiscount);
 
-  // Tính phần trăm giảm giá trực tiếp
-  const directDiscountPercentage = subtotal > 0 ? ((discount / subtotal) * 100) : 0;
-  const directDiscountText = directDiscountPercentage > 0 ? ` (${directDiscountPercentage.toFixed(2)}%)` : '';
+  // Tính phần trăm giảm giá trực tiếp đúng chuẩn như bên user card (tổng hợp nhiều sản phẩm)
+  let totalDiscount = 0;
+  let totalOriginal = 0;
+  items.forEach(item => {
+    if (item.product && item.product.originalPrice > 0 && typeof item.product.salePrice === 'number') {
+      totalDiscount += (item.product.originalPrice - item.product.salePrice) * item.quantity;
+      totalOriginal += item.product.originalPrice * item.quantity;
+    }
+  });
+  const directDiscountPercentage = totalOriginal > 0
+    ? Math.round((totalDiscount / totalOriginal) * 100)
+    : 0;
+  const directDiscountText = ` (${directDiscountPercentage}%)`;
 
   // Tính phần trăm giảm giá từ mã
   let couponDiscountPercentage = 0;
-  if (appliedCoupon && appliedCoupon.type === 'percentage') {
-    couponDiscountPercentage = appliedCoupon.value;
+  if (couponDiscount > 0) {
+    couponDiscountPercentage = couponDiscount;
   } else if (subtotal > 0) {
     const priceAfterDirectDiscount = subtotal - discount;
     couponDiscountPercentage = priceAfterDirectDiscount > 0 ? ((couponDiscount / priceAfterDirectDiscount) * 100) : 0;
@@ -244,19 +248,10 @@ export default function OrderTable({
             <div className="flex items-center gap-2">
               <CreditCard className="w-4 h-4 text-purple-500" />
               <span className="font-medium text-slate-700">
-                Mã giảm giá {appliedCoupon ? `(${appliedCoupon.code})` : couponCode ? `(${couponCode})` : ''}{couponDiscountText}:
+                Mã giảm giá {couponCode ? `(${couponCode})` : ''}{couponDiscountText}:
               </span>
             </div>
             <span className="font-semibold text-purple-600">{couponDiscount > 0 ? '-' : ''}{couponDiscount.toLocaleString('vi-VN')} VND</span>
-          </div>
-          
-          {/* Shipping */}
-          <div className="flex justify-between items-center py-3 border-b border-slate-200">
-            <div className="flex items-center gap-2">
-              <Truck className="w-4 h-4 text-blue-500" />
-              <span className="font-medium text-slate-700">Phí vận chuyển:</span>
-            </div>
-            <span className="font-semibold text-slate-900">{shipping.toLocaleString('vi-VN')} VND</span>
           </div>
           
           {/* Total */}

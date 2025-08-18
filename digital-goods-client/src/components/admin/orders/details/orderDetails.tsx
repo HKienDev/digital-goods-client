@@ -1,10 +1,8 @@
 "use client";
 import { useState, useCallback, useEffect } from "react";
-import { Clock, Package, Truck, Home } from "lucide-react";
+import { Clock, Package, Home, CheckCircle } from "lucide-react";
 import OrderHeader from "./orderHeader";
 import DeliveryTracking from "./deliveryTracking";
-import ShippingAddress from "./shippingAddress";
-import ShippingMethod from "./shippingMethod";
 import OrderTable from "./orderTable";
 import { Order, OrderStatus } from "@/types/base";
 import { AdminProduct } from "@/types/product";
@@ -21,48 +19,48 @@ export const orderStatusInfo = {
     bgColor: "bg-amber-50",
     borderColor: "border-amber-200",
     icon: Clock,
-    nextStatus: OrderStatus.CONFIRMED,
-    buttonText: "Xác Nhận Đơn Hàng",
+    nextStatus: OrderStatus.PROCESSING,
+    buttonText: "Xác nhận đơn hàng",
     buttonColor: "bg-blue-500 hover:bg-blue-600",
     description: "Đơn hàng đang chờ xác nhận từ nhân viên bán hàng",
-    date: "13/03/2025",
-    time: "22:07"
+    date: "",
+    time: ""
   },
-  [OrderStatus.CONFIRMED]: {
+  [OrderStatus.PROCESSING]: {
     color: "text-blue-500",
     bgColor: "bg-blue-50",
     borderColor: "border-blue-200",
     icon: Package,
-    nextStatus: OrderStatus.SHIPPED,
-    buttonText: "Bắt Đầu Vận Chuyển",
+    nextStatus: OrderStatus.PAID,
+    buttonText: "Xác nhận đã thanh toán",
     buttonColor: "bg-purple-500 hover:bg-purple-600",
-    description: "Đơn hàng đã được xác nhận và đang chuẩn bị hàng",
-    date: "13/03/2025",
-    time: "22:08"
+    description: "Đơn hàng đang được xử lý và chuẩn bị giao",
+    date: "",
+    time: ""
   },
-  [OrderStatus.SHIPPED]: {
-    color: "text-purple-500",
-    bgColor: "bg-purple-50",
-    borderColor: "border-purple-200",
-    icon: Truck,
-    nextStatus: OrderStatus.DELIVERED,
-    buttonText: "Xác Nhận Giao Hàng Thành Công",
-    buttonColor: "bg-green-500 hover:bg-green-600",
-    description: "Đơn hàng đang được vận chuyển đến địa chỉ khách hàng",
-    date: "13/03/2025",
-    time: "22:20"
-  },
-  [OrderStatus.DELIVERED]: {
+  [OrderStatus.PAID]: {
     color: "text-green-500",
     bgColor: "bg-green-50",
     borderColor: "border-green-200",
+    icon: CheckCircle,
+    nextStatus: OrderStatus.COMPLETED,
+    buttonText: "Hoàn tất đơn hàng",
+    buttonColor: "bg-green-500 hover:bg-green-600",
+    description: "Đơn hàng đã thanh toán, chờ hoàn tất",
+    date: "",
+    time: ""
+  },
+  [OrderStatus.COMPLETED]: {
+    color: "text-gray-500",
+    bgColor: "bg-gray-50",
+    borderColor: "border-gray-200",
     icon: Home,
     nextStatus: null,
     buttonText: "",
     buttonColor: "",
-    description: "Đơn hàng đã được giao thành công đến khách hàng",
-    date: "15/03/2025",
-    time: "15:20"
+    description: "Đơn hàng đã hoàn tất",
+    date: "",
+    time: ""
   },
   [OrderStatus.CANCELLED]: {
     color: "text-red-500",
@@ -73,8 +71,8 @@ export const orderStatusInfo = {
     buttonText: "",
     buttonColor: "",
     description: "Đơn hàng đã bị hủy",
-    date: "15/03/2025",
-    time: "15:20"
+    date: "",
+    time: ""
   }
 } as const;
 
@@ -91,15 +89,12 @@ export default function OrderDetails({ order, orderId, onStatusUpdate }: OrderDe
   // Hàm để lấy lại thông tin đơn hàng mới nhất
   const refreshOrderDetails = useCallback(async () => {
     try {
-      console.log('🔄 Refreshing order details:', orderId);
       
       const response = await fetchWithAuth<{ status: OrderStatus }>(`/api/orders/${orderId}`);
       
-      console.log('📥 Refresh response:', response);
       
       if (response.success && response.data && typeof response.data.status === 'string') {
         setCurrentStatus(response.data.status as OrderStatus);
-        console.log('✅ Status updated:', response.data.status);
       } else {
         throw new Error(response.message || 'Không thể cập nhật thông tin đơn hàng');
       }
@@ -118,7 +113,6 @@ export default function OrderDetails({ order, orderId, onStatusUpdate }: OrderDe
     const updateStatus = async () => {
       try {
         setIsUpdating(true);
-        console.log('🔄 Updating order status:', orderId, 'to', newStatus);
         
         const response = await fetchWithAuth(`/api/orders/${orderId}/status`, {
           method: "PUT",
@@ -152,7 +146,6 @@ export default function OrderDetails({ order, orderId, onStatusUpdate }: OrderDe
     const updateStatus = async () => {
       try {
         setIsUpdating(true);
-        console.log('🔄 Canceling order:', id, 'to', newStatus);
         
         const response = await fetchWithAuth(`/api/orders/${id}/status`, {
           method: "PUT",
@@ -192,7 +185,7 @@ export default function OrderDetails({ order, orderId, onStatusUpdate }: OrderDe
         customerId={order.user?.customId || "Không có dữ liệu"}
         lastUpdated={order.updatedAt ? new Date(order.updatedAt).toLocaleString("vi-VN") : "Không có dữ liệu"}
         status={currentStatus}
-        paymentStatus={currentStatus === OrderStatus.DELIVERED ? "Đã thanh toán" : (order.paymentStatus === "paid" ? "Đã thanh toán" : "Chưa thanh toán")}
+        paymentStatus={currentStatus === OrderStatus.COMPLETED ? "Đã thanh toán" : (order.paymentStatus === "paid" ? "Đã thanh toán" : "Chưa thanh toán")}
       />
       
       {/* Main Content Container */}
@@ -224,23 +217,6 @@ export default function OrderDetails({ order, orderId, onStatusUpdate }: OrderDe
             }))}
             onCancelOrder={handleCancelOrderStatusUpdate}
           />
-        </div>
-        
-        {/* Shipping Information Grid */}
-        <div className="p-6 sm:p-8 border-b border-slate-100">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <ShippingMethod 
-              method={order.shippingMethod?.name || "Standard"}
-              shortId={order.shortId || ""}
-              shippingMethod="standard"
-              createdAt={order.createdAt ? new Date(order.createdAt).toISOString() : undefined}
-            />
-            <ShippingAddress 
-              name={order.shippingAddress?.fullName || "Không có dữ liệu"}
-              address={`${order.shippingAddress?.address?.street || ""}, ${order.shippingAddress?.address?.ward?.name || ""}, ${order.shippingAddress?.address?.district?.name || ""}, ${order.shippingAddress?.address?.province?.name || ""}`}
-              phone={order.shippingAddress?.phone || "Không có dữ liệu"}
-            />
-          </div>
         </div>
         
         {/* Order Items and Summary */}
@@ -277,8 +253,8 @@ export default function OrderDetails({ order, orderId, onStatusUpdate }: OrderDe
                 _id: item.product?._id || 'unknown',
                 name: item.product?.name || 'Sản phẩm không xác định',
                 description: item.product?.description || '',
-                originalPrice: item.price,
-                salePrice: item.price,
+                originalPrice: item.product?.originalPrice ?? item.price,
+                salePrice: item.product?.salePrice ?? item.price,
                 mainImage: item.product?.mainImage || '',
                 subImages: item.product?.subImages || [],
                 categoryId: item.product?.categoryId || '',
@@ -308,14 +284,11 @@ export default function OrderDetails({ order, orderId, onStatusUpdate }: OrderDe
                 duration: item.duration,
               };
             })}
-            shippingMethod={order.shippingMethod}
             discount={order.directDiscount || 0}
             couponDiscount={order.couponDiscount || 0}
             couponCode={order.couponCode || ""}
             totalPrice={order.totalPrice}
             subtotal={order.subtotal}
-            shipping={order.shippingFee || order.shippingMethod?.fee || 0}
-            appliedCoupon={order.appliedCoupon}
           />
         </div>
       </div>

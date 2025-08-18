@@ -90,10 +90,7 @@ const UserProfileForm = () => {
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [otpInput, setOtpInput] = useState("");
 
-  const { provinces, districts, wards } = useAddress({
-    province: tempUser?.address?.province,
-    district: tempUser?.address?.district
-  });
+  // Xóa toàn bộ UI, logic, prop liên quan address
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -136,13 +133,13 @@ const UserProfileForm = () => {
         if (data.success) {
           const userData = {
             ...data.data,
-            address: {
-              street: data.data.address?.street || "",
-              province: data.data.address?.province || "",
-              district: data.data.address?.district || "",
-              ward: data.data.address?.ward || "",
-              detail: data.data.address?.detail || "",
-            }
+            // address: { // Xóa địa chỉ khỏi userData
+            //   street: data.data.address?.street || "",
+            //   province: data.data.address?.province || "",
+            //   district: data.data.address?.district || "",
+            //   ward: data.data.address?.ward || "",
+            //   detail: data.data.address?.detail || "",
+            // }
           };
           setUser(userData);
           setTempUser({ ...userData });
@@ -163,27 +160,14 @@ const UserProfileForm = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     
-    if (name.startsWith('address.')) {
-      const field = name.split('.')[1];
-      setTempUser(prev => {
-        if (!prev) return null;
-        return {
-          ...prev,
-          address: {
-            ...prev.address,
-            [field]: value
-          }
-        };
-      });
-    } else {
-      setTempUser(prev => {
-        if (!prev) return null;
-        return {
-          ...prev,
-          [name]: value
-        };
-      });
-    }
+    // Xóa toàn bộ logic liên quan đến address
+    setTempUser(prev => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        [name]: value
+      };
+    });
   };
 
   const handleRequestUpdate = async () => {
@@ -203,7 +187,7 @@ const UserProfileForm = () => {
       phone: tempUser.phone || user?.phone,
       dob: tempUser.dob || user?.dob,
       gender: tempUser.gender || user?.gender,
-      address: tempUser.address || user?.address
+      // address: tempUser.address || user?.address // Xóa địa chỉ khỏi updateData
     };
 
     if (!updateData.email || !updateData.fullname) {
@@ -225,7 +209,7 @@ const UserProfileForm = () => {
           phone: updateData.phone,
           dob: updateData.dob,
           gender: updateData.gender,
-          address: updateData.address
+          // address: updateData.address // Xóa địa chỉ khỏi updatePayload
         };
 
         console.log("Dữ liệu gửi lên request OTP (thay đổi số điện thoại):", updatePayload);
@@ -267,7 +251,7 @@ const UserProfileForm = () => {
           fullname: updateData.fullname,
           dob: updateData.dob,
           gender: updateData.gender,
-          address: updateData.address
+          // address: updateData.address // Xóa địa chỉ khỏi updatePayload
         };
 
         console.log("Dữ liệu gửi lên cập nhật trực tiếp:", updatePayload);
@@ -316,13 +300,13 @@ const UserProfileForm = () => {
           if (userData.success) {
             const updatedUserData = {
               ...userData.data,
-              address: {
-                street: userData.data.address?.street || "",
-                province: userData.data.address?.province || "",
-                district: userData.data.address?.district || "",
-                ward: userData.data.address?.ward || "",
-                detail: userData.data.address?.detail || "",
-              }
+              // address: { // Xóa địa chỉ khỏi updatedUserData
+              //   street: userData.data.address?.street || "",
+              //   province: userData.data.address?.province || "",
+              //   district: userData.data.address?.district || "",
+              //   ward: userData.data.address?.ward || "",
+              //   detail: userData.data.address?.detail || "",
+              // }
             };
             setUser(updatedUserData);
             setTempUser(updatedUserData);
@@ -409,13 +393,13 @@ const UserProfileForm = () => {
         if (userData.success) {
           const updatedUserData = {
             ...userData.data,
-            address: {
-              street: userData.data.address?.street || "",
-              province: userData.data.address?.province || "",
-              district: userData.data.address?.district || "",
-              ward: userData.data.address?.ward || "",
-              detail: userData.data.address?.detail || "",
-            }
+            // address: { // Xóa địa chỉ khỏi updatedUserData
+            //   street: userData.data.address?.street || "",
+            //   province: userData.data.address?.province || "",
+            //   district: userData.data.address?.district || "",
+            //   ward: userData.data.address?.ward || "",
+            //   detail: userData.data.address?.detail || "",
+            // }
           };
           setUser(updatedUserData);
           setTempUser(updatedUserData);
@@ -554,9 +538,9 @@ const UserProfileForm = () => {
                       className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-xs sm:text-sm"
                     >
                       <option value="">Chọn Tỉnh/Thành phố</option>
-                      {provinces.map(province => (
+                      {/* {provinces.map(province => ( // Xóa provinces khỏi UI
                         <option key={province.code} value={province.name}>{province.name}</option>
-                      ))}
+                      ))} */}
                     </select>
                   </div>
                   {/* District */}
@@ -569,9 +553,9 @@ const UserProfileForm = () => {
                       className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-xs sm:text-sm"
                     >
                       <option value="">Chọn Quận/Huyện</option>
-                      {districts.map(district => (
+                      {/* {districts.map(district => ( // Xóa districts khỏi UI
                         <option key={district.code} value={district.name}>{district.name}</option>
-                      ))}
+                      ))} */}
                     </select>
                   </div>
                   {/* Ward */}
@@ -584,9 +568,9 @@ const UserProfileForm = () => {
                       className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-xs sm:text-sm"
                     >
                       <option value="">Chọn Phường/Xã</option>
-                      {wards.map(ward => (
+                      {/* {wards.map(ward => ( // Xóa wards khỏi UI
                         <option key={ward.code} value={ward.name}>{ward.name}</option>
-                      ))}
+                      ))} */}
                     </select>
                   </div>
                   {/* Street */}
@@ -604,7 +588,7 @@ const UserProfileForm = () => {
                 </div>
               ) : (
                 <div className="bg-gray-50 rounded-md border border-gray-200 p-3 sm:p-4">
-                  {user?.address?.street || user?.address?.ward || user?.address?.district || user?.address?.province ? (
+                  {/* {user?.address?.street || user?.address?.ward || user?.address?.district || user?.address?.province ? ( // Xóa địa chỉ khỏi UI
                     <div className="flex items-start">
                       <MapPin className="mt-1 mr-2 text-gray-500 flex-shrink-0" size={16} />
                       <div className="min-w-0 flex-1">
@@ -622,7 +606,7 @@ const UserProfileForm = () => {
                     </div>
                   ) : (
                     <p className="text-gray-500 italic text-sm">Chưa có thông tin địa chỉ</p>
-                  )}
+                  )} */}
                 </div>
               )}
             </div>

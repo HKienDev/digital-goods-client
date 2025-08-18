@@ -383,17 +383,9 @@ export default function DeliveryInfo({ onAddressChange }: DeliveryInfoProps) {
     setShowForm(false);
   };
 
-  // Kiểm tra address có rỗng không
-  const isAddressEmpty =
-    !user ||
-    !user.address ||
-    !user.address.province ||
-    !user.address.district ||
-    !user.address.ward;
-
   return (
     <div className="bg-white rounded-lg shadow p-4 md:p-6">
-      <h2 className="text-base md:text-lg font-semibold text-gray-900 mb-4">GIAO TỚI</h2>
+      <h2 className="text-base md:text-lg font-semibold text-gray-900 mb-4">THÔNG TIN KHÁCH HÀNG</h2>
       {loading && (
         <div className="flex items-center justify-center py-4">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
@@ -412,12 +404,6 @@ export default function DeliveryInfo({ onAddressChange }: DeliveryInfoProps) {
                 <h3 className="text-sm md:text-base font-medium text-gray-900">{user.fullname || ''}</h3>
                 <span className="text-sm text-gray-600">{user.phone || ''}</span>
               </div>
-              <p className="mt-2 text-xs md:text-sm text-gray-500">
-                {isAddressEmpty
-                  ? 'Chưa có địa chỉ giao hàng'
-                  : `${user.address.street ? `${user.address.street}, ` : ''}${user.address.ward}, ${user.address.district}, ${user.address.province}`
-                }
-              </p>
             </>
           ) : (
             <p className="text-xs md:text-sm text-gray-500">Đang tải thông tin người dùng...</p>
@@ -521,15 +507,6 @@ export default function DeliveryInfo({ onAddressChange }: DeliveryInfoProps) {
             </button>
           </div>
         </form>
-      )}
-      {!showForm && (
-        <button
-          type="button"
-          className="mt-4 text-xs md:text-sm font-medium text-red-600 hover:text-red-500"
-          onClick={() => setShowForm(true)}
-        >
-          {isAddressEmpty ? 'Thêm địa chỉ giao hàng' : 'Thay đổi địa chỉ giao hàng'}
-        </button>
       )}
     </div>
   );

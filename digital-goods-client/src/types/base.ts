@@ -33,9 +33,9 @@ export enum AuthStatus {
 
 export enum OrderStatus {
     PENDING = "pending",
-    CONFIRMED = "confirmed",
-    SHIPPED = "shipped",
-    DELIVERED = "delivered",
+    PROCESSING = "processing",
+    PAID = "paid",
+    COMPLETED = "completed",
     CANCELLED = "cancelled"
 }
 
@@ -52,12 +52,6 @@ export enum PaymentMethod {
     MOMO = "momo",
     COD = "COD",
     STRIPE = "Stripe"
-}
-
-export enum ShippingMethod {
-    STANDARD = "standard",
-    EXPRESS = "express",
-    SAME_DAY = "same_day"
 }
 
 export interface User {
@@ -161,37 +155,10 @@ export interface Order {
     status: OrderStatus;
     paymentStatus: PaymentStatus;
     paymentMethod: PaymentMethod;
-    shippingAddress: {
-        fullName: string;
-        phone: string;
-        address: {
-            province: {
-                name: string;
-                code: number;
-            };
-            district: {
-                name: string;
-                code: number;
-            };
-            ward: {
-                name: string;
-                code: number;
-            };
-            street?: string;
-        };
-    };
-    shippingFee: number;
     note?: string;
     couponDiscount?: number;
     couponCode?: string;
     subtotal?: number;
-    shipping?: number;
-    appliedCoupon?: Coupon | null;
-    shippingMethod?: {
-        name: string;
-        fee: number;
-        estimatedDays: number;
-    };
     discount?: number;
     directDiscount?: number;
     createdAt: Date;
@@ -313,6 +280,5 @@ export interface OrderData {
         };
     };
     paymentMethod: PaymentMethod;
-    shippingMethod: ShippingMethod;
     note?: string;
 } 

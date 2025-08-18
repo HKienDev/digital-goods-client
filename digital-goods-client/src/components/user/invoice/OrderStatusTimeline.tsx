@@ -1,7 +1,6 @@
 'use client';
 
-import { format } from 'date-fns';
-import { vi } from 'date-fns/locale';
+import { Clock, Package, CheckCircle, Home } from 'lucide-react';
 
 interface StatusHistory {
   status: string;
@@ -26,6 +25,8 @@ const OrderStatusTimeline = ({
   orderDate,
   statusHistory
 }: OrderStatusTimelineProps) => {
+  // Chỉ giữ các trạng thái: pending, processing, paid, completed, cancelled
+  // Xóa các trạng thái cũ và logic liên quan
   const statuses = [
     {
       status: 'pending',
@@ -33,18 +34,23 @@ const OrderStatusTimeline = ({
       date: orderDate
     },
     {
-      status: 'confirmed',
-      label: 'Đã xác nhận',
+      status: 'processing',
+      label: 'Đang xử lý',
       date: null
     },
     {
-      status: 'shipping',
-      label: 'Đang giao hàng',
+      status: 'paid',
+      label: 'Đã thanh toán',
       date: null
     },
     {
-      status: 'delivered',
-      label: 'Đã giao hàng',
+      status: 'completed',
+      label: 'Hoàn thành',
+      date: null
+    },
+    {
+      status: 'cancelled',
+      label: 'Đã hủy',
       date: null
     }
   ];
@@ -81,38 +87,69 @@ const OrderStatusTimeline = ({
     }
   };
 
+  const steps = [
+    { key: 'pending', label: 'Chờ xác nhận', sub: 'Đơn hàng mới', icon: Clock },
+    { key: 'processing', label: 'Đang xử lý', sub: 'Chuẩn bị hàng', icon: Package },
+    { key: 'paid', label: 'Đã thanh toán', sub: 'Hoàn tất', icon: CheckCircle },
+    { key: 'completed', label: 'Hoàn tất', sub: 'Hoàn thành', icon: Home },
+  ];
+  const currentIdx = steps.findIndex(s => s.key === currentStatus);
+
   return (
     <div className="timeline-container border-t border-b">
       {/* Timeline - Responsive */}
-      <div className="flex items-center justify-between mb-4 sm:mb-6 overflow-x-auto">
-        {statuses.map((status, index) => (
-          <div
-            key={status.status}
-            className={`timeline-item flex flex-col items-center flex-1 relative min-w-0 ${
-              index < statuses.length - 1 ? 'after:content-[""] after:h-[2px] after:w-full after:absolute after:top-3 sm:after:top-4 after:left-1/2 after:bg-gray-200' : ''
-            }`}
-          >
-            <div
-              className={`timeline-circle rounded-full flex items-center justify-center z-10 ${
-                currentStatus === status.status
-                  ? 'bg-red-500 text-white'
-                  : statuses.findIndex(s => s.status === currentStatus) > index
-                  ? 'bg-green-500 text-white'
-                  : 'bg-gray-200 text-gray-500'
-              }`}
-            >
-              {statuses.findIndex(s => s.status === currentStatus) > index ? '✓' : index + 1}
-            </div>
-            <div className="timeline-label font-medium mt-1 sm:mt-2 text-center break-words">
-              {status.label}
-            </div>
-            {status.date && (
-              <div className="timeline-date text-gray-500 mt-1 text-center break-words">
-                {format(status.date, 'HH:mm dd/M/yyyy', { locale: vi })}
+      <div className="relative">
+        {/* Progress Bar */}
+        <div className="hidden sm:block absolute top-5 left-0 right-0 h-1 bg-slate-200 rounded-full overflow-hidden">
+          <div 
+            className="h-full bg-gradient-to-r from-blue-500 to-green-500 transition-all duration-1000 ease-in-out"
+            style={{ width: `${((currentIdx + 1) / steps.length) * 100}%` }}
+          ></div>
+        </div>
+        {/* Status Steps */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+          {steps.map((step, idx) => {
+            const isActive = currentIdx === idx;
+            const isComplete = currentIdx > idx;
+            const Icon = step.icon;
+            return (
+              <div key={step.key} className="flex flex-col items-center text-center">
+                <div className={`relative w-12 h-12 rounded-full flex items-center justify-center mb-3 transition-all duration-500 ${
+                  isActive || isComplete ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg' : 'bg-slate-100 text-slate-400'
+                }`}>
+                  <Icon size={24} />
+                  {/* Dấu tích nhỏ cho các bước đã hoàn thành, trừ bước đầu tiên */}
+                  {isComplete && idx > 0 && (
+                    <CheckCircle className="absolute -top-1 -right-1 w-5 h-5 text-white bg-green-500 rounded-full" />
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <div className={`font-medium text-sm ${
+                    isActive || isComplete ? 'text-slate-800' : 'text-slate-500'
+                  }`}>
+                    {step.label}
+                  </div>
+                  <div className="text-xs text-slate-400">
+                    {step.sub}
+                  </div>
+                </div>
               </div>
-            )}
+            );
+          })}
+        </div>
+        {/* Mobile Progress Indicator */}
+        <div className="sm:hidden mt-6">
+          <div className="flex items-center justify-between text-xs text-slate-500">
+            <span>Bước {currentIdx + 1}/{steps.length}</span>
+            <span>{Math.round(((currentIdx + 1) / steps.length) * 100)}% hoàn thành</span>
           </div>
-        ))}
+          <div className="mt-2 h-2 bg-slate-200 rounded-full overflow-hidden">
+            <div 
+              className="h-full bg-gradient-to-r from-blue-500 to-green-500 transition-all duration-1000 ease-in-out"
+              style={{ width: `${((currentIdx + 1) / steps.length) * 100}%` }}
+            ></div>
+          </div>
+        </div>
       </div>
 
       {/* Payment Info - Responsive */}

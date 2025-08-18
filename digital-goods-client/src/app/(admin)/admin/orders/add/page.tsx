@@ -8,7 +8,6 @@ import OrderPreview from "@/components/admin/orders/add/orderPreview";
 import { useCustomer } from "@/context/customerContext";
 import { useCart } from "@/context/cartContext";
 import { usePaymentMethod, PaymentMethod } from "@/context/paymentMethodContext";
-import { useShippingMethod, ShippingMethod } from "@/context/shippingMethodContext";
 import { usePromo } from "@/context/promoContext";
 import { toast } from "sonner";
 import { useEffect, useRef, useCallback } from "react";
@@ -20,7 +19,6 @@ export default function AddOrderPage() {
   const { resetCustomer } = useCustomer();
   const { clearCart } = useCart();
   const { setPaymentMethod } = usePaymentMethod();
-  const { setShippingMethod } = useShippingMethod();
   const { setPromoDetails } = usePromo();
   
   // Sử dụng useRef để theo dõi lần render đầu tiên
@@ -31,9 +29,8 @@ export default function AddOrderPage() {
     resetCustomer();
     clearCart();
     setPaymentMethod(PaymentMethod.COD);
-    setShippingMethod(ShippingMethod.STANDARD);
     setPromoDetails(null);
-  }, [resetCustomer, clearCart, setPaymentMethod, setShippingMethod, setPromoDetails]);
+  }, [resetCustomer, clearCart, setPaymentMethod, setPromoDetails]);
 
   const handleClose = useCallback(() => {
     router.back();
@@ -60,11 +57,10 @@ export default function AddOrderPage() {
       resetCustomer();
       clearCart();
       setPaymentMethod(PaymentMethod.COD);
-      setShippingMethod(ShippingMethod.STANDARD);
       setPromoDetails(null);
       isFirstRender.current = false;
     }
-  }, [resetCustomer, clearCart, setPaymentMethod, setShippingMethod, setPromoDetails]);
+  }, [resetCustomer, clearCart, setPaymentMethod, setPromoDetails]);
 
   // Redirect if not authenticated or not admin
   if (!loading && (!isAuthenticated || user?.role !== 'admin')) {

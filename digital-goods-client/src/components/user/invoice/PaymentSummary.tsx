@@ -2,7 +2,7 @@ interface PaymentSummaryProps {
   subtotal: number;
   discount: number;
   couponDiscount: number;
-  shipping: number;
+  shipping: number; // thêm dòng này
   total: number;
   paid: number;
 }
@@ -11,7 +11,7 @@ export default function PaymentSummary({
   subtotal,
   discount,
   couponDiscount,
-  shipping,
+  shipping, // thêm dòng này
   total,
   paid
 }: PaymentSummaryProps) {
@@ -44,11 +44,14 @@ export default function PaymentSummary({
           </div>
         )}
         
-        <div className="payment-row flex justify-between">
-          <span className="text-gray-600">Phí vận chuyển</span>
-          <span className="font-medium">{formatCurrency(shipping)}</span>
-        </div>
-        
+        {/* Thêm hiển thị phí vận chuyển nếu có */}
+        {shipping > 0 && (
+          <div className="payment-row flex justify-between">
+            <span className="text-gray-600">Phí vận chuyển</span>
+            <span className="font-medium">{formatCurrency(shipping)}</span>
+          </div>
+        )}
+
         <div className="payment-total flex justify-between font-bold border-t border-gray-200 pt-3 sm:pt-4">
           <span>Tổng thanh toán</span>
           <span>{formatCurrency(total)}</span>

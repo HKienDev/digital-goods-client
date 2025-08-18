@@ -55,11 +55,11 @@ export default function OrderItems({ cartItems, loading = false, onTotalChange }
       await updateCartItem(itemId, newQuantity);
       
       toast.success('Giỏ hàng đã được cập nhật');
-    } catch (err: any) {
+    } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : ERROR_MESSAGES.NETWORK_ERROR;
       
       // Xử lý lỗi 401 - token hết hạn
-      if (err?.status === 401 || err?.response?.status === 401) {
+      if ((err as unknown as { status?: number })?.status === 401 || (err as unknown as { response?: { status?: number } })?.response?.status === 401) {
         console.log('🔍 OrderItems - 401 error in updateQuantity');
         toast.error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
       } else {
@@ -87,11 +87,11 @@ export default function OrderItems({ cartItems, loading = false, onTotalChange }
       });
       
       toast.success('Sản phẩm đã được xóa khỏi giỏ hàng');
-    } catch (err: any) {
+    } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : ERROR_MESSAGES.NETWORK_ERROR;
       
       // Xử lý lỗi 401 - token hết hạn
-      if (err?.status === 401 || err?.response?.status === 401) {
+      if ((err as unknown as { status?: number })?.status === 401 || (err as unknown as { response?: { status?: number } })?.response?.status === 401) {
         console.log('🔍 OrderItems - 401 error in removeItem');
         toast.error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
       } else {
@@ -127,7 +127,7 @@ export default function OrderItems({ cartItems, loading = false, onTotalChange }
   return (
     <Card>
       <CardContent className="p-4 md:p-6">
-        <h3 className="text-base md:text-lg font-semibold mb-4">Sản phẩm đặt hàng</h3>
+        <h3 className="text-base md:text-lg font-semibold mb-4">SẢN PHẨM ĐẶT HÀNG</h3>
         
         <div className="space-y-3 md:space-y-4">
           {cartItems.map((item, index) => (
@@ -192,7 +192,7 @@ export default function OrderItems({ cartItems, loading = false, onTotalChange }
         <Separator className="my-4" />
         
         <div className="flex justify-between items-center">
-          <span className="text-base md:text-lg font-semibold">Tổng cộng:</span>
+          <span className="text-base md:text-lg font-semibold">Thành tiền:</span>
           <span className="text-lg md:text-xl font-bold text-primary">
             {total.toLocaleString('vi-VN')} VNĐ
           </span>

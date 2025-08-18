@@ -14,8 +14,8 @@ interface PaymentMethodProps {
 const paymentMethods = [
   {
     id: PaymentMethod.COD,
-    name: "Thanh toán khi nhận hàng (COD)",
-    description: "Thanh toán bằng tiền mặt khi nhận hàng",
+    name: "Thanh toán qua ngân hàng",
+    description: "Quý khách vui lòng chuyển khoản theo thông tin ngân hàng của cửa hàng.",
     icon: <FaMoneyBillWave className="w-5 h-5 md:w-6 md:h-6" />
   }
 ];

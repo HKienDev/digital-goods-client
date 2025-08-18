@@ -5,7 +5,6 @@ import { AuthProvider } from "../context/authContext";
 import { AuthModalProvider } from "../context/authModalContext";
 import { CustomerProvider } from "../context/customerContext";
 import { PaymentMethodProvider } from "../context/paymentMethodContext";
-import { ShippingMethodProvider } from "../context/shippingMethodContext";
 import { PromoProvider } from "../context/promoContext";
 import { CartProvider } from "../context/cartContext";
 import TokenManager from "../components/TokenManagerFixed";
@@ -81,14 +80,12 @@ const Providers = memo(function Providers({ children }: ProvidersProps) {
         <TokenManager>
           <CustomerProvider>
             <PaymentMethodProvider>
-              <ShippingMethodProvider>
-                <PromoProvider>
-                  <CartProvider>
-                    {children}
-                    <AuthModalWrapper />
-                  </CartProvider>
-                </PromoProvider>
-              </ShippingMethodProvider>
+              <PromoProvider>
+                <CartProvider>
+                  {children}
+                  <AuthModalWrapper />
+                </CartProvider>
+              </PromoProvider>
             </PaymentMethodProvider>
           </CustomerProvider>
         </TokenManager>

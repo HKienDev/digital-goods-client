@@ -2,7 +2,6 @@
 
 import { useState, useCallback } from "react";
 import { useCart } from "@/context/cartContext";
-import { useShippingMethod, ShippingMethod } from "@/context/shippingMethodContext";
 import { usePaymentMethod, PaymentMethod } from "@/context/paymentMethodContext";
 
 import { Button } from "@/components/ui/button";
@@ -20,7 +19,6 @@ import Image from "next/image";
 export default function OrderProducts() {
   const { items: cartItems, addItem, removeItem } = useCart();
   const { paymentMethod, setPaymentMethod } = usePaymentMethod();
-  const { shippingMethod, setShippingMethod } = useShippingMethod();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<AdminProduct | null>(null);
@@ -506,8 +504,8 @@ export default function OrderProducts() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <Button
               type="button"
-              variant={shippingMethod === ShippingMethod.STANDARD ? "default" : "outline"}
-              onClick={() => setShippingMethod(ShippingMethod.STANDARD)}
+              variant="default"
+              onClick={() => {}}
               className="h-12 justify-start"
             >
               <Truck size={16} className="mr-2" />
@@ -515,8 +513,8 @@ export default function OrderProducts() {
             </Button>
             <Button
               type="button"
-              variant={shippingMethod === ShippingMethod.EXPRESS ? "default" : "outline"}
-              onClick={() => setShippingMethod(ShippingMethod.EXPRESS)}
+              variant="default"
+              onClick={() => {}}
               className="h-12 justify-start"
             >
               <Truck size={16} className="mr-2" />
@@ -524,8 +522,8 @@ export default function OrderProducts() {
             </Button>
             <Button
               type="button"
-              variant={shippingMethod === ShippingMethod.SAME_DAY ? "default" : "outline"}
-              onClick={() => setShippingMethod(ShippingMethod.SAME_DAY)}
+              variant="default"
+              onClick={() => {}}
               className="h-12 justify-start"
             >
               <Truck size={16} className="mr-2" />

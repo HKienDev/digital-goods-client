@@ -21,18 +21,18 @@ interface NewOrderEmailProduct {
 
 interface NewOrderEmailProps {
   shortId: string;
-  fullName: string;
+  fullName?: string;
   createdAt: string; // đã format
-  deliveryDate: string; // đã format
+  deliveryDate?: string; // đã format
   items: NewOrderEmailProduct[];
   subtotal: string;
-  directDiscount: string;
-  couponDiscount: string;
-  shippingFee: string;
+  directDiscount?: string;
+  couponDiscount?: string;
+  shippingFee?: string;
   totalPrice: string;
-  shippingAddress: string;
-  paymentMethod: string;
-  paymentStatus: string;
+  shippingAddress?: string;
+  paymentMethod?: string;
+  paymentStatus?: string;
 }
 
 // Hàm chuyển đổi sang giờ Việt Nam
@@ -44,18 +44,18 @@ const toVNTimeString = (dateStr: string) => {
 
 const NewOrderEmail: React.FC<NewOrderEmailProps> = ({
   shortId,
-  fullName,
+  fullName = '',
   createdAt,
-  deliveryDate,
+  deliveryDate = '',
   items,
   subtotal,
-  directDiscount,
-  couponDiscount,
-  shippingFee,
+  directDiscount = '',
+  couponDiscount = '',
+  shippingFee = '',
   totalPrice,
-  shippingAddress,
-  paymentMethod,
-  paymentStatus,
+  shippingAddress = '',
+  paymentMethod = '',
+  paymentStatus = '',
 }) => {
   return (
     <Html>
@@ -76,7 +76,7 @@ const NewOrderEmail: React.FC<NewOrderEmailProps> = ({
               Cảm ơn bạn đã đặt hàng!
             </Heading>
             <Text style={{ color: '#e0e7ef', fontSize: 16, margin: '8px 0 0 0' }}>
-              Xin chào <b>{fullName}</b>, đơn hàng của bạn đã được ghi nhận.
+              Xin chào <b>{fullName || 'Quý khách'}</b>, đơn hàng của bạn đã được ghi nhận.
             </Text>
           </Section>
 
@@ -90,7 +90,7 @@ const NewOrderEmail: React.FC<NewOrderEmailProps> = ({
                   <td style={orderInfoLabel}>Ngày đặt</td>
                   <td style={orderInfoValue}>{toVNTimeString(createdAt)}</td>
                   <td style={orderInfoLabel}>Dự kiến giao</td>
-                  <td style={orderInfoValue}>{toVNTimeString(deliveryDate)}</td>
+                  <td style={orderInfoValue}>{deliveryDate ? toVNTimeString(deliveryDate) : '---'}</td>
                 </tr>
               </tbody>
             </table>
@@ -162,7 +162,7 @@ const NewOrderEmail: React.FC<NewOrderEmailProps> = ({
             <Heading style={{ fontSize: 16, color: '#222', fontWeight: 700, margin: '0 0 8px 0' }}>
               Thông tin giao hàng
             </Heading>
-            <Text style={{ color: '#444', fontSize: 15 }}>{shippingAddress}</Text>
+            <Text style={{ color: '#444', fontSize: 15 }}>{shippingAddress || '---'}</Text>
           </Section>
 
           {/* Phương thức thanh toán */}
@@ -170,8 +170,8 @@ const NewOrderEmail: React.FC<NewOrderEmailProps> = ({
             <Heading style={{ fontSize: 16, color: '#222', fontWeight: 700, margin: '0 0 8px 0' }}>
               Phương thức thanh toán
             </Heading>
-            <Text style={{ color: '#444', fontSize: 15 }}>{paymentMethod}</Text>
-            <Text style={{ color: '#444', fontSize: 15 }}>Trạng thái: {paymentStatus}</Text>
+            <Text style={{ color: '#444', fontSize: 15 }}>{paymentMethod || '---'}</Text>
+            <Text style={{ color: '#444', fontSize: 15 }}>Trạng thái: {paymentStatus || '---'}</Text>
           </Section>
 
           {/* Nút CTA */}

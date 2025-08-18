@@ -253,7 +253,7 @@ export default function OrderList({ orders }: OrderListProps) {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentOrders.map((order, index) => (
+                  {currentOrders.map((order) => (
                     <tr 
                       key={order._id} 
                       className="cursor-pointer hover:bg-indigo-50/30 transition-all duration-200 group"
@@ -286,11 +286,6 @@ export default function OrderList({ orders }: OrderListProps) {
                           {order.user && (
                             <div className="text-xs text-slate-600">
                               <span className="font-medium">User:</span> {order.user.fullname || order.user.email}
-                            </div>
-                          )}
-                          {order.shippingAddress && (
-                            <div className="text-xs text-slate-600">
-                              <span className="font-medium">Phone:</span> {order.shippingAddress.phone}
                             </div>
                           )}
                         </div>

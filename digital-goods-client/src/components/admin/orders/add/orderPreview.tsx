@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useCart } from "@/context/cartContext";
-import { useShippingMethod, ShippingMethod } from "@/context/shippingMethodContext";
 import { usePaymentMethod, PaymentMethod } from "@/context/paymentMethodContext";
 import { useCustomer } from "@/context/customerContext";
 import { usePromo } from "@/context/promoContext";
@@ -22,7 +21,6 @@ interface OrderPreviewProps {
 export default function OrderPreview({ onConfirmOrder }: OrderPreviewProps) {
   const { items: cartItems } = useCart();
   const { paymentMethod } = usePaymentMethod();
-  const { shippingMethod } = useShippingMethod();
   const { customer } = useCustomer();
   const { promoDetails } = usePromo();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,11 +29,6 @@ export default function OrderPreview({ onConfirmOrder }: OrderPreviewProps) {
   const calculateTotal = () => {
     // Tính tổng tiền sản phẩm
     const subtotal = cartItems.reduce((total, item) => total + item.totalPrice, 0);
-    
-    // Tính phí vận chuyển
-    const shippingFee = shippingMethod === ShippingMethod.EXPRESS ? 45000 : 
-                       shippingMethod === ShippingMethod.SAME_DAY ? 60000 : 
-                       30000;
     
     // Tính giảm giá từ mã khuyến mãi (chỉ áp dụng cho giá sản phẩm, không áp dụng cho phí vận chuyển)
     let discountAmount = 0;
@@ -47,15 +40,12 @@ export default function OrderPreview({ onConfirmOrder }: OrderPreviewProps) {
       }
     }
     
-    // Tổng cộng = (Giá sản phẩm - Giảm giá) + Phí vận chuyển
-    return (subtotal - discountAmount) + shippingFee;
+    // Tổng cộng = (Giá sản phẩm - Giảm giá)
+    return (subtotal - discountAmount);
   };
 
   const total = calculateTotal();
   const subtotal = cartItems.reduce((total, item) => total + item.totalPrice, 0);
-  const shippingFee = shippingMethod === ShippingMethod.EXPRESS ? 45000 : 
-                     shippingMethod === ShippingMethod.SAME_DAY ? 60000 : 
-                     30000;
   const discountAmount = promoDetails ? promoDetails.discountAmount : 0;
 
   // Xử lý xác nhận đơn hàng
@@ -101,7 +91,6 @@ export default function OrderPreview({ onConfirmOrder }: OrderPreviewProps) {
           }
         },
         paymentMethod: paymentMethod,
-        shippingMethod: shippingMethod.toLowerCase(),
         couponCode: promoDetails?.code
       };
 
@@ -208,77 +197,20 @@ export default function OrderPreview({ onConfirmOrder }: OrderPreviewProps) {
 
   // Hiển thị phương thức vận chuyển
   const renderShippingMethod = () => {
-    switch (shippingMethod) {
-      case ShippingMethod.STANDARD:
-        return (
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-gray-500/10 to-gray-600/10 rounded-2xl blur-sm group-hover:blur-md transition-all duration-300" />
-            <div className="relative flex items-center gap-4 p-4 bg-white rounded-2xl border border-gray-100 group-hover:border-gray-200 transition-all duration-300 shadow-sm hover:shadow-md">
-              <div className="w-12 h-12 bg-gradient-to-br from-gray-500 to-gray-600 rounded-xl flex items-center justify-center">
-                <Truck size={20} className="text-white" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <h4 className="font-semibold text-gray-900 text-sm sm:text-base">Vận chuyển thường</h4>
-                <p className="text-xs sm:text-sm text-gray-500 mt-1">3-5 ngày làm việc - 30.000₫</p>
-              </div>
-              <Badge className="bg-gray-50 text-gray-600 border-gray-200 text-xs">
-                Đã chọn
-              </Badge>
-            </div>
+    return (
+      <div className="relative group">
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-500/10 to-gray-600/10 rounded-2xl blur-sm group-hover:blur-md transition-all duration-300" />
+        <div className="relative flex items-center gap-4 p-4 bg-white rounded-2xl border border-gray-100 group-hover:border-gray-200 transition-all duration-300 shadow-sm hover:shadow-md">
+          <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
+            <Truck size={20} className="text-gray-600" />
           </div>
-        );
-      case ShippingMethod.EXPRESS:
-        return (
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-blue-600/10 rounded-2xl blur-sm group-hover:blur-md transition-all duration-300" />
-            <div className="relative flex items-center gap-4 p-4 bg-white rounded-2xl border border-blue-100 group-hover:border-blue-200 transition-all duration-300 shadow-sm hover:shadow-md">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
-                <Truck size={20} className="text-white" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <h4 className="font-semibold text-gray-900 text-sm sm:text-base">Vận chuyển nhanh</h4>
-                <p className="text-xs sm:text-sm text-gray-500 mt-1">1-2 ngày làm việc - 45.000₫</p>
-              </div>
-              <Badge className="bg-blue-50 text-blue-600 border-blue-200 text-xs">
-                Đã chọn
-              </Badge>
-            </div>
+          <div className="flex-1 min-w-0">
+            <h4 className="font-semibold text-gray-900 text-sm sm:text-base">Chưa chọn phương thức vận chuyển</h4>
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">Vui lòng chọn phương thức vận chuyển</p>
           </div>
-        );
-      case ShippingMethod.SAME_DAY:
-        return (
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-green-600/10 rounded-2xl blur-sm group-hover:blur-md transition-all duration-300" />
-            <div className="relative flex items-center gap-4 p-4 bg-white rounded-2xl border border-green-100 group-hover:border-green-200 transition-all duration-300 shadow-sm hover:shadow-md">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
-                <Truck size={20} className="text-white" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <h4 className="font-semibold text-gray-900 text-sm sm:text-base">Vận chuyển trong ngày</h4>
-                <p className="text-xs sm:text-sm text-gray-500 mt-1">Giao hàng trong ngày - 60.000₫</p>
-              </div>
-              <Badge className="bg-green-50 text-green-600 border-green-200 text-xs">
-                Đã chọn
-              </Badge>
-            </div>
-          </div>
-        );
-      default:
-        return (
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-gray-500/10 to-gray-600/10 rounded-2xl blur-sm group-hover:blur-md transition-all duration-300" />
-            <div className="relative flex items-center gap-4 p-4 bg-white rounded-2xl border border-gray-100 group-hover:border-gray-200 transition-all duration-300 shadow-sm hover:shadow-md">
-              <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
-                <Truck size={20} className="text-gray-600" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <h4 className="font-semibold text-gray-900 text-sm sm:text-base">Chưa chọn phương thức vận chuyển</h4>
-                <p className="text-xs sm:text-sm text-gray-500 mt-1">Vui lòng chọn phương thức vận chuyển</p>
-              </div>
-            </div>
-          </div>
-        );
-    }
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -434,14 +366,6 @@ export default function OrderPreview({ onConfirmOrder }: OrderPreviewProps) {
                   <span className="font-semibold text-green-600">-{discountAmount.toLocaleString()}₫</span>
                 </div>
               )}
-              
-              <div className="flex justify-between items-center text-sm sm:text-base">
-                <span className="text-gray-600 flex items-center">
-                  <Truck size={14} className="mr-2" />
-                  Phí vận chuyển:
-                </span>
-                <span className="font-semibold">{shippingFee.toLocaleString()}₫</span>
-              </div>
               
               <Separator className="my-3" />
               

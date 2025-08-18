@@ -34,7 +34,6 @@ const tiers: TierInfo[] = [
     icon: <Crown className="w-6 h-6 text-[#9C7F7F]" />,
     benefits: [
       "Giảm giá 5% cho đơn hàng đầu tiên",
-      "Miễn phí vận chuyển cho đơn hàng trên 500.000đ",
       "Tích điểm 1% trên tổng đơn hàng"
     ],
     nextTier: "Bạc",
@@ -49,7 +48,6 @@ const tiers: TierInfo[] = [
     icon: <Crown className="w-6 h-6 text-[#797979]" />,
     benefits: [
       "Giảm giá 7% cho tất cả đơn hàng",
-      "Miễn phí vận chuyển cho mọi đơn hàng",
       "Tích điểm 2% trên tổng đơn hàng",
       "Ưu tiên xử lý đơn hàng"
     ],
@@ -65,7 +63,6 @@ const tiers: TierInfo[] = [
     icon: <Crown className="w-6 h-6 text-[#FFBE00]" />,
     benefits: [
       "Giảm giá 10% cho tất cả đơn hàng",
-      "Miễn phí vận chuyển nhanh",
       "Tích điểm 3% trên tổng đơn hàng",
       "Ưu tiên xử lý đơn hàng",
       "Quà tặng sinh nhật đặc biệt"
@@ -82,7 +79,6 @@ const tiers: TierInfo[] = [
     icon: <Crown className="w-6 h-6 text-[#4EB09D]" />,
     benefits: [
       "Giảm giá 12% cho tất cả đơn hàng",
-      "Miễn phí vận chuyển nhanh",
       "Tích điểm 4% trên tổng đơn hàng",
       "Ưu tiên xử lý đơn hàng cao cấp",
       "Quà tặng sinh nhật đặc biệt",
@@ -100,7 +96,6 @@ const tiers: TierInfo[] = [
     icon: <Crown className="w-6 h-6 text-[#7C54F3]" />,
     benefits: [
       "Giảm giá 15% cho tất cả đơn hàng",
-      "Miễn phí vận chuyển nhanh",
       "Tích điểm 5% trên tổng đơn hàng",
       "Ưu tiên xử lý đơn hàng VIP",
       "Quà tặng sinh nhật đặc biệt",

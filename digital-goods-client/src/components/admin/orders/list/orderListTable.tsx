@@ -28,9 +28,9 @@ const OrderListTable = React.memo(
 
     // Calculate statistics
     const totalOrders = orders.length;
-    const pendingOrders = orders.filter(order => order.status === "pending" || order.status === "confirmed").length;
-    const shippingOrders = orders.filter(order => order.status === "shipped").length;
-    const deliveredOrders = orders.filter(order => order.status === "delivered").length;
+    const pendingOrders = orders.filter(order => order.status === "pending").length;
+    const processingOrders = orders.filter(order => order.status === "processing").length;
+    const completedOrders = orders.filter(order => order.status === "completed").length;
 
     return (
       <div className="space-y-6">
@@ -72,7 +72,7 @@ const OrderListTable = React.memo(
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-slate-600 mb-1">Đang Giao Hàng</p>
-                  <p className="text-3xl font-bold text-slate-800">{shippingOrders.toLocaleString()}</p>
+                  <p className="text-3xl font-bold text-slate-800">{processingOrders.toLocaleString()}</p>
                 </div>
                 <div className="h-12 w-12 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center shadow-lg">
                   <Truck size={24} className="text-white" />
@@ -87,7 +87,7 @@ const OrderListTable = React.memo(
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-slate-600 mb-1">Đã Hoàn Thành</p>
-                  <p className="text-3xl font-bold text-slate-800">{deliveredOrders.toLocaleString()}</p>
+                  <p className="text-3xl font-bold text-slate-800">{completedOrders.toLocaleString()}</p>
                 </div>
                 <div className="h-12 w-12 rounded-xl bg-gradient-to-r from-emerald-500 to-green-500 flex items-center justify-center shadow-lg">
                   <Package size={24} className="text-white" />
@@ -169,10 +169,10 @@ const OrderListTable = React.memo(
                             </div>
                             <div className="flex flex-col">
                               <span className="font-semibold text-slate-800 truncate">
-                                {order.shippingAddress?.fullName || "Không có dữ liệu"}
+                                {order.user?.fullname ?? order.phone ?? "Không có dữ liệu"}
                               </span>
                               <span className="text-sm text-slate-500 truncate">
-                                {order.shippingAddress?.phone || ""}
+                                {order.user?.phone ?? order.phone ?? ""}
                               </span>
                             </div>
                           </div>
@@ -181,18 +181,7 @@ const OrderListTable = React.memo(
                           <div className="flex items-center gap-2">
                             <MapPin size={16} className="text-slate-400 flex-shrink-0" />
                             <div className="flex flex-col text-sm text-slate-700 leading-snug">
-                              {order.shippingAddress ? (
-                                <>
-                                  <span className="whitespace-nowrap overflow-hidden text-ellipsis">
-                                    {order.shippingAddress.address.street || ''}, {order.shippingAddress.address.ward.name}
-                                  </span>
-                                  <span className="whitespace-nowrap overflow-hidden text-ellipsis">
-                                    {order.shippingAddress.address.district.name}, {order.shippingAddress.address.province.name}
-                                  </span>
-                                </>
-                              ) : (
-                                <span>Không có dữ liệu</span>
-                              )}
+                              <span>Không có dữ liệu</span>
                             </div>
                           </div>
                         </td>
@@ -211,7 +200,7 @@ const OrderListTable = React.memo(
                               <span className="w-2 h-2 rounded-full bg-blue-400"></span>
                               {order.paymentMethod}
                             </div>
-                            {order.status === "delivered" ? (
+                            {order.status === "completed" ? (
                               <div className="inline-flex items-center gap-2 px-3 py-1.5 min-w-[150px] whitespace-nowrap rounded-xl bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200/60">
                                 <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
                                 Đã thanh toán

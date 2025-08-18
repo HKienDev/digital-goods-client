@@ -91,21 +91,7 @@ export function useOrders() {
                     template: NewOrderEmail,
                     templateProps: {
                         shortId: order.shortId,
-                        shippingAddress: (() => {
-                            try {
-                                const addressParts = [
-                                    typeof order.shippingAddress.address?.street === 'string' ? order.shippingAddress.address?.street : '',
-                                    typeof order.shippingAddress.address?.ward?.name === 'string' ? order.shippingAddress.address?.ward?.name : '',
-                                    typeof order.shippingAddress.address?.district?.name === 'string' ? order.shippingAddress.address?.district?.name : '',
-                                    typeof order.shippingAddress.address?.province?.name === 'string' ? order.shippingAddress.address?.province?.name : ''
-                                ];
-                                const addressString = addressParts.filter((v) => typeof v === 'string' && v.length > 0).join(', ');
-                                return addressString || '';
-                            } catch {
-                                return '';
-                            }
-                        })(),
-                        fullName: typeof order.shippingAddress.fullName === 'string' ? order.shippingAddress.fullName : '',
+                        fullName: user?.fullname || '',
                         deliveryDate: '',
                         items: (order.items || []).map((item) => {
                             let image = '';
@@ -125,7 +111,7 @@ export function useOrders() {
                         subtotal: order.subtotal?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) || '',
                         directDiscount: order.directDiscount?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) || '',
                         couponDiscount: order.couponDiscount?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) || '',
-                        shippingFee: order.shippingFee?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) || '',
+                        shippingFee: '',
                         totalPrice: order.totalPrice?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) || '',
                         paymentMethod: order.paymentMethod,
                         paymentStatus: order.paymentStatus,

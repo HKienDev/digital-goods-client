@@ -1,4 +1,4 @@
-import { Calendar, Tag, CheckCircle, AlertCircle, CreditCard, Package, Award, User, Clock } from 'lucide-react';
+import { Tag, CheckCircle, AlertCircle, CreditCard, Package, Award, User, Clock } from 'lucide-react';
 
 interface OrderHeaderProps {
   shortId: string;

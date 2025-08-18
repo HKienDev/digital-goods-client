@@ -150,7 +150,7 @@ export default function CancelOrder({ orderId, items, status, isDisabled, onStat
   };
 
   // Kiểm tra xem đơn hàng có thể hủy không
-  if (status === OrderStatus.CANCELLED || status === OrderStatus.DELIVERED) {
+  if (status === OrderStatus.CANCELLED) {
     return null;
   }
 

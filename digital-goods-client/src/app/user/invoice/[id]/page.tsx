@@ -45,36 +45,6 @@ interface OrderItem {
   _id: string;
 }
 
-interface Address {
-  province: {
-    name: string;
-    code: number;
-  };
-  district: {
-    name: string;
-    code: number;
-  };
-  ward: {
-    name: string;
-    code: number;
-  };
-  street: string;
-}
-
-interface ShippingAddress {
-  fullName: string;
-  phone: string;
-  address: Address;
-}
-
-interface ShippingMethod {
-  method: string;
-  fee: number;
-  expectedDate: string;
-  courier: string;
-  trackingId: string;
-}
-
 interface StatusHistory {
   status: string;
   updatedAt: string;
@@ -95,8 +65,6 @@ interface Order {
   originalTotal: number;
   paymentMethod: string;
   paymentStatus: string;
-  shippingAddress: ShippingAddress;
-  shippingMethod: ShippingMethod;
   status: string;
   notes: string;
   cancellationReason: string;
@@ -281,27 +249,15 @@ export default function InvoicePage() {
             <AddressInfo 
               storeAddress={{
                 name: `Phương thức: ${
-                  order.shippingMethod.method === 'standard' ? 'GIAO HÀNG TIẾT KIỆM' :
-                  order.shippingMethod.method === 'express' ? 'GIAO HÀNG NHANH' :
-                  order.shippingMethod.method === 'same_day' ? 'GIAO HÀNG HỎA TỐC' : 'GIAO HÀNG TIẾT KIỆM'
+                  order.shippingFee > 0 ? 'GIAO HÀNG TIẾT KIỆM' : 'GIAO HÀNG MIỄN PHÍ'
                 }`,
                 phone: order.shortId,
                 address: [
-                  `Ngày dự kiến giao hàng: ${new Date(order.shippingMethod.expectedDate).toLocaleDateString('vi-VN')}`,
-                  `Đơn vị vận chuyển: ${order.shippingMethod.courier}`,
-                  `Mã vận đơn: ${order.shippingMethod.trackingId}`
+                  `Đơn vị vận chuyển: ${order.shippingFee > 0 ? 'Không có thông tin' : 'Miễn phí'}`,
+                  `Mã vận đơn: ${order.shortId}`
                 ]
               }}
-              deliveryAddress={{
-                name: order.shippingAddress.fullName,
-                phone: order.shippingAddress.phone,
-                address: {
-                  street: order.shippingAddress.address.street,
-                  ward: order.shippingAddress.address.ward,
-                  district: order.shippingAddress.address.district,
-                  province: order.shippingAddress.address.province
-                }
-              }}
+              // Xóa hoàn toàn deliveryAddress
             />
             
             <ProductList 

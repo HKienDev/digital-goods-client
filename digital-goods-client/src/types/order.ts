@@ -3,9 +3,9 @@ import { AdminProduct } from './product';
 
 export enum OrderStatus {
   PENDING = "pending",
-  CONFIRMED = "confirmed",
-  SHIPPED = "shipped",
-  DELIVERED = "delivered",
+  PROCESSING = "processing",
+  PAID = "paid",
+  COMPLETED = "completed",
   CANCELLED = "cancelled"
 }
 
@@ -18,12 +18,6 @@ export enum PaymentStatus {
   PAID = "paid",
   FAILED = "failed",
   REFUNDED = "refunded"
-}
-
-export enum ShippingMethod {
-  STANDARD = "standard",
-  EXPRESS = "express",
-  SAME_DAY = "same_day"
 }
 
 export interface OrderItem {
@@ -57,7 +51,7 @@ export interface ShippingAddress {
 }
 
 export interface ShippingInfo {
-  method: ShippingMethod;
+  method: string;
   fee: number;
   expectedDate?: Date;
   courier?: string;
@@ -82,9 +76,7 @@ export interface Order {
   paymentMethod: PaymentMethod;
   paymentStatus: PaymentStatus;
   paymentIntentId?: string;
-  shippingAddress: ShippingAddress;
   shippingInfo: ShippingInfo;
-  shippingFee: number;
   status: OrderStatus;
   notes?: string;
   cancellationReason?: string;
@@ -111,7 +103,7 @@ export interface CreateOrderInput {
   }[];
   shippingAddress: ShippingAddress;
   paymentMethod: PaymentMethod;
-  shippingMethod: ShippingMethod;
+  shippingMethod: string;
   notes?: string;
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Clock, Package, Truck, Home, Loader2, CheckCircle } from "lucide-react";
+import { Clock, Package, Home, Loader2, CheckCircle } from "lucide-react";
 import { OrderStatus } from "@/types/base";
 import CancelOrder from "./cancelOrder";
 
@@ -55,16 +55,16 @@ export default function DeliveryTracking({
   const getNextStatus = (currentStatus: OrderStatus): OrderStatus | null => {
     switch (currentStatus) {
       case OrderStatus.PENDING:
-        return OrderStatus.CONFIRMED;
-      case OrderStatus.CONFIRMED:
-        return OrderStatus.SHIPPED;
-      case OrderStatus.SHIPPED:
-        return OrderStatus.DELIVERED;
-      case OrderStatus.DELIVERED:
+        return OrderStatus.PROCESSING;
+      case OrderStatus.PROCESSING:
+        return OrderStatus.PAID;
+      case OrderStatus.PAID:
+        return OrderStatus.COMPLETED;
+      case OrderStatus.COMPLETED:
       case OrderStatus.CANCELLED:
         return null;
       default:
-        return OrderStatus.CONFIRMED;
+        return null;
     }
   };
 
@@ -73,9 +73,9 @@ export default function DeliveryTracking({
   const getStatusStep = (status: OrderStatus) => {
     switch (status) {
       case OrderStatus.PENDING: return 1;
-      case OrderStatus.CONFIRMED: return 2;
-      case OrderStatus.SHIPPED: return 3;
-      case OrderStatus.DELIVERED: return 4;
+      case OrderStatus.PROCESSING: return 2;
+      case OrderStatus.PAID: return 3;
+      case OrderStatus.COMPLETED: return 4;
       case OrderStatus.CANCELLED: return 0;
       default: return 1;
     }
@@ -108,9 +108,9 @@ export default function DeliveryTracking({
                 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-medium text-sm sm:text-base
                 transition-all duration-300 ease-in-out
                 ${isAnimating ? 'animate-pulse' : ''}
-                ${currentStatus === OrderStatus.PENDING ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl' : 
-                  currentStatus === OrderStatus.CONFIRMED ? 'bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white shadow-lg hover:shadow-xl' :
-                  currentStatus === OrderStatus.SHIPPED ? 'bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white shadow-lg hover:shadow-xl' : 
+                ${currentStatus === OrderStatus.PENDING ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl' :
+                  currentStatus === OrderStatus.PROCESSING ? 'bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white shadow-lg hover:shadow-xl' :
+                  currentStatus === OrderStatus.PAID ? 'bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white shadow-lg hover:shadow-xl' : 
                   'bg-gradient-to-r from-slate-600 to-slate-700 hover:from-slate-700 hover:to-slate-800 text-white shadow-lg hover:shadow-xl'}
                 disabled:opacity-50 disabled:cursor-not-allowed
                 transform hover:-translate-y-0.5 active:translate-y-0
@@ -130,16 +130,16 @@ export default function DeliveryTracking({
                       <span>Xác nhận đơn hàng</span>
                     </>
                   )}
-                  {currentStatus === OrderStatus.CONFIRMED && (
+                  {currentStatus === OrderStatus.PROCESSING && (
                     <>
-                      <Truck className="w-4 h-4" />
-                      <span>Bắt đầu vận chuyển</span>
+                      <CheckCircle className="w-4 h-4" />
+                      <span>Xác nhận đã thanh toán</span>
                     </>
                   )}
-                  {currentStatus === OrderStatus.SHIPPED && (
+                  {currentStatus === OrderStatus.PAID && (
                     <>
                       <Home className="w-4 h-4" />
-                      <span>Xác nhận đã giao</span>
+                      <span>Hoàn tất đơn hàng</span>
                     </>
                   )}
                 </>
@@ -147,7 +147,7 @@ export default function DeliveryTracking({
             </button>
           )}
           
-          {orderId && items && onCancelOrder && currentStatus !== OrderStatus.CANCELLED && currentStatus !== OrderStatus.DELIVERED && (
+          {orderId && items && onCancelOrder && currentStatus !== OrderStatus.CANCELLED && currentStatus !== OrderStatus.COMPLETED && (
             <CancelOrder
               orderId={orderId}
               items={items}
@@ -189,9 +189,7 @@ export default function DeliveryTracking({
                   : 'bg-slate-100 text-slate-400'
               }`}>
                 <Clock size={24} />
-                {currentStep > 1 && (
-                  <CheckCircle className="absolute -top-1 -right-1 w-5 h-5 text-white bg-green-500 rounded-full" />
-                )}
+                {/* Không render CheckCircle cho bước đầu tiên */}
               </div>
               <div className="space-y-1">
                 <div className={`font-medium text-sm ${
@@ -205,7 +203,7 @@ export default function DeliveryTracking({
               </div>
             </div>
             
-            {/* Step 2: Confirmed */}
+            {/* Step 2: Processing */}
             <div className="flex flex-col items-center text-center">
               <div className={`relative w-12 h-12 rounded-full flex items-center justify-center mb-3 transition-all duration-500 ${
                 currentStep >= 2 
@@ -221,7 +219,7 @@ export default function DeliveryTracking({
                 <div className={`font-medium text-sm ${
                   currentStep >= 2 ? 'text-slate-800' : 'text-slate-500'
                 }`}>
-                  Đã xác nhận
+                  Đang xử lý
                 </div>
                 <div className="text-xs text-slate-400">
                   Chuẩn bị hàng
@@ -229,14 +227,14 @@ export default function DeliveryTracking({
               </div>
             </div>
             
-            {/* Step 3: Shipping */}
+            {/* Step 3: Paid */}
             <div className="flex flex-col items-center text-center">
               <div className={`relative w-12 h-12 rounded-full flex items-center justify-center mb-3 transition-all duration-500 ${
                 currentStep >= 3 
                   ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg' 
                   : 'bg-slate-100 text-slate-400'
               }`}>
-                <Truck size={24} />
+                <CheckCircle size={24} />
                 {currentStep > 3 && (
                   <CheckCircle className="absolute -top-1 -right-1 w-5 h-5 text-white bg-green-500 rounded-full" />
                 )}
@@ -245,15 +243,15 @@ export default function DeliveryTracking({
                 <div className={`font-medium text-sm ${
                   currentStep >= 3 ? 'text-slate-800' : 'text-slate-500'
                 }`}>
-                  Đang vận chuyển
+                  Đã thanh toán
                 </div>
                 <div className="text-xs text-slate-400">
-                  Trên đường giao
+                  Hoàn tất
                 </div>
               </div>
             </div>
             
-            {/* Step 4: Delivered */}
+            {/* Step 4: Delivered/Completed */}
             <div className="flex flex-col items-center text-center">
               <div className={`relative w-12 h-12 rounded-full flex items-center justify-center mb-3 transition-all duration-500 ${
                 currentStep >= 4 
@@ -269,7 +267,7 @@ export default function DeliveryTracking({
                 <div className={`font-medium text-sm ${
                   currentStep >= 4 ? 'text-slate-800' : 'text-slate-500'
                 }`}>
-                  Đã giao hàng
+                  Hoàn tất
                 </div>
                 <div className="text-xs text-slate-400">
                   Hoàn thành

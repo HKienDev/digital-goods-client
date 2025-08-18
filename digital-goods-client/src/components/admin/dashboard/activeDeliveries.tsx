@@ -1,4 +1,4 @@
-import { Clock, ChevronRight, Truck, MapPin, Package, CheckCircle, AlertCircle, XCircle } from 'lucide-react';
+import { Clock, ChevronRight, Truck, CheckCircle, AlertCircle, XCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import type { RecentOrder } from '@/types/dashboard';
 
@@ -20,17 +20,16 @@ export function ActiveDeliveries({ deliveries }: ActiveDeliveriesProps) {
 
   // Hàm chuyển đổi RecentOrder thành Delivery
   const mapToDelivery = (order: RecentOrder): Delivery => {
-    // Tính toán tiến độ dựa trên trạng thái
     let progress = 0;
     switch (order.status.toLowerCase()) {
       case 'pending':
-        progress = 25;
+        progress = 10;
         break;
-      case 'confirmed':
-        progress = 50;
+      case 'processing':
+        progress = 30;
         break;
       case 'shipped':
-        progress = 75;
+        progress = 70;
         break;
       case 'delivered':
         progress = 100;
@@ -41,14 +40,13 @@ export function ActiveDeliveries({ deliveries }: ActiveDeliveriesProps) {
       default:
         progress = 0;
     }
-
     return {
       id: order._id,
       orderNumber: order.orderNumber,
       status: order.status,
       progress: progress,
-      originAddress: order.originAddress,
-      destinationAddress: order.destinationAddress
+      originAddress: '', // bỏ địa chỉ
+      destinationAddress: '' // bỏ địa chỉ
     };
   };
 
@@ -67,8 +65,8 @@ export function ActiveDeliveries({ deliveries }: ActiveDeliveriesProps) {
     switch (status.toLowerCase()) {
       case 'pending':
         return 'Chờ xác nhận';
-      case 'confirmed':
-        return 'Đã xác nhận';
+      case 'processing':
+        return 'Đang xử lý';
       case 'shipped':
         return 'Đang giao';
       case 'delivered':
@@ -76,7 +74,7 @@ export function ActiveDeliveries({ deliveries }: ActiveDeliveriesProps) {
       case 'cancelled':
         return 'Đã hủy';
       default:
-        return 'Không xác định';
+        return status;
     }
   };
 
@@ -148,8 +146,8 @@ export function ActiveDeliveries({ deliveries }: ActiveDeliveriesProps) {
             <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
           </div>
           <div>
-            <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Đơn Đang Được Giao</h2>
-            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">2 đơn hàng mới nhất đang được giao</p>
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Đơn Hàng Mới</h2>
+            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Hiển thị 2 đơn hàng mới nhất</p>
           </div>
         </div>
         
@@ -193,33 +191,6 @@ export function ActiveDeliveries({ deliveries }: ActiveDeliveriesProps) {
                       </div>
                     </div>
                     
-                    {/* Delivery Route */}
-                    <div className="flex items-start space-x-4 sm:space-x-5 mb-4 sm:mb-5">
-                      <div className="flex flex-col items-center space-y-2 sm:space-y-3">
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-emerald-100 to-emerald-200 dark:from-emerald-900/30 dark:to-emerald-800/30 flex items-center justify-center shadow-md ring-2 ring-white/50 dark:ring-gray-800/50">
-                          <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 dark:text-emerald-400" />
-                        </div>
-                        <div className="w-1 h-8 sm:h-10 bg-gradient-to-b from-emerald-200 to-blue-200 dark:from-emerald-700 dark:to-blue-700 rounded-full"></div>
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/30 dark:to-blue-800/30 flex items-center justify-center shadow-md ring-2 ring-white/50 dark:ring-gray-800/50">
-                          <Package className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 dark:text-blue-400" />
-                        </div>
-                      </div>
-                      <div className="flex-1 space-y-3 sm:space-y-4">
-                        <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 sm:p-4">
-                          <p className="text-sm sm:text-base font-bold text-gray-900 dark:text-white mb-1">
-                            {delivery.originAddress}
-                          </p>
-                          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">Điểm xuất phát</p>
-                        </div>
-                        <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 sm:p-4">
-                          <p className="text-sm sm:text-base font-bold text-gray-900 dark:text-white mb-1">
-                            {delivery.destinationAddress}
-                          </p>
-                          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">Điểm đến</p>
-                        </div>
-                      </div>
-                    </div>
-                    
                     {/* Progress Bar */}
                     <div className="mb-4 sm:mb-5">
                       <div className="flex justify-between items-center mb-2 sm:mb-3">
@@ -256,8 +227,8 @@ export function ActiveDeliveries({ deliveries }: ActiveDeliveriesProps) {
           ) : (
             <div className="text-center py-8 sm:py-10">
               <Truck className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-500 dark:text-gray-400 font-semibold text-base sm:text-lg">Không có đơn hàng đang giao</p>
-              <p className="text-sm text-gray-400 dark:text-gray-500 mt-2">Tất cả đơn hàng đã được xử lý</p>
+              <p className="text-gray-500 dark:text-gray-400 font-semibold text-base sm:text-lg">Không có đơn hàng đang xử lý</p>
+              <p className="text-sm text-gray-400 dark:text-gray-500 mt-2">Tất cả đơn hàng đã hoàn tất</p>
             </div>
           )}
         </div>
