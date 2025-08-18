@@ -482,9 +482,6 @@ const UserProfileForm = () => {
             </div>
           </Card>
 
-          {/* Address Card */}
-          {/* Đã xóa toàn bộ UI/logic liên quan đến địa chỉ */}
-
           {/* Actions Card */}
           {isEditing && (
             <div className="mt-6 sm:mt-8 relative overflow-hidden">

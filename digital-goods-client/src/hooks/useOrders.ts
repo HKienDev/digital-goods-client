@@ -87,7 +87,7 @@ export function useOrders() {
             try {
                 await sendEmailFromTemplate<NewOrderEmailProps>({
                     to: user.email,
-                    subject: `Xác nhận đơn hàng #${order.shortId} từ Sport Store`,
+                    subject: `Xác nhận đơn hàng #${order.shortId} từ HKZeus Nexus`,
                     template: NewOrderEmail,
                     templateProps: {
                         shortId: order.shortId,

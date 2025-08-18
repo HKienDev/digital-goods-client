@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vjusport.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.hkzeusvn.com'),
   alternates: {
     canonical: '/',
   },
@@ -97,8 +97,8 @@ export default function RootLayout({
             '@context': 'https://schema.org',
             '@type': 'Organization',
             name: 'HKZeus Nexus',
-            url: 'https://www.vjusport.com',
-            logo: 'https://www.vjusport.com/Logo_vju.png',
+            url: 'https://www.hkzeusvn.com',
+            logo: 'https://www.hkzeusvn.com/Logo_vju.png',
             description: 'Cửa hàng thể thao HKZeus Nexus - Chuyên cung cấp các sản phẩm thể thao chất lượng cao',
             address: {
               '@type': 'PostalAddress',
@@ -112,11 +112,11 @@ export default function RootLayout({
               '@type': 'ContactPoint',
               telephone: '+84-xxx-xxx-xxxx',
               contactType: 'customer service',
-              email: 'contact@vjusport.com'
+              email: 'contact@hkzeusvn.com'
             },
             sameAs: [
-              'https://www.facebook.com/vjusport',
-              'https://www.instagram.com/vjusport'
+              'https://www.facebook.com/hkzeusvn',
+              'https://www.instagram.com/hkzeusvn'
             ]
           }}
         />
@@ -126,7 +126,7 @@ export default function RootLayout({
             '@context': 'https://schema.org',
             '@type': 'WebSite',
             name: 'HKZeus Nexus',
-            url: 'https://www.vjusport.com',
+            url: 'https://www.hkzeusvn.com',
             description: 'Cửa hàng thể thao HKZeus Nexus'
           }}
         />

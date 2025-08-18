@@ -129,7 +129,7 @@ function ProfilePageContent() {
                   <div className="ml-2 sm:ml-3">
                     <h3 className="text-xs sm:text-sm font-medium text-yellow-800">Hoàn thiện thông tin cá nhân</h3>
                     <p className="mt-1 text-xs sm:text-sm text-yellow-700 leading-relaxed">
-                      Chào mừng bạn đến với Sport Store! Vui lòng hoàn thiện thông tin cá nhân để có thể sử dụng đầy đủ các tính năng của hệ thống.
+                      Chào mừng bạn đến với HKZeus Nexus! Vui lòng hoàn thiện thông tin cá nhân để có thể sử dụng đầy đủ các tính năng của hệ thống.
                     </p>
                   </div>
                 </div>

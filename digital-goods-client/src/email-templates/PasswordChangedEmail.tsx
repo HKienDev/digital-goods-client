@@ -35,7 +35,7 @@ const PasswordChangedEmail: React.FC<PasswordChangedEmailProps> = ({
                 src="https://sport-store.vercel.app/vju-logo-main.png"
                 width="160"
                 height="auto"
-                alt="Sport Store Logo"
+                alt="HKZeus Nexus Logo"
                 className="mx-auto mb-2"
               />
               <Heading style={{ color: '#fff', fontWeight: 700, fontSize: 26, margin: 0 }}>Mật khẩu đã được thay đổi</Heading>
@@ -83,7 +83,7 @@ const PasswordChangedEmail: React.FC<PasswordChangedEmailProps> = ({
                 Đăng nhập ngay
               </Link>
               <Text className="mt-6 text-sm text-gray-600">
-                Nếu bạn không thực hiện thay đổi này, vui lòng liên hệ ngay với chúng tôi qua email: <Link href="mailto:support@sportstore.com" className="text-blue-600 underline">support@sportstore.com</Link>
+                Nếu bạn không thực hiện thay đổi này, vui lòng liên hệ ngay với chúng tôi qua email: <Link href="mailto:noreply@hkzeusvn.com" className="text-blue-600 underline">noreply@hkzeusvn.com</Link>
               </Text>
             </Section>
 

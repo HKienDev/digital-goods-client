@@ -42,7 +42,7 @@ const AdminNewOrderEmail: React.FC<AdminNewOrderEmailProps> = ({
             src="https://sport-store.vercel.app/vju-logo-main.png"
             width="160"
             height="auto"
-            alt="Sport Store Logo"
+            alt="HKZeus Nexus Logo"
             style={{ margin: '0 auto 12px auto', display: 'block' }}
           />
           <Heading style={{ color: '#fff', fontSize: 26, fontWeight: 700, margin: 0, letterSpacing: 1 }}>
@@ -127,7 +127,7 @@ const AdminNewOrderEmail: React.FC<AdminNewOrderEmailProps> = ({
         {/* Footer */}
         <Section style={{ background: '#f1f5f9', marginTop: 32, padding: '32px 0 0 0', textAlign: 'center', borderTop: '1px solid #e5e7eb' }}>
           <Text style={{ color: '#64748b', fontSize: 14, margin: 0 }}>
-            Đây là email tự động từ hệ thống HKZeus Nexus. Vui lòng không trả lời email này.<br />Mọi thắc mắc liên hệ: <Link href="mailto:support@sportstore.com" style={{ color: '#2563eb', textDecoration: 'underline' }}>support@sportstore.com</Link>
+            Đây là email tự động từ hệ thống HKZeus Nexus. Vui lòng không trả lời email này.<br />Mọi thắc mắc liên hệ: <Link href="mailto:noreply@hkzeusvn.com" style={{ color: '#2563eb', textDecoration: 'underline' }}>noreply@hkzeusvn.com</Link>
           </Text>
         </Section>
       </Container>

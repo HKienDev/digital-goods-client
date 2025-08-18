@@ -67,7 +67,7 @@ const NewOrderEmail: React.FC<NewOrderEmailProps> = ({
               src="https://sport-store.vercel.app/vju-logo-main.png"
               width="160"
               height="auto"
-              alt="Sport Store Logo"
+              alt="HKZeus Nexus Logo"
               style={{ margin: '0 auto 12px auto', display: 'block' }}
             />
             <Heading style={{ color: '#fff', fontSize: 28, fontWeight: 700, margin: 0, letterSpacing: 1 }}>
@@ -185,7 +185,7 @@ const NewOrderEmail: React.FC<NewOrderEmailProps> = ({
           {/* Footer */}
           <Section style={{ background: '#f1f5f9', marginTop: 32, padding: '32px 0 0 0', textAlign: 'center', borderTop: '1px solid #e5e7eb' }}>
             <Text style={{ color: '#64748b', fontSize: 14, margin: 0 }}>
-              Mọi thắc mắc vui lòng liên hệ <Link href="mailto:support@sportstore.com" style={{ color: '#2563eb', textDecoration: 'underline' }}>support@sportstore.com</Link> hoặc <Link href="tel:0362195258" style={{ color: '#2563eb', textDecoration: 'underline' }}>0362195258</Link>
+              Mọi thắc mắc vui lòng liên hệ <Link href="mailto:noreply@hkzeusvn.com" style={{ color: '#2563eb', textDecoration: 'underline' }}>noreply@hkzeusvn.com</Link> hoặc <Link href="tel:0362195258" style={{ color: '#2563eb', textDecoration: 'underline' }}>0362195258</Link>
             </Text>
             <Text style={{ color: '#94a3b8', fontSize: 12, margin: '8px 0 0 0' }}>
               © 2025 HKZeus Nexus. Tất cả các quyền được bảo lưu.<br />Email này được gửi tự động, vui lòng không trả lời.

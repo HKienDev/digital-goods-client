@@ -19,7 +19,7 @@ export default function SEOHead({
   description = 'HKZeus Nexus - Cửa hàng thể thao chuyên cung cấp các sản phẩm thể thao chất lượng cao, giày thể thao, quần áo thể thao, phụ kiện thể thao.',
   keywords = 'thể thao, giày thể thao, quần áo thể thao, phụ kiện thể thao, HKZeus Nexus',
   image = '/Logo_vju.png',
-  url = 'https://www.vjusport.com',
+  url = 'https://www.hkzeusvn.com',
   type = 'website',
   productData,
   breadcrumbData

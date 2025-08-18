@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://www.vjusport.com/sitemap.xml
+Sitemap: https://www.hkzeusvn.com/sitemap.xml
 
 # Disallow admin areas
 Disallow: /admin/

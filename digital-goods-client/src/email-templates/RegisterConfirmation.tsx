@@ -40,7 +40,7 @@ const RegisterConfirmation: React.FC<RegisterConfirmationProps> = ({
                 src="/vju-logo-main.png"
                 width="160"
                 height="auto"
-                alt="Sport Store Logo"
+                alt="HKZeus Nexus Logo"
                 className="mx-auto mb-6"
               />
               <Heading className="text-2xl font-bold text-gray-900">
@@ -70,13 +70,13 @@ const RegisterConfirmation: React.FC<RegisterConfirmationProps> = ({
 
             <Section className="mt-8 text-center">
               <Link 
-                href="https://www.vjusport.com/auth/login" 
+                href="https://www.hkzeusvn.com/auth/login" 
                 className="inline-block rounded-lg bg-blue-600 px-6 py-3 text-center font-medium text-white shadow-sm hover:bg-blue-700"
               >
                 Đăng nhập ngay
               </Link>
               <Text className="mt-6 text-sm text-gray-600">
-                Nếu bạn có bất kỳ câu hỏi hoặc cần hỗ trợ, hãy liên hệ với chúng tôi qua email: support@sportstore.com
+                Nếu bạn có bất kỳ câu hỏi hoặc cần hỗ trợ, hãy liên hệ với chúng tôi qua email: noreply@hkzeusvn.com
               </Text>
             </Section>
 

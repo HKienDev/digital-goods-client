@@ -35,7 +35,7 @@ const ForgotPasswordEmail: React.FC<ForgotPasswordEmailProps> = ({
                 src="https://sport-store.vercel.app/vju-logo-main.png"
                 width="160"
                 height="auto"
-                alt="Sport Store Logo"
+                alt="HKZeus Nexus Logo"
                 className="mx-auto mb-2"
               />
               <Heading style={{ color: '#fff', fontWeight: 700, fontSize: 26, margin: 0 }}>Yêu cầu đặt lại mật khẩu</Heading>
@@ -78,7 +78,7 @@ const ForgotPasswordEmail: React.FC<ForgotPasswordEmailProps> = ({
 
             <Section className="mt-8 text-center">
               <Text className="text-sm text-gray-600">
-                Nếu bạn cần hỗ trợ, hãy liên hệ với chúng tôi qua email: <Link href="mailto:support@sportstore.com" className="text-blue-600 underline">khanhhoanshop@gmail.com</Link>
+                Nếu bạn cần hỗ trợ, hãy liên hệ với chúng tôi qua email: <Link href="mailto:noreply@hkzeusvn.com" className="text-blue-600 underline">noreply@hkzeusvn.com</Link>
               </Text>
             </Section>
 

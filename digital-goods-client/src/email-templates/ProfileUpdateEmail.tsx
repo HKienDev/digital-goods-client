@@ -37,7 +37,7 @@ const ProfileUpdateEmail: React.FC<ProfileUpdateEmailProps> = ({
                 src="https://sport-store.vercel.app/vju-logo-main.png"
                 width="160"
                 height="auto"
-                alt="Sport Store Logo"
+                alt="HKZeus Nexus Logo"
                 className="mx-auto mb-2"
               />
               <Heading style={{ color: '#fff', fontWeight: 700, fontSize: 26, margin: 0 }}>Thông tin tài khoản đã được cập nhật</Heading>
@@ -94,7 +94,7 @@ const ProfileUpdateEmail: React.FC<ProfileUpdateEmailProps> = ({
                 Xem tài khoản của tôi
               </Link>
               <Text className="mt-6 text-sm text-gray-600">
-                Cần hỗ trợ? Hãy liên hệ với chúng tôi qua email: <Link href="mailto:support@sportstore.com" className="text-blue-600 underline">support@sportstore.com</Link>
+                Cần hỗ trợ? Hãy liên hệ với chúng tôi qua email: <Link href="mailto:noreply@hkzeusvn.com" className="text-blue-600 underline">noreply@hkzeusvn.com</Link>
               </Text>
             </Section>
 

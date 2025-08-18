@@ -7,7 +7,7 @@ export const NewOrderEmail: React.FC<OrderEmailProps> = (order) => {
       <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
         <div style={{ textAlign: 'center', marginBottom: '30px' }}>
           <h1>Xin chào Quý khách!</h1>
-          <p>Cảm ơn bạn đã đặt hàng tại Sport Store</p>
+          <p>Cảm ơn bạn đã đặt hàng tại HKZeus Nexus</p>
         </div>
         
         <div style={{ background: '#f9f9f9', padding: '20px', borderRadius: '5px', marginBottom: '20px' }}>

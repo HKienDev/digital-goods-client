@@ -25,7 +25,7 @@ const AdminPaymentErrorEmail: React.FC<AdminPaymentErrorEmailProps> = ({ orderId
         <Hr />
         <Section>
           <Text style={{ fontSize: 12, color: '#888' }}>Vui lòng kiểm tra và xử lý trên hệ thống quản trị.</Text>
-          <Text style={{ fontSize: 12, color: '#888' }}>Mọi thắc mắc liên hệ: support@sportstore.com</Text>
+          <Text style={{ fontSize: 12, color: '#888' }}>Mọi thắc mắc liên hệ: noreply@hkzeusvn.com</Text>
         </Section>
       </Container>
     </Body>

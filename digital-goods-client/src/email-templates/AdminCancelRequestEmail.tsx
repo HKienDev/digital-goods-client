@@ -27,7 +27,7 @@ const AdminCancelRequestEmail: React.FC<AdminCancelRequestEmailProps> = ({ order
         <Hr style={{ borderTop: '1.5px solid #e5e7eb', margin: '32px 0 16px 0' }} />
         <Section style={{ textAlign: 'center' }}>
           <Text style={{ fontSize: 12, color: '#888' }}>Vui lòng kiểm tra và xử lý trên hệ thống quản trị.</Text>
-          <Text style={{ fontSize: 12, color: '#888' }}>Mọi thắc mắc liên hệ: support@sportstore.com</Text>
+          <Text style={{ fontSize: 12, color: '#888' }}>Mọi thắc mắc liên hệ: noreply@hkzeusvn.com</Text>
         </Section>
       </Container>
     </Body>

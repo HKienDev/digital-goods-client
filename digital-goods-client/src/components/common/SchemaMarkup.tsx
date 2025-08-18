@@ -71,8 +71,8 @@ export default function SchemaMarkup({ type, data }: SchemaMarkupProps) {
           '@context': 'https://schema.org',
           '@type': 'Organization',
           name: 'HKZeus Nexus',
-          url: 'https://www.vjusport.com',
-          logo: 'https://www.vjusport.com/Logo_vju.png',
+          url: 'https://www.hkzeusvn.com',
+          logo: 'https://www.hkzeusvn.com/Logo_vju.png',
           description: 'Cửa hàng thể thao HKZeus Nexus - Chuyên cung cấp các sản phẩm thể thao chất lượng cao',
           address: {
             '@type': 'PostalAddress',
@@ -86,11 +86,11 @@ export default function SchemaMarkup({ type, data }: SchemaMarkupProps) {
             '@type': 'ContactPoint',
             telephone: '+84-xxx-xxx-xxxx',
             contactType: 'customer service',
-            email: 'contact@vjusport.com'
+            email: 'contact@hkzeusvn.com'
           },
           sameAs: [
-            'https://www.facebook.com/vjusport',
-            'https://www.instagram.com/vjusport'
+            'https://www.facebook.com/ZeussHk0981/',
+            'https://www.instagram.com/hoang_kien_0981/'
           ]
         };
       }
@@ -100,7 +100,7 @@ export default function SchemaMarkup({ type, data }: SchemaMarkupProps) {
           '@context': 'https://schema.org',
           '@type': 'WebSite',
           name: websiteData.name || 'HKZeus Nexus',
-          url: websiteData.url || 'https://www.vjusport.com',
+          url: websiteData.url || 'https://www.hkzeusvn.com',
           description: websiteData.description || 'Cửa hàng thể thao HKZeus Nexus',
           potentialAction: websiteData.potentialAction
         };
@@ -117,7 +117,7 @@ export default function SchemaMarkup({ type, data }: SchemaMarkupProps) {
             name: productData.brand || 'HKZeus Nexus'
           },
           category: productData.category || 'Thể thao',
-          image: productData.image || 'https://www.vjusport.com/default-image.png',
+          image: productData.image || 'https://www.hkzeusvn.com/default-image.png',
           offers: {
             '@type': 'Offer',
             price: productData.price || 0,
