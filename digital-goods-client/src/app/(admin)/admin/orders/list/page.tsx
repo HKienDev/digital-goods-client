@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/authContext";
 import OrderListFilters from "@/components/admin/orders/list/orderListFilters";
 import OrderListTable from "@/components/admin/orders/list/orderListTable";
-import { Order } from "@/types/base";
+import { Order } from '@/types/order';
 import { toast } from "sonner";
 import { fetchWithAuth } from "@/utils/fetchWithAuth";
 

@@ -1,14 +1,14 @@
-import type { User, Order, CartItem } from './base';
+import type { User } from './user';
+import type { CartItem } from './cart';
 import type { Product } from './product';
 import type { LoginResponse, AuthCheckResponse, TokenVerifyResponse, ProfileResponse, GoogleAuthResponse, EmptyResponse } from './auth';
+import type { Order } from './order';
 
 export type ApiResponseData = 
     | User 
     | User[] 
     | Product 
     | Product[] 
-    | Order 
-    | Order[] 
     | CartItem 
     | CartItem[]
     | LoginResponse['data']
@@ -176,5 +176,4 @@ export interface AnswerQuestionData {
   answer: string;
 }
 
-export type { User, Order, CartItem } from './base';
 export type { Product } from './product'; 

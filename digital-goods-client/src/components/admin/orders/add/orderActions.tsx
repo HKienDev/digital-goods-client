@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { fetchWithAuth } from '@/utils/fetchWithAuth';
 import type { ApiResponse } from '@/types/api';
-import type { Order, OrderData, PaymentMethod } from '@/types/base';
+import type { Order, OrderData, PaymentMethod } from '@/types/order';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -37,7 +37,7 @@ export default function OrderActions({ onClose, onResetForm }: OrderActionsProps
       
       // Chuẩn bị dữ liệu order
       const orderPayload = {
-        items: orderData.items.map(item => ({
+        items: orderData.items.map((item) => ({
           sku: item.sku,
           quantity: item.quantity,
           duration: item.duration || '',

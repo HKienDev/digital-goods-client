@@ -4,7 +4,7 @@ import { Clock, Package, Home, CheckCircle } from "lucide-react";
 import OrderHeader from "./orderHeader";
 import DeliveryTracking from "./deliveryTracking";
 import OrderTable from "./orderTable";
-import { Order, OrderStatus } from "@/types/base";
+import { Order, OrderStatus } from '@/types/order';
 import { AdminProduct } from "@/types/product";
 import { toast } from "sonner";
 

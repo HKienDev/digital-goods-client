@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Order } from "@/types/base";
+import { Order } from '@/types/order';
 import OrderStatusBadge from "./orderStatusBadge";
 import { AlertCircle, Eye, Package, DollarSign, Calendar, User, MapPin, Truck } from "lucide-react";
 import Pagination from "./pagination";

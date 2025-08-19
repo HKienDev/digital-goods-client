@@ -1,4 +1,4 @@
-import type { Gender, UserRole, MembershipLevel, AuthStatus } from './base';
+import type { Gender, UserRole, MembershipLevel, AuthStatus } from './user';
 
 export interface Customer {
   _id: string;
@@ -72,3 +72,9 @@ export type CustomerUpdateField =
 export type CustomerUpdateValue = 
   | string 
   | boolean; 
+
+export interface CustomerInfo {
+    name: string;
+    phone: string;
+    note?: string;
+} 

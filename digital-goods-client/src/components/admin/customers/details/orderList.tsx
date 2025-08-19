@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronRight, Package, ShoppingBag, Search, Calendar, Filter, Eye, TrendingUp, Clock, CheckCircle, XCircle } from "lucide-react";
-import { Order } from "@/types/base";
+import { Order } from '@/types/order';
 
 interface OrderListProps {
   orders: Order[];

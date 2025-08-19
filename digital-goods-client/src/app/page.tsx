@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { UserRole } from '@/types/base';
+import { UserRole } from '@/types/user';
 import { useAuthState } from '@/hooks/useAuthState';
 
 export default function HomePage() {

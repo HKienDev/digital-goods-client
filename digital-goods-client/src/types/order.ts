@@ -1,4 +1,4 @@
-import { User } from './base';
+import { User } from './user';
 import { AdminProduct } from './product';
 
 export enum OrderStatus {
@@ -69,6 +69,7 @@ export interface Order {
   subtotal?: number;
   directDiscount?: number;
   couponDiscount?: number;
+  couponCode?: string;
 }
 
 export interface CreateOrderInput {
@@ -113,4 +114,15 @@ export interface OrderSearchParams {
   page?: number;
   limit?: number;
   phone?: string;
+}
+
+export interface OrderData {
+  items: {
+    sku: string;
+    quantity: number;
+    duration?: string;
+    productType?: string;
+  }[];
+  paymentMethod: PaymentMethod;
+  note?: string;
 } 

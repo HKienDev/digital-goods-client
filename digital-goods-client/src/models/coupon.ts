@@ -1,4 +1,4 @@
-import { BaseEntity } from "@/types/base";
+import { BaseEntity } from "@/types/baseEntity";
 
 export interface Coupon extends BaseEntity {
   code: string;

@@ -3,9 +3,8 @@ import { useAuth } from '@/context/authContext';
 import { toast } from 'sonner';
 import { apiClient } from '@/lib/apiClient';
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@/config/constants';
-import type { Order } from '@/types/api';
-import type { CreateOrderData, UpdateOrderData } from '@/types/base';
-import { OrderStatus, PaymentStatus } from '@/types/base';
+import type { Order } from '@/types/order';
+import { OrderStatus, PaymentStatus } from '@/types/order';
 import { sendEmailFromTemplate } from '@/lib/email';
 import NewOrderEmail from '@/email-templates/NewOrderEmail';
 import type { NewOrderEmailProps } from '@/email-templates/NewOrderEmail';
@@ -61,7 +60,7 @@ export function useOrders() {
         }
     };
 
-    const createOrder = async (data: CreateOrderData) => {
+    const createOrder = async (data: any) => {
         try {
             if (!user) {
                 throw new Error(ERROR_MESSAGES.UNAUTHORIZED);
@@ -71,7 +70,7 @@ export function useOrders() {
                 throw new Error('Số điện thoại là bắt buộc');
             }
 
-            const orderData: CreateOrderData = {
+            const orderData: any = {
                 ...data,
                 status: OrderStatus.PENDING,
                 paymentStatus: PaymentStatus.PENDING,
@@ -131,7 +130,7 @@ export function useOrders() {
 
     const cancelOrder = async (id: string) => {
         try {
-            const updateData: UpdateOrderData = {
+            const updateData: any = {
                 id,
                 status: OrderStatus.CANCELLED
             };
@@ -162,7 +161,7 @@ export function useOrders() {
         }
     };
 
-    const updateOrder = async (id: string, data: UpdateOrderData) => {
+    const updateOrder = async (id: string, data: any) => {
         try {
             if (!data.status) {
                 throw new Error('Order status is required for update');

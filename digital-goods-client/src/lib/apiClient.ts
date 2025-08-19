@@ -2,7 +2,6 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import type { CategoryListResponse, CreateCategoryRequest, UpdateCategoryRequest } from '@/types/category';
 import type { DashboardStats, RevenueData, RecentOrder, BestSellingProductsResponse } from '@/types/dashboard';
 import type { Order } from '@/types/order';
-import type { CreateOrderData } from '@/types/base';
 import type { Product, ProductFormData, ProductQueryParams } from '@/types/product';
 import type { AuthUser, RegisterRequest } from '@/types/auth';
 import type { Coupon } from '@/types/coupon';
@@ -298,7 +297,7 @@ class ApiClient {
     return this.client.get(`/orders/phone/${phone}`);
   }
 
-  async createOrder(orderData: CreateOrderData): Promise<AxiosResponse<{ success: boolean; message: string; data: Order }>> {
+  async createOrder(orderData: { items: { sku: string; color?: string; size?: string; quantity: number; price: number }[]; total: number; paymentMethod: string; shippingAddress: string; phone: string; note?: string }): Promise<AxiosResponse<{ success: boolean; message: string; data: Order }>> {
     return this.post('/api/orders', orderData);
   }
 

@@ -1,85 +1,5 @@
-import type { OrderItem } from './order';
-
 export interface BaseEntity {
     _id: string;
-    createdAt: Date;
-    updatedAt: Date;
-}
-
-export enum MembershipLevel {
-    BRONZE = "Đồng",
-    SILVER = "Bạc",
-    GOLD = "Vàng",
-    PLATINUM = "Bạch Kim",
-    DIAMOND = "Kim Cương"
-}
-
-export enum Gender {
-    MALE = "male",
-    FEMALE = "female",
-    OTHER = "other"
-}
-
-export enum UserRole {
-    USER = "user",
-    ADMIN = "admin"
-}
-
-export enum AuthStatus {
-    PENDING = "pending",
-    VERIFIED = "verified",
-    BLOCKED = "blocked"
-}
-
-export enum OrderStatus {
-    PENDING = "pending",
-    PROCESSING = "processing",
-    PAID = "paid",
-    COMPLETED = "completed",
-    CANCELLED = "cancelled"
-}
-
-export enum PaymentStatus {
-    PENDING = "pending",
-    PAID = "paid",
-    FAILED = "failed",
-    REFUNDED = "refunded"
-}
-
-export enum PaymentMethod {
-    CASH = "cash",
-    BANKING = "banking",
-    MOMO = "momo",
-    COD = "COD",
-    STRIPE = "Stripe"
-}
-
-export interface User {
-    _id: string;
-    customId?: string;
-    email: string;
-    password?: string;
-    fullname: string;
-    phone: string;
-    avatar?: string;
-    gender: Gender;
-    dob?: Date;
-    googleId?: string;
-    googleEmail?: string;
-    role: UserRole;
-    membershipLevel: MembershipLevel;
-    points: number;
-    totalSpent: number;
-    orderCount: number;
-    authStatus: AuthStatus;
-    lastLogin?: Date;
-    resetPasswordToken?: string;
-    resetPasswordExpires?: Date;
-    verificationToken?: string;
-    verificationTokenExpires?: Date;
-    loginAttempts: number;
-    lockedUntil?: Date;
-    pendingUpdate?: Record<string, unknown>;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -137,69 +57,6 @@ export interface Coupon {
     isActive?: boolean;
 }
 
-export interface Order {
-    _id: string;
-    shortId: string;
-    userId?: string;
-    user?: User;
-    phone: string;
-    items: OrderItem[];
-    totalPrice: number;
-    totalAmount: number;
-    status: OrderStatus;
-    paymentStatus: PaymentStatus;
-    paymentMethod: PaymentMethod;
-    note?: string;
-    couponDiscount?: number;
-    couponCode?: string;
-    subtotal?: number;
-    discount?: number;
-    directDiscount?: number;
-    createdAt: Date;
-    updatedAt: Date;
-}
-
-export interface Stats {
-    totalUsers: number;
-    totalOrders: number;
-    totalProducts: number;
-    totalRevenue: number;
-    recentOrders: Order[];
-    topProducts: Product[];
-}
-
-export interface UploadResponse {
-    url: string;
-}
-
-export interface ApiError {
-    response?: {
-        data?: {
-            message: string;
-        };
-    };
-    message: string;
-}
-
-export interface CreateOrderData {
-    items: {
-        sku: string;
-        quantity: number;
-        duration: string;
-        productType: string;
-    }[];
-    totalAmount: number;
-    status: Order['status'];
-    paymentStatus: Order['paymentStatus'];
-    paymentMethod: Order['paymentMethod'];
-    note?: string;
-    phone: string;
-}
-
-export interface UpdateOrderData extends Partial<CreateOrderData> {
-    id: string;
-}
-
 export interface CreateProductData {
     name: string;
     slug: string;
@@ -220,21 +77,4 @@ export interface CreateProductData {
 
 export interface UpdateProductData extends Partial<CreateProductData> {
     id: string;
-}
-
-export interface CustomerInfo {
-    name: string;
-    phone: string;
-    note?: string;
-}
-
-export interface OrderData {
-    items: {
-        sku: string;
-        quantity: number;
-        duration: string;
-        productType: string;
-    }[];
-    paymentMethod: PaymentMethod;
-    note?: string;
 } 

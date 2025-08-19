@@ -1,10 +1,12 @@
-import type { User } from './base';
+import type { User } from './user';
+import type { UserRole } from './user';
 
 export interface AuthUser extends User {
     isActive: boolean;
     isVerified: boolean;
     lastLoginAt?: string;
     name: string;
+    role: UserRole;
 }
 
 export interface LoginRequest {

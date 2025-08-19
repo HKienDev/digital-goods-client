@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Clock, Package, Home, Loader2, CheckCircle } from "lucide-react";
-import { OrderStatus } from "@/types/base";
+import { OrderStatus } from '@/types/order';
 import CancelOrder from "./cancelOrder";
 
 interface OrderItem {
