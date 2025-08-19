@@ -214,7 +214,7 @@ export default function PrivacyPolicyPage() {
                       </svg>
                     </div>
                     <h4 className="font-bold text-gray-800 mb-2">Email</h4>
-                    <p className="text-blue-600 font-medium">privacy@sportwear-shop.com</p>
+                    <p className="text-blue-600 font-medium">privacy@hkzeusvn.com</p>
                   </div>
                   <div className="bg-white/80 p-6 rounded-lg border border-blue-300 text-center">
                     <div className="inline-flex items-center justify-center w-10 h-10 bg-blue-500 rounded-full mb-3">
