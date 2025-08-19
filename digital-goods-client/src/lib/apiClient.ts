@@ -36,7 +36,7 @@ class ApiClient {
     // Only create axios instance for server-side or when needed
     if (this.isClient) {
       this.client = axios.create({
-        baseURL: 'http://localhost:4000/api', // Backend API URL
+        baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api', // Backend API URL
         timeout: 10000,
         headers: {
           'Content-Type': 'application/json',
