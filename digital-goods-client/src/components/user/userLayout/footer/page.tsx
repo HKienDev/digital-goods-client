@@ -42,7 +42,7 @@ const Footer = ({ className = "" }: FooterProps) => (
               <Facebook size={20} className="w-5 h-5 sm:w-6 sm:h-6" />
             </a>
             <a 
-                              href="https://www.instagram.com/vjusport" 
+                              href="https://www.instagram.com/hoang_kien_0981/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-pink-600 transition-colors p-1 sm:p-1.5 rounded-lg hover:bg-pink-50"
@@ -51,7 +51,7 @@ const Footer = ({ className = "" }: FooterProps) => (
               <Instagram size={20} className="w-5 h-5 sm:w-6 sm:h-6" />
             </a>
             <a 
-                              href="https://twitter.com/vjusport" 
+                              href="#" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-blue-400 transition-colors p-1 sm:p-1.5 rounded-lg hover:bg-blue-50"
@@ -99,7 +99,7 @@ const Footer = ({ className = "" }: FooterProps) => (
             </li>
             <li className="flex items-center text-gray-600">
               <Mail size={16} className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />
-                              <span className="text-xs sm:text-sm break-all">notify.vjusport@gmail.com</span>
+                              <span className="text-xs sm:text-sm break-all">notify.hkzeusnexus@gmail.com</span>
             </li>
             <li className="flex items-start text-gray-600">
               <MapPin size={16} className="w-4 h-4 sm:w-5 sm:h-5 mr-2 mt-0.5 flex-shrink-0" />

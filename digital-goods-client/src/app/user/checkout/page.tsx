@@ -32,7 +32,7 @@ export default function Checkout() {
   // Selected items state - lấy từ localStorage
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [expandedSection, setExpandedSection] = useState<string | null>('items');
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod>(PaymentMethod.COD);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod>(PaymentMethod.PAYOS);
   const [subtotal, setSubtotal] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [couponDiscount, setCouponDiscount] = useState(0);
@@ -245,7 +245,7 @@ export default function Checkout() {
           duration: item.duration,
           productType: item.productType
         })),
-        paymentMethod: selectedPaymentMethod.toUpperCase(),
+        paymentMethod: selectedPaymentMethod,
         discount: discount + couponDiscount,
         coupon: appliedCoupon?.code || '',
         note: ''
@@ -304,9 +304,11 @@ export default function Checkout() {
         localStorage.removeItem('checkout_selected_items');
         
         toast.success('Đặt hàng thành công!');
-        const { orderId } = response.data.data;
-        
-        // Chuyển hướng đến trang invoice
+        const { orderId, payosCheckoutUrl } = response.data.data;
+        if (payosCheckoutUrl) {
+          window.location.href = payosCheckoutUrl;
+          return;
+        }
         router.push(`/user/invoice/${orderId}`);
       } else {
         toast.error(response.data.message || 'Không thể tạo đơn hàng');
