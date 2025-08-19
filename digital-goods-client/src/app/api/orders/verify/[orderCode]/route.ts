@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { callBackendAPI } from '@/utils/apiAuth';
+import { callBackendAPIWithAuth } from '@/utils/apiAuth';
 
 export async function GET(
   request: NextRequest,
@@ -7,7 +7,7 @@ export async function GET(
 ) {
   try {
     const { orderCode } = params;
-    const response = await callBackendAPI(`/orders/verify/${orderCode}`, {
+    const response = await callBackendAPIWithAuth(`/orders/verify/${orderCode}`, {
       method: 'GET',
     });
     const data = await response.json();
