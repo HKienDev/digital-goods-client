@@ -11,6 +11,7 @@ import { formatDate } from "@/utils/dateUtils";
 import { toast } from "sonner";
 import { adminReviewService } from "@/services/adminReviewService";
 import AdminReplyModal from "./adminReplyModal";
+import Image from 'next/image';
 
 interface ReviewListTableProps {
   reviews: AdminReview[];
@@ -104,14 +105,14 @@ const ReviewListTable: React.FC<ReviewListTableProps> = ({
 
   const formatOrderId = (orderId: string) => {
     if (!orderId) return '';
-    // Remove prefix like "VJUSPORT-ORDER-" and return the rest
-    return orderId.replace(/^VJUSPORT-ORDER-/, '');
+    // Remove prefix like "HKZNX-ORDER-" and return the rest
+    return orderId.replace(/^HKZNX-ORDER-/, '');
   };
 
   const formatProductSku = (sku: string) => {
     if (!sku) return '';
-    // Remove prefix like "VJUSPORTPRODUCT-" and return the rest
-    return sku.replace(/^VJUSPORTPRODUCT-/, '');
+    // Remove prefix like "HKZNX-PRODUCT-" and return the rest
+    return sku.replace(/^HKZNX-PRODUCT-/, '');
   };
 
   const renderStars = (rating: number) => {
@@ -180,9 +181,11 @@ const ReviewListTable: React.FC<ReviewListTableProps> = ({
                   <td className="px-6 py-4 w-64">
                     <div className="flex items-center space-x-3">
                       <div className="relative">
-                        <img
+                        <Image
                           src={review.product.mainImage || "/default-image.png"}
                           alt={review.product.name}
+                          width={48}
+                          height={48}
                           className="w-12 h-12 rounded-xl object-cover border-2 border-slate-200/60 shadow-sm bg-slate-100"
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
@@ -206,9 +209,11 @@ const ReviewListTable: React.FC<ReviewListTableProps> = ({
                   <td className="px-6 py-4 w-64">
                     <div className="flex items-center space-x-3">
                       <div className="relative">
-                        <img
+                        <Image
                           src={review.userAvatar || review.user?.avatar || "/avatarDefault.jpg"}
                           alt={review.userName || review.user?.fullname}
+                          width={40}
+                          height={40}
                           className="w-10 h-10 rounded-full object-cover border-2 border-slate-200/60 shadow-sm"
                         />
                       </div>

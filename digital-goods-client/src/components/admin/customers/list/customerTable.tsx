@@ -94,7 +94,7 @@ export function CustomerTable({
       
       // Cập nhật danh sách local sau khi xóa thành công
       setLocalCustomers(prev => prev.filter(customer => {
-        const customerId = `VJUSPORTUSER-${customer._id.slice(0, 8)}`;
+        const customerId = `HKZNX-USER-${customer._id.slice(0, 8)}`;
         return customerId !== customerToDelete;
       }));
       
@@ -118,7 +118,7 @@ export function CustomerTable({
   };
 
   const handleToggleStatus = async (customer: Customer) => {
-    const id = `VJUSPORTUSER-${customer._id.slice(0, 8)}`;
+    const id = `HKZNX-USER-${customer._id.slice(0, 8)}`;
     setIsUpdating(prev => ({ ...prev, [id]: true }));
     // Cập nhật localCustomers ngay trên UI
     setLocalCustomers(prev => prev.map(c => c._id === customer._id ? { ...c, isActive: !customer.isActive } : c));
@@ -195,7 +195,7 @@ export function CustomerTable({
                         <span
                           className="cursor-pointer hover:text-indigo-600 transition-colors"
                           title="Xem chi tiết khách hàng"
-                          onClick={() => onViewDetails(`VJUSPORTUSER-${customer._id.slice(0, 8)}`)}
+                          onClick={() => onViewDetails(`HKZNX-USER-${customer._id.slice(0, 8)}`)}
                         >
                           {customer._id.slice(0, 8)}
                         </span>
@@ -226,7 +226,7 @@ export function CustomerTable({
                             <div
                               className="font-semibold text-slate-800 whitespace-nowrap cursor-pointer hover:text-indigo-600 transition-colors"
                               title="Xem chi tiết khách hàng"
-                              onClick={() => onViewDetails(`VJUSPORTUSER-${customer._id.slice(0, 8)}`)}
+                              onClick={() => onViewDetails(`HKZNX-USER-${customer._id.slice(0, 8)}`)}
                             >
                               {customer.fullname}
                             </div>
@@ -270,14 +270,14 @@ export function CustomerTable({
                       <td className="px-6 py-4">
                         <div className="flex gap-2">
                           <button
-                            onClick={() => onViewDetails(`VJUSPORTUSER-${customer._id.slice(0, 8)}`)}
+                            onClick={() => onViewDetails(`HKZNX-USER-${customer._id.slice(0, 8)}`)}
                             className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 text-slate-600 hover:bg-indigo-100 hover:text-indigo-600 transition-all duration-200"
                           >
                             <Eye size={16} />
                           </button>
                           <button
                             onClick={() => handleToggleStatus(customer)}
-                            disabled={isUpdating[`VJUSPORTUSER-${customer._id.slice(0, 8)}`]}
+                            disabled={isUpdating[`HKZNX-USER-${customer._id.slice(0, 8)}`]}
                             className={`inline-flex items-center justify-center w-8 h-8 rounded-lg ${
                               customer.isActive 
                                 ? "bg-amber-100 text-amber-600 hover:bg-amber-200" 
@@ -287,7 +287,7 @@ export function CustomerTable({
                             <Power size={16} />
                           </button>
                           <button
-                            onClick={() => handleDelete(`VJUSPORTUSER-${customer._id.slice(0, 8)}`)}
+                            onClick={() => handleDelete(`HKZNX-USER-${customer._id.slice(0, 8)}`)}
                             disabled={(customer.realOrderCount || customer.totalOrders || customer.orderCount || 0) > 0}
                             className={`inline-flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-200 ${
                               (customer.realOrderCount || customer.totalOrders || customer.orderCount || 0) > 0

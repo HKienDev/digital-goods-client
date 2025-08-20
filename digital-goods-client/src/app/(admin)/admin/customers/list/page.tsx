@@ -112,7 +112,7 @@ export default function CustomerList() {
   const handleToggleStatus = async (customId: string) => {
     try {
       const customer = customers.find(c => 
-        c.customId === customId || `VJUSPORTUSER-${c._id.slice(0, 8)}` === customId
+        c.customId === customId || `HKZNX-USER-${c._id.slice(0, 8)}` === customId
       );
       if (!customer) {
         toast.error("Không tìm thấy khách hàng");

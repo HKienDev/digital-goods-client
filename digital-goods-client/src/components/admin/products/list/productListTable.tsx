@@ -303,7 +303,7 @@ const ProductListTable = React.memo(
                                 </span>
                                 <Eye size={14} className="opacity-0 group-hover/link:opacity-100 transition-opacity duration-200" />
                               </Link>
-                              <p className="text-xs text-slate-500 font-mono">SKU: {product.sku.replace('VJUSPORTPRODUCT-', '')}</p>
+                              <p className="text-xs text-slate-500 font-mono">SKU: {product.sku.replace('HKZNX-PRODUCT-', '')}</p>
                               {product.isFeatured && (
                                 <div className="flex items-center mt-1">
                                   <Star className="h-3 w-3 text-yellow-500 fill-current" />

@@ -40,8 +40,8 @@ export default function CustomerDetail() {
       return urlId;
     }
     
-    // Nếu ID có định dạng VJUSPORTUSER-, trả về nguyên ID
-    if (urlId.startsWith('VJUSPORTUSER-')) {
+    // Nếu ID có định dạng HKZNX-USER-, trả về nguyên ID
+    if (urlId.startsWith('HKZNX-USER-')) {
       return urlId;
     }
     

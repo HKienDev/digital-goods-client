@@ -78,7 +78,7 @@ const AdvancedSearchBar: React.FC<AdvancedSearchBarProps> = ({ categories }) => 
     setHotKeywords([
       'giày bóng đá', 'áo đấu', 'quần thể thao', 'vợt tennis', 
       'bóng rổ', 'chạy bộ', 'gym', 'yoga', 'bơi lội',
-      'VJUSPORTPRODUCT', 'Nike', 'Adidas', 'Puma'
+      'HKZNX-PRODUCT', 'Nike', 'Adidas', 'Puma'
     ]);
   }, []);
 

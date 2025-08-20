@@ -213,7 +213,7 @@ export const sanitizeOrderData = (order: RawOrderData): RecentOrder => {
     status: order.status || 'pending',
     progress: calculateOrderProgress(order.status || 'pending'),
     createdAt: order.createdAt || new Date().toISOString(),
-    originAddress: order.originAddress || 'VJUSPORT, Lưu Hữu Phước, Cầu Diễn, Nam Từ Liêm, Hà Nội',
+    originAddress: order.originAddress || 'HKZNX, Lưu Hữu Phước, Cầu Diễn, Nam Từ Liêm, Hà Nội',
     destinationAddress: order.destinationAddress || 'No information',
     statusHistory: order.statusHistory || []
   };

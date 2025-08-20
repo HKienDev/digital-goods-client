@@ -156,7 +156,7 @@ const CouponTable: React.FC<CouponTableProps> = ({
                           onClick={() => router.push(`/admin/coupons/${coupon._id}`)}
                           className="font-semibold text-slate-800 hover:text-indigo-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 rounded px-2 py-1"
                         >
-                          {coupon.code.replace('VJUSPORTVOUCHER-', '')}
+                          {coupon.code.replace('HKZNX-VOUCHER-', ' ')}
                         </button>
                       </td>
                       <td className="px-6 py-4 text-center">

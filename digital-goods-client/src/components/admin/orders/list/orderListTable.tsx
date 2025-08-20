@@ -155,8 +155,8 @@ const OrderListTable = React.memo(
                             className="group/link inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-semibold transition-all duration-200"
                           >
                             <span className="text-sm font-mono">
-                              {order.shortId.startsWith('VJUSPORT-ORDER-')
-                                ? order.shortId.substring('VJUSPORT-ORDER-'.length)
+                              {order.shortId.startsWith('HKZNX-ORDER-')
+                                ? order.shortId.substring('HKZNX-ORDER-'.length)
                                 : order.shortId}
                             </span>
                             <Eye size={14} className="opacity-0 group-hover/link:opacity-100 transition-opacity duration-200" />
