@@ -33,15 +33,16 @@ export async function middleware(request: NextRequest) {
         '/403'
     ];
     
-    if (notFoundRoutes.includes(pathname) || pathname.startsWith('/search/')) {
+    // Only redirect if not already on error page to avoid redirect loops
+    if ((notFoundRoutes.includes(pathname) || pathname.startsWith('/search/')) && !pathname.startsWith('/error-pages/')) {
         return NextResponse.redirect(new URL('/error-pages/not-found', request.url));
     }
     
-    if (serverErrorRoutes.includes(pathname)) {
+    if (serverErrorRoutes.includes(pathname) && !pathname.startsWith('/error-pages/')) {
         return NextResponse.redirect(new URL('/error-pages/server-error', request.url));
     }
     
-    if (unauthorizedRoutes.includes(pathname)) {
+    if (unauthorizedRoutes.includes(pathname) && !pathname.startsWith('/error-pages/')) {
         return NextResponse.redirect(new URL('/error-pages/unauthorized', request.url));
     }
     

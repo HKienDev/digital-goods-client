@@ -3,7 +3,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-import {  AlertCircle } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
+import SEOHead from '@/components/common/SEOHead';
 
 export default function NotFoundPage() {
   const router = useRouter();
@@ -29,44 +30,35 @@ export default function NotFoundPage() {
   }, []);
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-white overflow-hidden relative">
-      {/* Dynamic background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div ref={shapeRef} className="absolute">
-          {/* Abstract red shapes */}
-          <div className="absolute -top-32 -right-32 w-96 h-96 bg-red-50 rounded-full"></div>
-          <div className="absolute top-1/4 -left-48 w-96 h-96 bg-red-100 rounded-full opacity-70"></div>
-          <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-red-200 rounded-full opacity-50"></div>
+    <>
+      <SEOHead
+        title="Không tìm thấy trang - HKZeus Nexus"
+        description="Xin lỗi, trang bạn đang tìm kiếm không tồn tại hoặc đã được di chuyển."
+        type="website"
+      />
+      <div className="min-h-screen w-full flex flex-col items-center justify-center bg-white overflow-hidden relative">
+        {/* Left side: Animated shape */}
+        <div className="w-full md:w-1/2 flex items-center justify-center relative">
+          <div 
+            ref={shapeRef}
+            className={`w-64 h-64 bg-gradient-to-br from-red-100 to-red-200 rounded-full opacity-20 transition-transform duration-300 ${mounted ? 'scale-100' : 'scale-0'}`}
+            style={{ 
+              background: 'radial-gradient(circle, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 70%, transparent 100%)',
+              boxShadow: '0 0 100px rgba(239, 68, 68, 0.1)'
+            }}
+          ></div>
           
-          {/* Red accent lines */}
-          <div className="absolute top-1/3 left-0 h-px w-full bg-gradient-to-r from-red-500/10 via-red-500/30 to-transparent"></div>
-          <div className="absolute top-2/3 right-0 h-px w-full bg-gradient-to-l from-red-500/10 via-red-500/20 to-transparent"></div>
-        </div>
-      </div>
-      
-      {/* Red corner accent */}
-      <div className="absolute top-0 right-0 border-t-[100px] border-r-[100px] border-t-red-500 border-r-transparent opacity-90"></div>
-      <div className="absolute bottom-0 left-0 border-b-[100px] border-l-[100px] border-b-red-500 border-l-transparent opacity-60"></div>
-      
-      <div className={`container max-w-4xl flex flex-col md:flex-row items-center justify-between gap-12 px-6 py-16 z-10 transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-        {/* Left side: Error illustration and animation */}
-        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start">
-          <div className="relative w-72 h-72 mb-6">
-            {/* Glitch effect circles */}
-            <div className="absolute inset-4 bg-red-500/20 rounded-full animate-pulse"></div>
-            <div className="absolute inset-0 border-4 border-dashed border-red-300 rounded-full animate-spin-slow"></div>
-            
-            <div className="absolute inset-8 flex items-center justify-center">
-              <div className="relative h-full w-full flex items-center justify-center">
-                {/* 404 creative display */}
-                <span className="text-8xl font-bold text-white bg-red-500 px-6 py-3 rounded-lg shadow-lg transform -rotate-6">4</span>
-                <div className="relative z-10 mx-1">
-                  <div className="w-16 h-16 rounded-full bg-white border-4 border-red-500 flex items-center justify-center animate-bounce">
-                    <AlertCircle className="w-8 h-8 text-red-500" />
-                  </div>
-                </div>
-                <span className="text-8xl font-bold text-white bg-red-500 px-6 py-3 rounded-lg shadow-lg transform rotate-6">4</span>
-              </div>
+          {/* Floating elements */}
+          <div className={`absolute top-1/4 left-1/4 w-8 h-8 bg-red-300 rounded-full opacity-60 animate-bounce transition-all duration-500 ${mounted ? 'opacity-60' : 'opacity-0'}`} style={{ animationDelay: '0.5s' }}></div>
+          <div className={`absolute top-3/4 right-1/4 w-6 h-6 bg-red-400 rounded-full opacity-40 animate-bounce transition-all duration-500 ${mounted ? 'opacity-40' : 'opacity-0'}`} style={{ animationDelay: '1s' }}></div>
+          <div className={`absolute bottom-1/4 left-1/3 w-4 h-4 bg-red-500 rounded-full opacity-50 animate-bounce transition-all duration-500 ${mounted ? 'opacity-50' : 'opacity-0'}`} style={{ animationDelay: '1.5s' }}></div>
+          
+          {/* Main 404 text */}
+          <div className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ${mounted ? 'opacity-100 transform scale-100' : 'opacity-0 transform scale-75'}`}>
+            <div className="text-center">
+              <h2 className="text-8xl md:text-9xl font-bold text-red-500 mb-4 tracking-tighter">404</h2>
+              <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
+              <p className="text-lg text-gray-600 font-medium">Page Not Found</p>
             </div>
           </div>
         </div>
@@ -107,6 +99,6 @@ export default function NotFoundPage() {
           animation: spin-slow 20s linear infinite;
         }
       `}</style>
-    </div>
+    </>
   );
 }

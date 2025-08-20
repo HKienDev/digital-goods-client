@@ -1,14 +1,13 @@
 User-agent: *
-Allow: /
-
-# Sitemap
-Sitemap: https://www.hkzeusvn.com/sitemap.xml
-
-# Disallow admin areas
 Disallow: /admin/
 Disallow: /api/
 Disallow: /_next/
+# Nếu /static/ chỉ là file hệ thống thì chặn, 
+# nếu có ảnh thì bỏ dòng dưới
 Disallow: /static/
+
+# Sitemap cho bot
+Sitemap: https://www.hkzeusvn.com/sitemap.xml
 
 # Allow important pages
 Allow: /user/
@@ -16,6 +15,3 @@ Allow: /auth/
 Allow: /brands/
 Allow: /contact/
 Allow: /promotions/
-
-# Crawl delay (optional)
-Crawl-delay: 1 

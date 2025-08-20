@@ -124,11 +124,11 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({
         if (data.success) {
           const orders = data.data || [];
           
-          // Filter orders that contain this product AND are delivered
+          // Filter orders that contain this product AND are completed
           const ordersWithProduct = orders.filter((order: UserOrder) =>
             order.items && 
             order.items.some((item) => item.sku === productSku) &&
-            order.status === 'delivered'
+            order.status === 'completed'
           );
           
           // Get current reviews to filter out already reviewed orders
@@ -147,8 +147,8 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({
           
           if (ordersNotReviewed.length === 0) {
             if (ordersWithProduct.length === 0) {
-              toast.info('📦 Chỉ có thể đánh giá sản phẩm sau khi đơn hàng đã được giao thành công!', {
-                description: 'Vui lòng chờ đơn hàng chuyển sang trạng thái "Đã giao hàng" để có thể đánh giá sản phẩm.',
+              toast.info('📦 Chỉ có thể đánh giá sản phẩm sau khi đơn hàng đã được hoàn tất!', {
+                description: 'Vui lòng chờ đơn hàng chuyển sang trạng thái "Hoàn tất" để có thể đánh giá sản phẩm.',
                 duration: 5000
               });
             } else {
@@ -247,12 +247,12 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({
     } catch (error: unknown) {
       console.error('Error submitting review:', error);
       
-      // Handle specific error for order not delivered
+      // Handle specific error for order not completed
       const errorResponse = error as { response?: { data?: { message?: string; errors?: Array<{ message: string }> } } };
       const errorMessage = errorResponse?.response?.data?.message;
-      if (errorMessage?.includes('giao thành công')) {
-        toast.error('📦 Đơn hàng chưa được giao thành công!', {
-          description: 'Chỉ có thể đánh giá sản phẩm sau khi đơn hàng đã được giao thành công.',
+      if (errorMessage?.includes('hoàn tất')) {
+        toast.error('📦 Đơn hàng chưa được hoàn tất!', {
+          description: 'Chỉ có thể đánh giá sản phẩm sau khi đơn hàng đã được hoàn tất.',
           duration: 5000
         });
       } else if (errorResponse?.response?.data?.errors) {
@@ -529,7 +529,7 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({
                               </span>
                               <div className="px-2 py-1 bg-green-100 text-green-700 rounded-md text-xs font-medium flex items-center gap-1">
                                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                                Đã giao
+                                Hoàn tất
                               </div>
                               {hasReviewed && (
                                 <div className="px-2 py-1 bg-blue-100 text-blue-700 rounded-md text-xs font-medium flex items-center gap-1">
@@ -569,7 +569,7 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({
                     Chưa có đơn hàng hợp lệ
                   </h4>
                   <p className="text-sm text-gray-600 mb-4">
-                    Bạn cần mua sản phẩm này và chờ đơn hàng được giao thành công để có thể đánh giá.
+                    Bạn cần mua sản phẩm này và chờ đơn hàng được hoàn tất để có thể đánh giá.
                   </p>
                   <button
                     onClick={() => window.location.href = '/user'}
@@ -583,7 +583,7 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({
             
             <div className="text-xs text-gray-500 mt-3 flex items-center gap-1">
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span>Chỉ hiển thị các đơn hàng đã giao thành công có chứa sản phẩm này</span>
+              <span>Chỉ hiển thị các đơn hàng đã hoàn tất có chứa sản phẩm này</span>
               {userOrders.length > 3 && (
                 <span className="ml-2 text-blue-600 font-medium">
                   • Cuộn để xem thêm ({userOrders.length} đơn hàng)

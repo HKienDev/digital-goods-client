@@ -65,8 +65,9 @@ const nextConfig = {
     // Thêm cấu hình để xử lý các route
     async redirects() {
         return [
+            // Chỉ redirect khi cần thiết, tránh redirect loops
             {
-                source: '/',
+                source: '/home',
                 destination: '/user',
                 permanent: true,
             },

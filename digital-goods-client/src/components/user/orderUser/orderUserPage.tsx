@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { CheckCircle, Truck, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { format } from 'date-fns';
 import { vi } from 'date-fns/locale';
 import { useAuth } from '@/context/authContext';
@@ -121,35 +121,39 @@ export default function OrderUserPage() {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case 'delivered':
+      case 'completed':
         return (
-          <span className="flex items-center gap-1 text-green-600 bg-green-50 px-3 py-1 rounded-full text-xs font-medium">
-            <CheckCircle size={14} />
-            ĐÃ GIAO
+          <span className="flex items-center gap-1 text-green-600 bg-green-50 px-3 py-1 rounded-full text-xs font-bold">
+            HOÀN TẤT
           </span>
         );
-      case 'shipping':
+      case 'processing':
         return (
-          <span className="flex items-center gap-1 text-blue-600 bg-blue-50 px-3 py-1 rounded-full text-xs font-medium">
-            <Truck size={14} />
-            ĐANG VẬN CHUYỂN
+          <span className="flex items-center gap-1 text-blue-600 bg-blue-50 px-3 py-1 rounded-full text-xs font-bold">
+            ĐANG XỬ LÝ
+          </span>
+        );
+      case 'paid':
+        return (
+          <span className="flex items-center gap-1 text-purple-600 bg-purple-50 px-3 py-1 rounded-full text-xs font-bold">
+            ĐÃ THANH TOÁN
           </span>
         );
       case 'pending':
         return (
-          <span className="flex items-center gap-1 text-yellow-600 bg-yellow-50 px-3 py-1 rounded-full text-xs font-medium">
-            CHỜ XỬ LÝ
+          <span className="flex items-center gap-1 text-yellow-600 bg-yellow-50 px-3 py-1 rounded-full text-xs font-bold">
+            CHỜ XÁC NHẬN
           </span>
         );
       case 'cancelled':
         return (
-          <span className="flex items-center gap-1 text-red-600 bg-red-50 px-3 py-1 rounded-full text-xs font-medium">
+          <span className="flex items-center gap-1 text-red-600 bg-red-50 px-3 py-1 rounded-full text-xs font-bold">
             ĐÃ HỦY
           </span>
         );
       default:
         return (
-          <span className="flex items-center gap-1 text-gray-600 bg-gray-50 px-3 py-1 rounded-full text-xs font-medium">
+          <span className="flex items-center gap-1 text-gray-600 bg-gray-50 px-3 py-1 rounded-full text-xs font-bold">
             {status.toUpperCase()}
           </span>
         );
@@ -158,8 +162,8 @@ export default function OrderUserPage() {
 
   const filteredOrders = orders.filter(order => {
     if (activeTab === 'all') return true;
-    if (activeTab === 'shipping') return order.status === 'shipping';
-    if (activeTab === 'delivered') return order.status === 'delivered';
+    if (activeTab === 'processing') return order.status === 'processing';
+    if (activeTab === 'completed') return order.status === 'completed';
     return true;
   });
 
@@ -204,23 +208,23 @@ export default function OrderUserPage() {
           </button>
           <button
             className={`px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium text-xs sm:text-sm flex-shrink-0 whitespace-nowrap transition-colors ${
-              activeTab === 'shipping' 
+              activeTab === 'processing' 
                 ? 'text-blue-600 border-b-2 border-blue-600' 
                 : 'text-gray-600 hover:text-gray-800'
             }`}
-            onClick={() => setActiveTab('shipping')}
+            onClick={() => setActiveTab('processing')}
           >
-            Đang giao
+            Đang xử lý
           </button>
           <button
             className={`px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium text-xs sm:text-sm flex-shrink-0 whitespace-nowrap transition-colors ${
-              activeTab === 'delivered' 
+              activeTab === 'completed' 
                 ? 'text-blue-600 border-b-2 border-blue-600' 
                 : 'text-gray-600 hover:text-gray-800'
             }`}
-            onClick={() => setActiveTab('delivered')}
+            onClick={() => setActiveTab('completed')}
           >
-            Đã giao
+            Hoàn tất
           </button>
         </div>
 

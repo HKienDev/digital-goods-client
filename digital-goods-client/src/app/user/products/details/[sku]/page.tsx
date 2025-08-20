@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import SEOHead from '@/components/common/SEOHead';
 import Breadcrumb from '@/components/user/productDetail/Breadcrumb';
 import ProductGallery from '@/components/user/productDetail/ProductGallery';
 import ProductRating from '@/components/user/productDetail/ProductRating';
@@ -348,12 +349,52 @@ export default function ProductDetail() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-white">
-      <Breadcrumb 
-        productName={product?.name || ''}
-        categoryName={category?.name || ''}
-        categorySlug={category?.slug || ''}
+    <>
+      <SEOHead
+        title={`${product.name} - HKZeus Nexus`}
+        description={product.description}
+        type="product"
+                  productData={{
+            name: product.name,
+            description: product.description,
+            price: product.salePrice,
+            brand: product.brand,
+            category: category?.name || 'Sản phẩm số',
+            image: product.mainImage,
+            sku: product.sku,
+            rating: product.rating,
+            numReviews: product.numReviews,
+            reviews: [] // Có thể thêm reviews thực tế sau
+          }}
+        breadcrumbData={{
+          items: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Trang chủ',
+              item: 'https://www.hkzeusvn.com'
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: category?.name || 'Thể thao',
+              item: `https://www.hkzeusvn.com/brands/${category?.slug || ''}`
+            },
+            {
+              '@type': 'ListItem',
+              position: 3,
+              name: product.name,
+              item: `https://www.hkzeusvn.com/user/products/details/${product.sku}`
+            }
+          ]
+        }}
       />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-white">
+        <Breadcrumb 
+          productName={product?.name || ''}
+          categoryName={category?.name || ''}
+          categorySlug={category?.slug || ''}
+        />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <ProductGallery 
@@ -407,6 +448,7 @@ export default function ProductDetail() {
         currentRating={product.rating}
         numReviews={product.numReviews}
       />
-    </div>
+      </div>
+    </>
   );
 }

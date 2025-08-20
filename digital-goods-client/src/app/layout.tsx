@@ -40,8 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "HKZeus Nexus - Cửa Hàng Thể Thao Chất Lượng Cao",
-    description: "HKZeus Nexus - Cửa hàng thể thao chuyên cung cấp các sản phẩm thể thao chất lượng cao.",
+    title: "HKZeus Nexus - Cửa Hàng Sản Phẩm Số Chất Lượng Cao",
+    description: "HKZeus Nexus - Cửa hàng bán lẻ sản phẩm số chất lượng cao: Tài khoản CapCut, Photoshop, AI tools, khóa học online giá rẻ.",
     images: ['/Logo_vju.png'],
   },
   robots: {
@@ -99,7 +99,7 @@ export default function RootLayout({
             name: 'HKZeus Nexus',
             url: 'https://www.hkzeusvn.com',
             logo: 'https://www.hkzeusvn.com/Logo_vju.png',
-            description: 'Cửa hàng thể thao HKZeus Nexus - Chuyên cung cấp các sản phẩm thể thao chất lượng cao',
+            description: 'HKZeus Nexus - Cửa hàng bán lẻ sản phẩm số chất lượng cao: Tài khoản CapCut, Photoshop, AI tools, khóa học online giá rẻ',
             address: {
               '@type': 'PostalAddress',
               streetAddress: 'Phạm Văn Đồng, Cầu Giấy',
@@ -127,7 +127,7 @@ export default function RootLayout({
             '@type': 'WebSite',
             name: 'HKZeus Nexus',
             url: 'https://www.hkzeusvn.com',
-            description: 'Cửa hàng thể thao HKZeus Nexus'
+            description: 'HKZeus Nexus - Cửa hàng bán lẻ sản phẩm số chất lượng cao'
           }}
         />
       </body>
