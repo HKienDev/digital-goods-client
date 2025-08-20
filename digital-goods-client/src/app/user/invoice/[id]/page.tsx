@@ -102,6 +102,10 @@ export default function InvoicePage() {
   const [processedProducts, setProcessedProducts] = useState<ProcessedProduct[]>([]);
 
   const processOrderItems = useCallback((items: OrderItem[]): ProcessedProduct[] => {
+    if (!items || !Array.isArray(items)) {
+      console.log('⚠️ processOrderItems: items is not an array:', items);
+      return [];
+    }
     return items.map(item => {
       const product = item.product as {
         _id?: string;
@@ -141,6 +145,16 @@ export default function InvoicePage() {
         // Lấy token từ localStorage
         const token = localStorage.getItem('access_token');
         
+        console.log('🔍 params.id:', params.id);
+        console.log('🔍 params:', params);
+        
+        if (!params.id || params.id === 'undefined') {
+          console.log('❌ Invalid order ID:', params.id);
+          setError('ID đơn hàng không hợp lệ');
+          setLoading(false);
+          return;
+        }
+        
         const response = await fetch(`/api/orders/my-orders/${params.id}`, {
           method: 'GET',
           headers: {
@@ -154,13 +168,19 @@ export default function InvoicePage() {
         console.log('🔍 Frontend response:', { success: data.success, hasData: !!data.data });
         
         if (data.success && data.data) {
-          const orderData = data.data;
+          const orderData = data.data.order || data.data;
           console.log('✅ Order data received:', orderData);
           console.log('📦 Items data:', orderData.items);
           setOrder(orderData);
-          const processed = processOrderItems(orderData.items);
-          console.log('🛍️ Processed products:', processed);
-          setProcessedProducts(processed);
+          
+          if (orderData.items && Array.isArray(orderData.items)) {
+            const processed = processOrderItems(orderData.items);
+            console.log('🛍️ Processed products:', processed);
+            setProcessedProducts(processed);
+          } else {
+            console.log('⚠️ No items found in order data');
+            setProcessedProducts([]);
+          }
           setTimeout(() => {
             setAnimateItems(true);
           }, 100);

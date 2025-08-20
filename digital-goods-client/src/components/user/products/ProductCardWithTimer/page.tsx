@@ -313,13 +313,18 @@ const ProductCardWithTimer = ({
       await addToCart(cartData);
       // Không cần fetchCart vì addToCart đã tự động sync
       toast.success("Đã thêm vào giỏ hàng!");
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Lỗi khi thêm vào giỏ hàng:", error);
       
       // Xử lý lỗi 401 - token hết hạn
-      if (error?.status === 401 || error?.response?.status === 401) {
-        console.log('🔍 ProductCardWithTimer - 401 error in handleAddToCart');
-        toast.error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+      if (error && typeof error === 'object' && ('status' in error || 'response' in error)) {
+        const apiError = error as { status?: number; response?: { status?: number } };
+        if (apiError.status === 401 || apiError.response?.status === 401) {
+          console.log('🔍 ProductCardWithTimer - 401 error in handleAddToCart');
+          toast.error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+        } else {
+          toast.error('Có lỗi xảy ra khi thêm vào giỏ hàng');
+        }
       } else {
         const errorMessage = error instanceof Error ? error.message : 'Có lỗi xảy ra khi thêm vào giỏ hàng';
         toast.error(errorMessage);
@@ -352,15 +357,20 @@ const ProductCardWithTimer = ({
       } else {
         await addToWishlist(product.id);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error toggling wishlist:', error);
       
       // Xử lý lỗi 401 - token hết hạn
-      if (error?.status === 401 || error?.response?.status === 401) {
-        console.log('🔍 ProductCardWithTimer - 401 error in handleWishlist');
-        toast.error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+      if (error && typeof error === 'object' && ('status' in error || 'response' in error)) {
+        const apiError = error as { status?: number; response?: { status?: number } };
+        if (apiError.status === 401 || apiError.response?.status === 401) {
+          console.log('🔍 ProductCardWithTimer - 401 error in handleWishlist');
+          toast.error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+        } else {
+          toast.error('Không thể xử lý danh sách yêu thích');
+        }
       } else {
-        const errorMessage = error instanceof Error ? error.message : 'Không thể thao tác với danh sách yêu thích';
+        const errorMessage = error instanceof Error ? error.message : 'Không thể xử lý danh sách yêu thích';
         toast.error(errorMessage);
       }
     } finally {

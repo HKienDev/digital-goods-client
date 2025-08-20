@@ -63,15 +63,20 @@ export function WishlistButton({
       } else {
         await addToWishlist(productId);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error toggling wishlist:', error);
       
       // Xử lý lỗi 401 - token hết hạn
-      if (error?.status === 401 || error?.response?.status === 401) {
-        console.log('🔍 WishlistButton - 401 error in handleToggle');
-        toast.error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+      if (error && typeof error === 'object' && ('status' in error || 'response' in error)) {
+        const apiError = error as { status?: number; response?: { status?: number } };
+        if (apiError.status === 401 || apiError.response?.status === 401) {
+          console.log('🔍 WishlistButton - 401 error in handleToggle');
+          toast.error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+        } else {
+          toast.error('Không thể xử lý danh sách yêu thích');
+        }
       } else {
-        const errorMessage = error instanceof Error ? error.message : 'Không thể thao tác với danh sách yêu thích';
+        const errorMessage = error instanceof Error ? error.message : 'Không thể xử lý danh sách yêu thích';
         toast.error(errorMessage);
       }
     } finally {

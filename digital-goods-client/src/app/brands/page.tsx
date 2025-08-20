@@ -163,13 +163,13 @@ export default function BrandsPage() {
             
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 lg:mb-8 tracking-tight">
               <span className="bg-gradient-to-r from-white via-white/90 to-white/80 bg-clip-text text-transparent">
-                Thương Hiệu Đối Tác
+                Đối Tác & Nhà Cung Cấp
               </span>
             </h1>
             
             <div className="max-w-2xl sm:max-w-3xl lg:max-w-4xl mx-auto">
               <p className="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed font-medium">
-                Khám phá các thương hiệu thể thao hàng đầu thế giới với chất lượng cao và thiết kế độc đáo
+                Khám phá các thương hiệu sản phẩm số uy tín, chất lượng cao và đáng tin cậy tại HKZeus Nexus.
               </p>
             </div>
           </div>

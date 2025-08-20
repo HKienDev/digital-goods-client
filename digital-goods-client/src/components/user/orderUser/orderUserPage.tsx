@@ -70,16 +70,20 @@ export default function OrderUserPage() {
       
       const data = await response.json();
       console.log('🔍 Response data:', data);
+      console.log('🔍 data.data:', data.data);
+      console.log('🔍 data.data.orders:', data.data?.orders);
 
       if (data.success) {
-        setOrders(data.data);
+        const ordersArray = data.data?.orders || [];
+        console.log('🔍 Setting orders to:', ordersArray);
+        setOrders(ordersArray);
         
         // Cập nhật thông tin phân trang
-        if (data.pagination) {
-          setTotalPages(data.pagination.totalPages);
-          setTotalOrders(data.pagination.total);
-          setHasNextPage(data.pagination.hasNextPage);
-          setHasPrevPage(data.pagination.hasPrevPage);
+        if (data.data?.pagination) {
+          setTotalPages(data.data.pagination.totalPages);
+          setTotalOrders(data.data.pagination.totalItems);
+          setHasNextPage(data.data.pagination.currentPage < data.data.pagination.totalPages);
+          setHasPrevPage(data.data.pagination.currentPage > 1);
         }
       } else {
         setError(data.message || 'Không thể tải danh sách đơn hàng');
@@ -160,7 +164,14 @@ export default function OrderUserPage() {
     }
   };
 
-  const filteredOrders = orders.filter(order => {
+  console.log('🔍 orders type:', typeof orders, 'orders value:', orders);
+  console.log('🔍 orders is array:', Array.isArray(orders));
+  
+  // Ensure orders is always an array
+  const safeOrders = Array.isArray(orders) ? orders : [];
+  console.log('🔍 safeOrders:', safeOrders);
+  
+  const filteredOrders = safeOrders.filter(order => {
     if (activeTab === 'all') return true;
     if (activeTab === 'processing') return order.status === 'processing';
     if (activeTab === 'completed') return order.status === 'completed';

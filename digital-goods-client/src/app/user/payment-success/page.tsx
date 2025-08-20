@@ -16,22 +16,32 @@ export default function PaymentSuccess() {
   const orderCode = searchParams.get("orderCode");
   const paymentStatus = searchParams.get("status");
   
+  console.log('🔍 Payment success page - orderCode:', orderCode);
+  console.log('🔍 Payment success page - paymentStatus:', paymentStatus);
+  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [orderData, setOrderData] = useState<OrderData | null>(null);
 
   const verifyPaymentStatus = useCallback(async (orderCode: string) => {
     try {
+      console.log('🔍 Verifying payment with orderCode:', orderCode);
+      
       // Gọi API verify với orderCode (PayOS orderCode, không phải MongoDB orderId)
       const response = await fetch(`/api/orders/verify/${orderCode}`);
       const data = await response.json();
+      
+      console.log('🔍 Verify response:', data);
+      
       if (data.success && data.order) {
         setOrderData(data.order);
         // Tự động redirect sau 5 giây tới trang đơn hàng
         setTimeout(() => {
           if (data.order.orderId) {
+            console.log('🔍 Redirecting to invoice:', data.order.orderId);
             router.push(`/user/invoice/${data.order.orderId}`);
           } else {
+            console.log('🔍 No orderId, redirecting to orders');
             router.push("/user/orders");
           }
         }, 5000);
@@ -50,10 +60,16 @@ export default function PaymentSuccess() {
     if (orderCode) {
       verifyPaymentStatus(orderCode);
     } else {
-      setError("Thiếu mã đơn hàng trong URL.");
+      console.log('⚠️ No orderCode in URL, checking if this is a direct redirect');
+      // Fallback: có thể đây là redirect trực tiếp từ PayOS sau khi webhook thành công
+      // Redirect về trang orders để user có thể xem đơn hàng mới nhất
+      setTimeout(() => {
+        console.log('🔍 Redirecting to orders page as fallback');
+        router.push("/user/orders");
+      }, 3000);
       setLoading(false);
     }
-  }, [orderCode, verifyPaymentStatus]);
+  }, [orderCode, verifyPaymentStatus, router]);
 
   const handleConfirm = () => {
     if (orderData?.orderId) {

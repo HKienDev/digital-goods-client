@@ -186,7 +186,7 @@ const LoginPage = () => {
                     ))}
                   </div>
                   <blockquote className="text-gray-700 text-base mb-4 italic leading-relaxed">
-                    &ldquo;Nền tảng này đã thay đổi hoàn toàn cách tôi luyện tập và kết nối với cộng đồng thể thao.&rdquo;
+                    &ldquo;Nền tảng này đã thay đổi hoàn toàn cách tôi mua và sử dụng sản phẩm số — từ key phần mềm, tài khoản AI cho đến gift card, tất cả đều nhanh chóng và an toàn.&rdquo;
                   </blockquote>
                   <div className="flex items-center justify-center">
                     <div className="w-12 h-12 rounded-full border-2 border-red-300 overflow-hidden bg-gradient-to-r from-red-500 to-red-600 flex items-center justify-center">

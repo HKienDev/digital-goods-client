@@ -20,7 +20,7 @@ export function useProductActions(productId?: string) {
   const [error, setError] = useState<string | null>(null);
   const { isAuthenticated } = useAuth();
   const { openModal } = useAuthModal();
-  const { addToCart, fetchCart } = useCartOptimized();
+  const { fetchCart } = useCartOptimized();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const router = useRouter();
 
@@ -49,7 +49,7 @@ export function useProductActions(productId?: string) {
       openModal({
         ...config,
         pendingAction: {
-          type: action as any,
+          type: action as 'addToCart' | 'buyNow' | 'addToFavorites',
           callback
         }
       });
@@ -89,16 +89,24 @@ export function useProductActions(productId?: string) {
       } else {
         throw new Error(response.data?.message || 'Không thể thêm sản phẩm vào giỏ hàng');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error adding to cart:', error);
       
       // Xử lý lỗi 401 - token hết hạn
-      if (error?.status === 401 || error?.response?.status === 401) {
-        console.log('🔍 useProductActions - 401 error in addToCartAction');
-        const errorMessage = 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.';
-        setError(errorMessage);
-        toast.error(errorMessage);
-        return { success: false, message: errorMessage };
+      if (error && typeof error === 'object' && ('status' in error || 'response' in error)) {
+        const apiError = error as { status?: number; response?: { status?: number } };
+        if (apiError.status === 401 || apiError.response?.status === 401) {
+          console.log('🔍 useProductActions - 401 error in addToCartAction');
+          const errorMessage = 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.';
+          setError(errorMessage);
+          toast.error(errorMessage);
+          return { success: false, message: errorMessage };
+        } else {
+          const errorMessage = 'Không thể thêm sản phẩm vào giỏ hàng';
+          setError(errorMessage);
+          toast.error(errorMessage);
+          return { success: false, message: errorMessage };
+        }
       } else {
         const errorMessage = error instanceof Error ? error.message : 'Không thể thêm sản phẩm vào giỏ hàng';
         setError(errorMessage);
@@ -141,16 +149,24 @@ export function useProductActions(productId?: string) {
       } else {
         throw new Error(response.data?.message || 'Không thể thêm sản phẩm vào giỏ hàng');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error buying now:', error);
       
       // Xử lý lỗi 401 - token hết hạn
-      if (error?.status === 401 || error?.response?.status === 401) {
-        console.log('🔍 useProductActions - 401 error in buyNow');
-        const errorMessage = 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.';
-        setError(errorMessage);
-        toast.error(errorMessage);
-        return { success: false, message: errorMessage };
+      if (error && typeof error === 'object' && ('status' in error || 'response' in error)) {
+        const apiError = error as { status?: number; response?: { status?: number } };
+        if (apiError.status === 401 || apiError.response?.status === 401) {
+          console.log('🔍 useProductActions - 401 error in buyNow');
+          const errorMessage = 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.';
+          setError(errorMessage);
+          toast.error(errorMessage);
+          return { success: false, message: errorMessage };
+        } else {
+          const errorMessage = 'Không thể thêm sản phẩm vào giỏ hàng';
+          setError(errorMessage);
+          toast.error(errorMessage);
+          return { success: false, message: errorMessage };
+        }
       } else {
         const errorMessage = error instanceof Error ? error.message : 'Không thể thêm sản phẩm vào giỏ hàng';
         setError(errorMessage);
@@ -181,18 +197,26 @@ export function useProductActions(productId?: string) {
         const success = await addToWishlist(productId);
         return { success, message: success ? 'Đã thêm vào danh sách yêu thích' : 'Không thể thêm vào danh sách yêu thích' };
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error toggling favorite:', error);
       
       // Xử lý lỗi 401 - token hết hạn
-      if (error?.status === 401 || error?.response?.status === 401) {
-        console.log('🔍 useProductActions - 401 error in toggleFavorite');
-        const errorMessage = 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.';
-        setError(errorMessage);
-        toast.error(errorMessage);
-        return { success: false, message: errorMessage };
+      if (error && typeof error === 'object' && ('status' in error || 'response' in error)) {
+        const apiError = error as { status?: number; response?: { status?: number } };
+        if (apiError.status === 401 || apiError.response?.status === 401) {
+          console.log('🔍 useProductActions - 401 error in toggleFavorite');
+          const errorMessage = 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.';
+          setError(errorMessage);
+          toast.error(errorMessage);
+          return { success: false, message: errorMessage };
+        } else {
+          const errorMessage = 'Không thể xử lý danh sách yêu thích';
+          setError(errorMessage);
+          toast.error(errorMessage);
+          return { success: false, message: errorMessage };
+        }
       } else {
-        const errorMessage = error instanceof Error ? error.message : 'Không thể thao tác với danh sách yêu thích';
+        const errorMessage = error instanceof Error ? error.message : 'Không thể xử lý danh sách yêu thích';
         setError(errorMessage);
         toast.error(errorMessage);
         return { success: false, message: errorMessage };

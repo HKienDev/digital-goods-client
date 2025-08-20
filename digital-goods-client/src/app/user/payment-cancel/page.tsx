@@ -7,15 +7,21 @@ import { toast } from "sonner";
 export default function PaymentCancel() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const orderCode = searchParams.get("orderCode");
   const orderId = searchParams.get("orderId");
   const { cancelOrder } = useOrders();
   const [cancelled, setCancelled] = useState(false);
   const [loading, setLoading] = useState(false);
+  
+  console.log('🔍 Payment cancel page - orderCode:', orderCode);
+  console.log('🔍 Payment cancel page - orderId:', orderId);
 
   useEffect(() => {
-    if (orderId) {
+    const targetOrderId = orderCode || orderId;
+    if (targetOrderId) {
+      console.log('🔍 Cancelling order:', targetOrderId);
       setLoading(true);
-      cancelOrder(orderId)
+      cancelOrder(targetOrderId)
         .then(() => {
           setCancelled(true);
           toast.success("Đơn hàng đã được hủy thành công.");
@@ -25,11 +31,12 @@ export default function PaymentCancel() {
         })
         .finally(() => setLoading(false));
     }
-  }, [orderId, cancelOrder]);
+  }, [orderCode, orderId, cancelOrder]);
 
   const handleConfirm = () => {
-    if (orderId) {
-      router.push(`/user/invoice/${orderId}`);
+    const targetOrderId = orderCode || orderId;
+    if (targetOrderId) {
+      router.push(`/user/invoice/${targetOrderId}`);
     } else {
       router.push("/user");
     }

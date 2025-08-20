@@ -7,9 +7,9 @@ import GoogleAnalytics from "@/components/common/GoogleAnalytics";
 import SchemaMarkup from "@/components/common/SchemaMarkup";
 
 export const metadata: Metadata = {
-  title: "HKZeus Nexus - Cửa Hàng Sản Phẩm Số Chất Lượng Cao",
-  description: "HKZeus Nexus - Cửa hàng sản phẩm số chuyên cung cấp các sản phẩm sản phẩm số chất lượng cao, giày sản phẩm số, quần áo sản phẩm số, phụ kiện sản phẩm số. Giao hàng toàn quốc, giá tốt nhất.",
-  keywords: "sản phẩm số, giày sản phẩm số, quần áo sản phẩm số, phụ kiện sản phẩm số, HKZeus Nexus, cửa hàng sản phẩm số",
+  title: "HKZeus Nexus - Kho Tiện Ích & Sản Phẩm Kỹ Thuật Số Uy Tín",
+  description: "HKZeus Nexus - Cửa hàng sản phẩm kỹ thuật số: tài khoản CapCut, Photoshop, AI tools, khóa học online và nhiều tiện ích số chính hãng. Uy tín, giá tốt, hỗ trợ nhanh chóng.",
+  keywords: "HKZeus Nexus, sản phẩm số, tiện ích số, tài khoản CapCut, Photoshop, AI tools, khóa học online, phần mềm chính hãng, cửa hàng sản phẩm kỹ thuật số",
   authors: [{ name: "HKZeus Nexus" }],
   creator: "HKZeus Nexus",
   publisher: "HKZeus Nexus",
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "HKZeus Nexus - Cửa Hàng Sản Phẩm Số Chất Lượng Cao",
-    description: "HKZeus Nexus - Cửa hàng sản phẩm số chuyên cung cấp các sản phẩm sản phẩm số chất lượng cao, giày sản phẩm số, quần áo sản phẩm số, phụ kiện sản phẩm số.",
+    title: "HKZeus Nexus - Kho Tiện Ích & Sản Phẩm Kỹ Thuật Số Uy Tín",
+    description: "HKZeus Nexus - Chuyên cung cấp sản phẩm số chất lượng: tài khoản CapCut, Photoshop, AI tools, khóa học online, tiện ích số giá tốt.",
     url: '/',
     siteName: 'HKZeus Nexus',
     locale: 'vi_VN',
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "HKZeus Nexus - Cửa Hàng Sản Phẩm Số Chất Lượng Cao",
-    description: "HKZeus Nexus - Cửa hàng bán lẻ sản phẩm số chất lượng cao: Tài khoản CapCut, Photoshop, AI tools, khóa học online giá rẻ.",
+    title: "HKZeus Nexus - Kho Tiện Ích & Sản Phẩm Kỹ Thuật Số Uy Tín",
+    description: "HKZeus Nexus - Nơi mua tài khoản, phần mềm, tiện ích số chất lượng cao. Uy tín, giá rẻ, giao dịch nhanh chóng.",
     images: ['/Logo_vju.png'],
   },
   robots: {
@@ -110,13 +110,13 @@ export default function RootLayout({
             },
             contactPoint: {
               '@type': 'ContactPoint',
-              telephone: '+84-xxx-xxx-xxxx',
+              telephone: '+84 362 195 258',
               contactType: 'customer service',
               email: 'contact@hkzeusvn.com'
             },
             sameAs: [
-              'https://www.facebook.com/hkzeusvn',
-              'https://www.instagram.com/hkzeusvn'
+              'https://www.facebook.com/ZeussHk0981',
+              'https://www.instagram.com/hoang_kien_0981/'
             ]
           }}
         />

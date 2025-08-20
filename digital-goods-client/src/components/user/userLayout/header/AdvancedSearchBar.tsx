@@ -76,9 +76,10 @@ const AdvancedSearchBar: React.FC<AdvancedSearchBarProps> = ({ categories }) => 
     
     // Mock hot keywords - in real app, this would come from analytics
     setHotKeywords([
-      'giày bóng đá', 'áo đấu', 'quần thể thao', 'vợt tennis', 
-      'bóng rổ', 'chạy bộ', 'gym', 'yoga', 'bơi lội',
-      'HKZNX-PRODUCT', 'Nike', 'Adidas', 'Puma'
+      'Steam code', 'Spotify Premium', 'Netflix account', 'ChatGPT Plus',
+      'MidJourney', 'Canva Pro', 'Microsoft Office 365', 'Figma Premium',
+      'HKZNX-PRODUCT', 'AI Tools', 'VPN', 'Udemy course', 'CapCut Pro',
+      'Photoshop', 'AI Tools', 'VPN', 'Udemy course', 'CapCut Pro'
     ]);
   }, []);
 

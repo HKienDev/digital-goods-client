@@ -1,37 +1,74 @@
 'use client';
 
 import Head from 'next/head';
+import { usePathname } from 'next/navigation';
 import SchemaMarkup from './SchemaMarkup';
+
+// Type definitions for SEO component
+
+interface ProductData {
+  name: string;
+  description: string;
+  price: number;
+  brand: string;
+  category: string;
+  image: string;
+  sku: string;
+  rating?: number;
+  numReviews?: number;
+  reviews?: Array<{
+    '@type': 'Review';
+    author: {
+      '@type': 'Person';
+      name: string;
+    };
+    reviewRating: {
+      '@type': 'Rating';
+      ratingValue: number;
+      bestRating: number;
+      worstRating: number;
+    };
+    reviewBody: string;
+    datePublished: string;
+  }>;
+}
+
+interface BreadcrumbData {
+  items: Array<{
+    '@type': 'ListItem';
+    position: number;
+    name: string;
+    item: string;
+  }>;
+}
 
 interface SEOHeadProps {
   title?: string;
   description?: string;
-  keywords?: string;
   image?: string;
   url?: string;
   type?: 'website' | 'article' | 'product';
-  productData?: any;
-  breadcrumbData?: any;
+  productData?: ProductData;
+  breadcrumbData?: BreadcrumbData;
 }
 
 export default function SEOHead({
-  title = 'HKZeus Nexus - Cửa Hàng Thể Thao Chất Lượng Cao',
-  description = 'HKZeus Nexus - Cửa hàng thể thao chuyên cung cấp các sản phẩm thể thao chất lượng cao, giày thể thao, quần áo thể thao, phụ kiện thể thao.',
-  keywords = 'thể thao, giày thể thao, quần áo thể thao, phụ kiện thể thao, HKZeus Nexus',
+  title = 'HKZeus Nexus - Cửa Hàng Sản Phẩm Số Chất Lượng Cao',
+  description = 'HKZeus Nexus - Cửa hàng chuyên cung cấp sản phẩm số chất lượng cao như phần mềm, tài khoản, công cụ và dịch vụ số. Thanh toán an toàn, giao hàng tức thì.',
   image = '/Logo_vju.png',
   url = 'https://www.hkzeusvn.com',
   type = 'website',
   productData,
   breadcrumbData
 }: SEOHeadProps) {
-  const fullUrl = `${url}${typeof window !== 'undefined' ? window.location.pathname : ''}`;
-  
+  const pathname = usePathname();
+  const fullUrl = `${url}${pathname || ''}`;
+
   return (
     <Head>
-      {/* Basic Meta Tags */}
+      {/* Basic Meta */}
       <title>{title}</title>
       <meta name="description" content={description} />
-      <meta name="keywords" content={keywords} />
       <meta name="robots" content="index, follow" />
       <link rel="canonical" href={fullUrl} />
       
@@ -44,19 +81,21 @@ export default function SEOHead({
       <meta property="og:site_name" content="HKZeus Nexus" />
       <meta property="og:locale" content="vi_VN" />
       
-      {/* Twitter Card */}
+      {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={`${url}${image}`} />
       
-      {/* Additional Meta Tags */}
-      <meta name="author" content="HKZeus Nexus" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      
-      {/* Schema.org Markup */}
-      {productData && <SchemaMarkup type="Product" data={productData} />}
-      {breadcrumbData && <SchemaMarkup type="BreadcrumbList" data={breadcrumbData} />}
+      {/* Schema.org */}
+      {productData && (
+        // @ts-expect-error - Type compatibility issue with SchemaMarkup component
+        <SchemaMarkup type="Product" data={productData} />
+      )}
+      {breadcrumbData && (
+        // @ts-expect-error - Type compatibility issue with SchemaMarkup component
+        <SchemaMarkup type="BreadcrumbList" data={breadcrumbData} />
+      )}
     </Head>
   );
-} 
+}

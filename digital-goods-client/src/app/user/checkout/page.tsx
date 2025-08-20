@@ -304,12 +304,24 @@ export default function Checkout() {
         localStorage.removeItem('checkout_selected_items');
         
         toast.success('Đặt hàng thành công!');
-        const { orderId, payosCheckoutUrl } = response.data.data;
+        const orderData = response.data.data;
+        const orderId = orderData.order?._id || orderData.orderId;
+        const payosCheckoutUrl = orderData.payment?.checkoutUrl || orderData.payosCheckoutUrl;
+        
+        console.log('🔍 Order created - orderId:', orderId);
+        console.log('🔍 Order created - payosCheckoutUrl:', payosCheckoutUrl);
+        
         if (payosCheckoutUrl) {
           window.location.href = payosCheckoutUrl;
           return;
         }
-        router.push(`/user/invoice/${orderId}`);
+        
+        if (orderId) {
+          router.push(`/user/invoice/${orderId}`);
+        } else {
+          console.error('❌ No orderId found in response:', response.data);
+          toast.error('Không thể lấy thông tin đơn hàng');
+        }
       } else {
         toast.error(response.data.message || 'Không thể tạo đơn hàng');
       }

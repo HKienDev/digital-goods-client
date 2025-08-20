@@ -197,7 +197,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         console.log('🔍 ProductCard - 401 error in handleWishlistToggle');
         toast.error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
       } else {
-        const errorMessage = error instanceof Error ? error.message : 'Không thể thao tác với danh sách yêu thích';
+        const errorMessage = error instanceof Error ? error.message : 'Không thể xử lý với danh sách yêu thích';
         toast.error(errorMessage);
       }
     } finally {

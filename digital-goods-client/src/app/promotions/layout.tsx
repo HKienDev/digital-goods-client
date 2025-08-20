@@ -3,11 +3,11 @@ import PromotionsClientLayout from './ClientLayout';
 
 export const metadata: Metadata = {
   title: 'Khuyến Mãi - HKZeus Nexus',
-  description: 'Khám phá các ưu đãi hấp dẫn và tiết kiệm chi phí mua sắm tại HKZeus Nexus. Tìm kiếm và sử dụng các mã khuyến mãi tốt nhất.',
-  keywords: 'khuyến mãi, mã giảm giá, ưu đãi, HKZeus Nexus, thể thao, mua sắm',
+  description: 'Khám phá các ưu đãi hấp dẫn và tiết kiệm khi mua sản phẩm số tại HKZeus Nexus. Nhận ngay mã khuyến mãi độc quyền cho phần mềm, tài khoản, và công cụ online.',
+  keywords: 'khuyến mãi, mã giảm giá, ưu đãi, HKZeus Nexus, sản phẩm số, phần mềm, tài khoản online',
   openGraph: {
     title: 'Khuyến Mãi - HKZeus Nexus',
-    description: 'Khám phá các ưu đãi hấp dẫn và tiết kiệm chi phí mua sắm tại HKZeus Nexus.',
+    description: 'Khám phá các ưu đãi hấp dẫn và tiết kiệm khi mua sản phẩm số tại HKZeus Nexus.',
     type: 'website',
     locale: 'vi_VN',
   },

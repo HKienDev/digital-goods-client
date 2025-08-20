@@ -181,7 +181,7 @@ export default function DetailInfoForm({
           placeholder="Nhập tags, phân cách bằng dấu phẩy"
           className="rounded-xl border-2 border-gray-200 transition-all duration-200 hover:border-orange-500 focus:border-orange-500 focus:ring-orange-500 text-base px-4 py-3"
         />
-        <p className="text-xs text-gray-500 mt-1">Ví dụ: thể thao, chạy bộ, gym</p>
+        <p className="text-xs text-gray-500 mt-1">Ví dụ: code Steam, tài khoản ChatGPT, key Windows 11 Pro, gift card Netflix,...</p>
       </div>
     </div>
   );
